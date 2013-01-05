@@ -45,11 +45,6 @@ JHtml::_('behavior.noframes');
 		document.getElementById('form-login').username.focus();
 	});
 </script>
-<?	if(strstr($_SERVER['HTTP_HOST'],"localhost")):?>
-<style>
-html{ display:block; }
-</style>
-<?	endif;?>
 </head>
 <body>
 	<div id="border-top" class="h_blue">
