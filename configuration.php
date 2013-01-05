@@ -9,9 +9,9 @@ class JConfig {
 	public $debug = '0';
 	public $debug_lang = '0';
 	public $dbtype = 'mysqli';
-	public $host = 'localhost'; //mysql76.1gb.ru
-	public $user = 'root'; //gb_chado
-	public $password = ''; //87b0c0016yui
+	public $host = 'localhost';
+	public $user = 'root';
+	public $password = '';
 	public $db = 'gb_chado';
 	public $dbprefix = 'xjn5z_';
 	public $live_site = '';
@@ -50,7 +50,7 @@ class JConfig {
 	public $feed_limit = '10';
 	public $log_path = '/home/virtwww/w_chado_fe2d8c8d/http/logs';
 	public $tmp_path = '/home/virtwww/w_chado_fe2d8c8d/http/tmp';
-	public $lifetime = '15';
+	public $lifetime = '300';
 	public $session_handler = 'database';
 	public $robots = '';
 	public $MetaRights = '';

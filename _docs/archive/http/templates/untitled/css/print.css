@@ -1,0 +1,330 @@
+/* begin Page */
+
+/* Created by Artisteer v3.1.0.46558 */
+
+body
+{
+   font-family: Arial, Helvetica, Sans-Serif;
+   font-style: normal;
+   font-weight: normal;
+   font-size: 13px;
+}
+
+h1, h2, h3, h4, h5, h6,
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a,
+h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover,
+h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited,
+.postheader, .postheader a, .postheader a:link, .postheader a:visited, .postheader a:hover,
+.blockheader .t, .vmenublockheader .t, .logo-text, .logo-text a,
+.logo-name, .logo-name a, .logo-name a:link, .logo-name a:visited, .logo-name a:hover
+{
+   font-family: Arial, Helvetica, Sans-Serif;
+   font-style: normal;
+   font-weight: bold;
+   font-size: 22px;
+   text-decoration: none;
+}
+
+a
+{
+   text-decoration: none;
+}
+
+a:link
+{
+   text-decoration: none;
+}
+
+a:hover, a.hover
+{
+   text-decoration: underline;
+}
+
+h1, h1 a, h1 a:link, h1 a:visited, h1 a:hover
+{
+   font-size: 26px;
+}
+
+h3, h3 a, h3 a:link, h3 a:visited, h3 a:hover
+{
+   font-size: 18px;
+}
+
+h4, h4 a, h4 a:link, h4 a:visited, h4 a:hover
+{
+   font-size: 16px;
+}
+
+h5, h5 a, h5 a:link, h5 a:visited, h5 a:hover
+{
+   font-size: 14px;
+}
+
+h6, h6 a, h6 a:link, h6 a:visited, h6 a:hover
+{
+   font-size: 13px;
+}
+
+#main
+{
+   position: relative;
+   width: 100%;
+   left: 0;
+   top: 0;
+   cursor:default;
+}
+
+#page-background-glare, #page-background-middle-texture, #page-background-top-texture
+{
+   display: none;
+}
+
+.cleared
+{
+   float: none;
+   clear: both;
+   margin: 0;
+   padding: 0;
+   border: none;
+   font-size: 1px;
+}
+
+form
+{
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+table.position
+{
+   position: relative;
+   width: 100%;
+   table-layout: fixed;
+}
+/* end Page */
+
+/* begin Box, Post */
+.post
+{
+   margin: 0;
+}
+
+a img
+{
+   border: 0;
+}
+
+.article img, img.article
+{
+   margin: 7px 7px 7px 7px;
+}
+
+.metadata-icons img
+{
+   border: none;
+   vertical-align: middle;
+   margin: 2px;
+}
+
+.article table, table.article
+{
+   border-collapse: collapse;
+   margin: 1px;
+   width: auto;
+}
+
+.article table, table.article .article tr, .article th, .article td
+{
+   background-color: Transparent;
+}
+
+.article th, .article td
+{
+   padding: 2px;
+   border: solid 1px #eeeeee;
+   vertical-align: top;
+   text-align: left;
+}
+
+.article th
+{
+   text-align: center;
+   vertical-align: middle;
+   padding: 7px;
+}
+
+pre
+{
+   overflow: auto;
+   padding: 0.1em;
+}
+
+/* end Box, Post */
+
+/* begin PostHeaderIcon */
+.postheader
+{
+   margin: 5px 0;
+   font-variant: normal;
+   font-size: 20px;
+   text-decoration: underline;
+   text-transform: none;
+}
+
+.postheader a, 
+.postheader a:link, 
+.postheader a:visited,
+.postheader a.visited,
+.postheader a:hover,
+.postheader a.hovered
+{
+   font-variant: normal;
+   font-size: 20px;
+   text-decoration: underline;
+   text-transform: none;
+}
+
+.postheader a, .postheader a:link
+{
+   text-align: left;
+   text-decoration: none;
+}
+
+/* end PostHeaderIcon */
+
+/* begin PostHeader */
+
+/* end PostHeader */
+
+/* begin PostIcons, PostHeaderIcons */
+.postheadericons
+{
+   padding: 1px;
+   font-family: Arial, Helvetica, Sans-Serif;
+}
+
+.postheadericons a, .postheadericons a:link, .postheadericons a:visited, .postheadericons a:hover
+{
+   font-family: Arial, Helvetica, Sans-Serif;
+}
+
+.postheadericons a, .postheadericons a:link, .postheadericons a:visited, .postheadericons a:hover
+{
+   margin: 0;
+}
+
+.postheadericons a:link
+{
+   text-decoration: none;
+}
+
+.postheadericons a:visited, .postheadericons a.visited
+{
+   font-style: italic;
+   font-weight: normal;
+}
+
+.postheadericons a:hover, .postheadericons a.hover
+{
+   text-decoration: underline;
+}
+/* end PostIcons, PostHeaderIcons */
+
+/* begin PostContent */
+.postcontent p
+{
+   margin: 0.5em 0;
+}
+
+.postcontent
+{
+   margin: 0;
+}
+/* end PostContent */
+
+/* begin PostBullets */
+ol, ul
+{
+   margin: 1em 0 1em 2em;
+   padding: 0;
+   font-size: 13px;
+}
+
+li ol, li ul
+{
+   margin: 0.5em 0 0.5em 2em;
+   padding: 0;
+}
+
+li
+{
+   margin: 0.2em 0;
+   padding: 0;
+}
+
+ul
+{
+   list-style-type: none;
+}
+
+ol
+{
+   list-style-position: inside;
+}
+
+.post li
+{
+   padding: 0 0 0 13px;
+   line-height: 1em;
+}
+
+.post ol li, .post ul ol li
+{
+   background: none;
+   padding-left: 0;
+}
+
+.post ul li, .post ol ul li
+{
+   background-image: url('../images/postbullets.png');
+   background-repeat: no-repeat;
+   padding-left: 13px;
+}
+
+/* end PostBullets */
+
+/* begin PostQuote */
+
+blockquote,
+.postcontent blockquote
+{
+   margin: 10px 10px 10px 50px;
+   padding: {QuoteIconPadding}px {QuoteIconPadding}px {QuoteIconPadding}px {QuoteIconLeftPadding}px;
+}
+
+/* end PostQuote */
+
+/* begin PostIcons, PostFooterIcons */
+.postfootericons
+{
+   padding: 1px;
+   font-family: Arial, Helvetica, Sans-Serif;
+}
+
+.postfootericons a, .postfootericons a:link, .postfootericons a:visited, .postfootericons a:hover
+{
+   font-family: Arial, Helvetica, Sans-Serif;
+}
+
+.postfootericons a, .postfootericons a:link, .postfootericons a:visited, .postfootericons a:hover
+{
+   margin: 0;
+}
+
+.postfootericons a:link
+{
+   text-decoration: none;
+}
+
+/* end PostIcons, PostFooterIcons */
+
