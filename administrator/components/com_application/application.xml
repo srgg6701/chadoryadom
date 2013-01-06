@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: helloworld.xml 51 2010-11-22 01:33:21Z chdemko $ -->
+<extension type="component" version="2.8.0" method="upgrade">
+	<name>Application</name>
+	<!-- The following elements are optional and free of formatting conttraints -->
+	<creationDate>January 2013</creationDate>
+	<author>srgg01</author>
+	<!--  The version string is recorded in the components table -->
+	<version>0.0.1</version>
+
+	<update> <!-- Runs on update; New in 1.6 -->
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+
+	<!-- Site Main File Copy Section -->
+	<!-- Note the folder attribute: This attribute describes the folder
+		to copy FROM in the package to install therefore files copied
+		in this section are copied from /site/ in the package -->
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>application.php</filename>
+		<filename>controller.php</filename>
+		<folder>views</folder>
+	</files>
+	<administration>
+		<!-- Administration Menu Section -->
+		<menu>Заявка</menu>
+		<!-- Administration Main File Copy Section -->
+		<!-- Note the folder attribute: This attribute describes the folder
+			to copy FROM in the package to install therefore files copied
+			in this section are copied from /admin/ in the package -->
+		<files folder="admin">
+			<!-- Admin Main File Copy Section -->
+			<filename>index.html</filename>
+			<filename>application.php</filename>
+			<!-- SQL files section -->
+			<folder>sql</folder>
+		</files>
+	</administration>
+	
+</extension>
+

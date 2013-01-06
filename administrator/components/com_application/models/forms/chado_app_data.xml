@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field name="id" type="text" default="0" 
+				label="JGLOBAL_FIELD_ID_LABEL"
+                readonly="true" class="readonly"
+                description="JGLOBAL_FIELD_ID_DESC" /> 
+
+        <field name="family" type="text" size="40" class="inputbox"    
+            label="COM_APPLICATION_FORM_LBL_CUSTOMER_FAMILY"
+            description="COM_APPLICATION_FORM_DESC_CUSTOMER_FAMILY" 
+			filter="safehtml" /> 
+
+        <field name="name" type="text" size="40" 
+			class="inputbox"
+            label="COM_APPLICATION_FORM_LBL_CUSTOMER_NAME"
+            description="COM_APPLICATION_FORM_DESC_CUSTOMER_NAME" 
+            filter="safehtml" />
+	   
+	    <field name="middle_name" type="text" size="40" 
+				class="inputbox"    	
+				label="COM_APPLICATION_FORM_LBL_CUSTOMER_MIDDLE_NAME"
+				description="COM_APPLICATION_FORM_DESC_CUSTOMER_MIDDLE_NAME" 
+                filter="safehtml" /> 
+
+		<field id="child_name" name="child_name" type="text" size="40" 
+				class="inputbox"    	
+				label="COM_APPLICATION_FORM_LBL_CHILD_NAME"
+				description="COM_APPLICATION_FORM_DESC_CHILD_NAME" 
+                filter="safehtml" />
+				
+		<field id="kindergarten" name="kindergarten" type="text" size="40" 
+				class="inputbox"    	
+				label="COM_APPLICATION_FORM_LBL_KINDERGARTEN"
+				description="COM_APPLICATION_FORM_DESC_KINDERGARTEN" 
+                filter="safehtml" />
+
+		<field id="group" name="group" type="text" size="40" 
+				class="inputbox"    	
+				label="COM_APPLICATION_FORM_LBL_GROUP"
+				description="COM_APPLICATION_FORM_DESC_GROUP" 
+                filter="safehtml" />
+
+		<field id="email" name="email" type="text" size="40" 
+				class="inputbox"    	
+				label="COM_APPLICATION_FORM_LBL_EMAIL"
+				description="COM_APPLICATION_FORM_DESC_EMAIL" 
+                filter="safehtml" />
+
+		<field name="mobila" type="text" size="40" 
+				class="inputbox"
+				label="COM_APPLICATION_FORM_LBL_CUSTOMER_MOBILA"
+				description="COM_APPLICATION_FORM_DESC_CUSTOMER_MOBILA" 
+                filter="safehtml" /> 
+
+	</fieldset>
+
+</form>

@@ -361,8 +361,7 @@ class JView extends JObject
 	 * @since   11.1
 	 */
 	public function get($property, $default = null)
-	{
-
+	{	
 		// If $model is null we use the default model
 		if (is_null($default))
 		{
@@ -372,13 +371,11 @@ class JView extends JObject
 		{
 			$model = strtolower($default);
 		}
-
 		// First check to make sure the model requested exists
 		if (isset($this->_models[$model]))
 		{
 			// Model exists, let's build the method name
 			$method = 'get' . ucfirst($property);
-
 			// Does the method exist?
 			if (method_exists($this->_models[$model], $method))
 			{
@@ -387,11 +384,10 @@ class JView extends JObject
 				return $result;
 			}
 
-		}
+		} 
 
 		// Degrade to JObject::get
-		$result = parent::get($property, $default);
-
+		$result = parent::get($property, $default); 
 		return $result;
 	}
 

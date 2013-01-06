@@ -43,6 +43,10 @@ $view->componentWrapper();
 </div>
 <div id="main">
     <div class="cleared reset-box"></div>
+<? 	if (!(JRequest::getVar('option')=="com_kunena"
+		  && JRequest::getVar('hide')
+		 )
+	   ):?>    
 <div class="header">
 <div class="header-position">
     <div class="header-wrapper">
@@ -54,12 +58,14 @@ $view->componentWrapper();
         </div>
     </div>
 </div>
-
-
-
-
 </div>
-
+<?	else:?>
+<style>
+div.box.sheet{
+	margin-top:10px;
+}
+</style>
+<?	endif;?>
 <div class="header1">
 <div class="header1-position">
     <div class="header1-wrapper">
