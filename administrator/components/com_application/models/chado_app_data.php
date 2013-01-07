@@ -46,8 +46,64 @@ class ApplicationModelChado_app_data extends JModelList
 				'mobila', 'a.mobila',
 			);
 		}
-
 		parent::__construct($config);
+	}
+	/**
+	 * Удалить заявку на подключение к сервису
+	 * 
+	 * 
+	 */
+	public function delete(&$pks)
+	{
+		// Initialise variables.
+		$user	= JFactory::getUser();
+		$table = JTable::getInstance('Chado_app_data', 'ApplicationTable');
+		//$table	= $this->getTable();
+		
+		$pks	= (array) $pks;
+		// Check if I am a Super Admin
+		$iAmSuperAdmin	= $user->authorise('core.admin');
+
+		//var_dump("<h1>pks:</h1><pre>",$pks,"</pre>");
+		
+		// Iterate the items to delete each one.
+		foreach ($pks as $i => $pk)
+		{
+			if ($table->load($pk))
+			{
+				// Access checks.
+				$allow = $user->authorise('core.delete', 'com_application');
+				// Don't allow non-super-admin to delete a super admin
+				$allow = (!$iAmSuperAdmin && JAccess::check($pk, 'core.admin')) ? false : $allow;
+
+				if ($allow)
+				{
+					if (!$table->delete($pk))
+					{
+						$this->setError($table->getError());
+						return false;
+					}
+					else
+					{
+						// reserved:
+						// Trigger the onCustomerAfterDelete event.
+						// $dispatcher->trigger('onCustomerAfterDelete', array($customer_to_delete->getProperties(), true, $this->getError()));
+					}
+				}
+				else
+				{
+					// Prune items that you can't change.
+					unset($pks[$i]);
+					JError::raiseWarning(403, JText::_('JERROR_CORE_DELETE_NOT_PERMITTED'));
+				}
+			}
+			else
+			{
+				$this->setError($table->getError());
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -58,7 +114,8 @@ class ApplicationModelChado_app_data extends JModelList
 	 * @since   1.6.1
 	 */
 	public function getItems()
-	{
+	{			
+
 		// Get a storage key.
 		$store = $this->getStoreId('getItems');
 
@@ -120,7 +177,8 @@ class ApplicationModelChado_app_data extends JModelList
 		// Initialise variables.
 		$app = JFactory::getApplication('administrator');
 		
-		$filter_order = JRequest::getCmd('filter_order');
+		if(!$filter_order=JRequest::getCmd('filter_order'))
+			$filter_order='id';
         $filter_order_Dir = JRequest::getCmd('filter_order_Dir');
         $this->setState('filter_order', $filter_order);
         $this->setState('filter_order_Dir', $filter_order_Dir);

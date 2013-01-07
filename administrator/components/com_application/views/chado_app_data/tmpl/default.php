@@ -1,4 +1,3 @@
-<?php echo "<?xml version=\"1.0\" encoding=\"utf-8\"?".">"; ?>
 <?php
 /**
  * @version     2.1.0
@@ -7,7 +6,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  * @author      srgg <srgg67@gmail.com> - http://www.facebook.com/srgg67
  */
-
 
 // no direct access
 defined('_JEXEC') or die;

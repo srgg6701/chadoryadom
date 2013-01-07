@@ -25,7 +25,7 @@ class ApplicationViewChado_app_data extends JView
 	 * Display the view
 	 */
 	public function display($tpl = null)
-	{
+	{	
 		// call: /joomla/application/component/view.php
 		// there will be required the model that been set here by default
 		// further it will call:
@@ -59,36 +59,10 @@ class ApplicationViewChado_app_data extends JView
 
 		JToolBarHelper::title(JText::_('Заявки на подключение к сервису'), '_application_orders.png'); 
 
-        //Check if the form exists before showing the add/edit buttons
-        $formPath = JPATH_COMPONENT_ADMINISTRATOR.DS.'views'.DS.'chado_app_data';
-        if (file_exists($formPath)) {
 
-		    if ($canDo->get('core.edit')) {
-			    JToolBarHelper::editList('chado_app_data.edit','JTOOLBAR_EDIT');
-		    }
-
-        }
-
-		if ($canDo->get('core.edit.state')) {
-
-            if (isset($this->items[0]->state)) {
-			    JToolBarHelper::divider();
-            } else {
-                //If this component does not use state then show a direct delete button as we can not trash
-                JToolBarHelper::deleteList('', '_chado_app_data.delete','JTOOLBAR_DELETE');
-            }
-		}
-        
-        //Show trash and delete for components that uses the state field
-        if (isset($this->items[0]->state)) {
-		    if ($state->get('filter.state') == -2 && $canDo->get('core.delete')) {
-			    JToolBarHelper::deleteList('', '_chado_app_data.delete','JTOOLBAR_EMPTY_TRASH');
-			    JToolBarHelper::divider();
-		    } else if ($canDo->get('core.edit.state')) {
-			    JToolBarHelper::trash('_chado_app_data.trash','JTOOLBAR_TRASH');
-			    JToolBarHelper::divider();
-		    }
-        }
+		JToolBarHelper::publish('_chado_app_data.activate', 'Подтвердить', true);
+		JToolBarHelper::divider();
+		JToolBarHelper::deleteList('', '_chado_app_data.delete','JTOOLBAR_DELETE');
 
 		if ($canDo->get('core.admin')) {
 			JToolBarHelper::preferences('com_application');
