@@ -15,7 +15,7 @@ jimport('joomla.application.component.modeladmin');
 /**
  * Application model.
  */
-class ApplicationModelChado_app_data extends JModelAdmin
+class ApplicationModelItem extends JModelAdmin
 {
 	/**
 	 * @var		string	The prefix to use with controller messages.
@@ -87,12 +87,10 @@ class ApplicationModelChado_app_data extends JModelAdmin
 	 * @since	1.6
 	 */
 	public function getItem($pk = null)
-	{				die('getItem, pk = '.$pk);
-
+	{	
 		if ($item = parent::getItem($pk)) {
 			//Do any procesing on fields here if needed
 		}
-
 		return $item;
 	}
 	/**

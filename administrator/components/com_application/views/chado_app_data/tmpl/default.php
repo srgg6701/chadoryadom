@@ -111,7 +111,7 @@ $saveOrder	= $listOrder == 'a.ordering';
 				<td>
 				<?php 
 				if ($canEdit) : ?>
-					<a href="<?php echo JRoute::_('index.php?option=com_application&task=child_app_data.edit&id='.(int) $item->id); ?>">
+					<a href="<?php echo JRoute::_('index.php?option=com_application&task=application.edit&id='.(int) $item->id); ?>">
 					<?php echo $this->escape($item->family); ?></a>
 				<?php else :
 					echo $this->escape($item->family);

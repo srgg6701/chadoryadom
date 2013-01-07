@@ -20,7 +20,7 @@ class ApplicationViewChado_app_data extends JView
 	protected $items;
 	protected $pagination;
 	protected $state;
-
+	public $userdata;
 	/**
 	 * Display the view
 	 */
@@ -41,7 +41,7 @@ class ApplicationViewChado_app_data extends JView
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
-		$this->addToolbar();
+		$this->addToolbar($this->_layout);
 		parent::display($tpl);
 	}
 
@@ -50,14 +50,24 @@ class ApplicationViewChado_app_data extends JView
 	 *
 	 * @since	1.6
 	 */
-	protected function addToolbar()
+	protected function addToolbar($layout=false)
 	{	
 		require_once JPATH_COMPONENT.DS.'helpers'.DS.'chado_app_data.php';
 
 		$state	= $this->get('State');
 		$canDo	= ApplicationHelper::getActions($state->get('filter.category_id'));
-
-		JToolBarHelper::title(JText::_('Заявки на подключение к сервису'), '_application_orders.png'); 
+		
+		switch($layout){
+			case 'userdata':
+				$header="Данные заявителя";
+				$pic='_application_userdata.png';
+					break;
+			default:
+				$header="Заявки на подключение к сервису";
+				$pic='_application_orders.png';
+		}
+		
+		JToolBarHelper::title(JText::_($header),$pic); 
 
 
 		JToolBarHelper::publish('_chado_app_data.activate', 'Подтвердить', true);

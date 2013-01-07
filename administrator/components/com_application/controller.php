@@ -26,14 +26,23 @@ class ApplicationController extends JController
 		require_once JPATH_COMPONENT.'/helpers/chado_app_data.php';
 		$default_name='chado_app_data';
 		$layout=JRequest::getVar('layout');
-		// We override the JController default display       
-//method which expects a view named chado_app_data.
-		// We want a view of 'chado_app_data' that uses the 'default' layout. 
-		// Set the view and the model 
 		$view=$this->getView($default_name, 'html' ); 
 		$model=$this->getModel($default_name); 
-		$view->setModel($model,true); 
-		// Use the View display method
+		$view->setModel($model,true);
+		$view->setLayout( $layout ); 
+		// Use the View display method 
+		//echo "<div class=''>layout= ".$layout."</div>";die();
 		$view->display(); 
+	}
+	/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	public function edit(){
+		$pk=JRequest::getVar('id');
+		$model=$this->getModel('Item');
+		$model->getItem($pk);
+		$this->display();
 	}
 }

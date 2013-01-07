@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 /**
  * customers Table class
  */
-class ApplicationTableChado_app_data extends JTable
+class ApplicationTableUsers extends JTable
 {
 	/**
 	 * Constructor
@@ -22,6 +22,6 @@ class ApplicationTableChado_app_data extends JTable
 	 */
 	public function __construct(&$db)
 	{
-		parent::__construct('#__chado_app_data', 'id', $db);
+		parent::__construct('#__users', 'id', $db);
 	}
 }

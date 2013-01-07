@@ -15,12 +15,45 @@ jimport('joomla.application.component.controllerform');
 /**
  * Customer_orders controller class.
  */
-class ApplicationControllerChado_app_data extends JControllerForm
+class ApplicationControllerApplication extends JControllerForm
 {
-
+	public $default_view='chado_app_data';
     function __construct() {
         $this->view_list = '_chado_app_data';
         parent::__construct();
     }
-
+		/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	public function edit(){ 
+		$pk=JRequest::getVar('id');
+		$query = 'SELECT * FROM #_'.$this->view_list.' WHERE id = '.$pk;
+		$db =& JFactory::getDBO();
+		$db->setQuery($query);
+		$view=$this->prepareView('userdata');
+		$view->userdata=$db->loadAssoc();
+		$this->display($view);
+	}
+	public function display($view=false)
+	{	if(!$view)
+			$view=$this->prepareView($this->default_view);
+		$view->display(); 
+	}
+/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	public function prepareView($layout=false,$dview=false){
+		if (!$dview) $dview=$this->default_view;
+		require_once JPATH_COMPONENT.'/helpers/chado_app_data.php';
+		$view=$this->getView($dview, 'html' ); 
+		$model=$this->getModel('Item'); 
+		$view->setModel($model,true);
+		$view->setLayout($layout);
+		return $view; 
+	}
+	
 }

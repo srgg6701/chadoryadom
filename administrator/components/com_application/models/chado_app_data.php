@@ -105,7 +105,6 @@ class ApplicationModelChado_app_data extends JModelList
 		}
 		return true;
 	}
-
 	/**
 	 * Overrides the getItems method to attach additional metrics to the list.
 	 *
