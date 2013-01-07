@@ -104,41 +104,41 @@ $saveOrder	= $listOrder == 'a.ordering';
 			?>
 			<tr class="row<?php echo $i % 2; ?>">
 				<td class="center">
-					<?php echo JHtml::_('grid.id', $i, $item['id']); ?>
+					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 				</td>
 
 				<td>
-					<?php echo $item['id']; ?>
+					<?php echo $item->id; ?>
 				</td>
 				<td>
 				<?php 
 				if ($canEdit) : ?>
-					<a href="<?php echo JRoute::_('index.php?option=com_application&task=child_app_data.edit&id='.(int) $item['id']); ?>">
-					<?php echo $this->escape($item['family']); ?></a>
+					<a href="<?php echo JRoute::_('index.php?option=com_application&task=child_app_data.edit&id='.(int) $item->id); ?>">
+					<?php echo $this->escape($item->family); ?></a>
 				<?php else :
-					echo $this->escape($item['family']);
+					echo $this->escape($item->family);
 				endif; ?>
 				</td>
 				<td>
-					<?php echo $item['name']; ?>
+					<?php echo $item->name; ?>
 				</td>
 				<td>
-					<?php echo $item['middle_name']; ?>
+					<?php echo $item->middle_name; ?>
 				</td>
 				<td>
-					<?php echo $item['child_name']; ?>
+					<?php echo $item->child_name; ?>
 				</td>
 				<td>
-					<?php echo $item['kindergarten']; ?>
+					<?php echo $item->kindergarten; ?>
 				</td>
 				<td>
-					<?php echo $item['group']; ?>
+					<?php echo $item->group; ?>
 				</td>
 				<td>
-					<?php echo $item['email']; ?>
+					<?php echo $item->email; ?>
 				</td>
 				<td>
-					<?php echo $item['mobila']; ?>
+					<?php echo $item->mobila; ?>
 				</td>
 			</tr>
 	<?php 	} ?>

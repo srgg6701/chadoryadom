@@ -28,6 +28,7 @@ class ApplicationModelChado_app_data extends JModelList
 	 *
 	 * @see		JController
 	 * @since   1.6
+	 * Также указывает столбцы сортировки данных
 	 */
 	public function __construct($config = array())
 	{
@@ -36,7 +37,13 @@ class ApplicationModelChado_app_data extends JModelList
 			$config['filter_fields'] = array(
 				'id', 'a.id',
 				'family', 'a.family',
+				'name', 'a.name',
+				'middle_name', 'a.middle_name',
+				'child_name', 'a.child_name',
+				'kindergarten', 'a.kindergarten',
+				'group', 'a.group',
 				'email', 'a.email',
+				'mobila', 'a.mobila',
 			);
 		}
 
@@ -63,36 +70,10 @@ class ApplicationModelChado_app_data extends JModelList
 
 		// Load the list items.
 		$items = parent::getItems();
-
 		// If emtpy or an error, just return.
 		if (empty($items))
 		{
 			return array();
-		}
-
-		// Getting the following metric by joins is WAY TOO SLOW.
-		// Faster to do three queries for very large menu trees.
-
-		// Get the menu types of menus in the list.
-		$db = $this->getDbo();
-		$families = JArrayHelper::getColumn($items, 'family');
-
-		// Quote the strings.
-		$families = implode(
-			',',
-			array_map(array($db, 'quote'), $families)
-		);
-		$query = $db->getQuery(true)
-			->select('*')
-			->from('#__chado_app_data')
-			->order('id')
-			;
-		$db->setQuery($query);
-		$items = $db->loadAssocList();
-		if ($db->getErrorNum())
-		{
-			$this->setError($db->getErrorMsg());
-			return false;
 		}
 		// Add the items to the internal cache.
 		$this->cache[$store] = $items;
@@ -114,14 +95,9 @@ class ApplicationModelChado_app_data extends JModelList
 
 		// Select all fields from the table.
 		$query->select($this->getState('list.select', 'a.*'));
-		$query->from($db->quoteName('#__menu_types').' AS a');
-
-
-		$query->group('a.id, a.menutype, a.title, a.description');
-
+		$query->from($db->quoteName('#__chado_app_data').' AS a');
 		// Add the list ordering clause.
-		$query->order($db->escape($this->getState('list.ordering', 'a.id')).' '.$db->escape($this->getState('list.direction', 'ASC')));
-
+		$query->order($db->getEscaped($this->getState('filter_order')) . ' ' . $db->getEscaped($this->getState('filter_order_Dir', 'ASC')));
 		return $query;
 	}
 
@@ -136,48 +112,19 @@ class ApplicationModelChado_app_data extends JModelList
 	 * @return  void
 	 *
 	 * @since   1.6
+	 * Также имеет отношение к сортировке отображения данных. 
+	 * См. здесь: http://docs.joomla.org/Adding_sortable_columns_to_a_table_in_a_component
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
 		// Initialise variables.
 		$app = JFactory::getApplication('administrator');
-
+		
+		$filter_order = JRequest::getCmd('filter_order');
+        $filter_order_Dir = JRequest::getCmd('filter_order_Dir');
+        $this->setState('filter_order', $filter_order);
+        $this->setState('filter_order_Dir', $filter_order_Dir);
 		// List state information.
 		parent::populateState('a.id', 'asc');
-	}
-
-	/**
-	 * Gets the extension id of the core mod_menu module.
-	 *
-	 * @return  integer
-	 *
-	 * @since   2.5
-	 */
-	public function getModMenuId()
-	{
-		$db = $this->getDbo();
-		$query = $db->getQuery(true);
-
-		$query->select('e.extension_id')
-			->from('#__extensions AS e')
-			->where('e.type = ' . $db->quote('module'))
-			->where('e.element = ' . $db->quote('mod_menu'))
-			->where('e.client_id = 0');
-		$db->setQuery($query);
-
-		return $db->loadResult();
-	}
-
-	/**
-	 * Gets a list of all mod_mainmenu modules and collates them by menutype
-	 *
-	 * @return  array
-	 */
-	public function &getModules()
-	{
-		$model	= JModelLegacy::getInstance('Menu', 'MenusModel', array('ignore_request' => true));
-		$result	= &$model->getModules();
-
-		return $result;
 	}
 }

@@ -32,8 +32,8 @@ class ApplicationViewChado_app_data extends JView
 			// model()->getState() 
 			// model()->getItems()
 		// check model to ensure there they are!
-		$this->state		= $this->get('State');
-		$this->items		= $this->get('Items');
+		$this->state = $this->get('State');
+		$this->items = $this->get('Items');
 		// 
 		$this->pagination	= $this->get('Pagination');
 		// Check for errors.
@@ -41,7 +41,7 @@ class ApplicationViewChado_app_data extends JView
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
-		$this->addToolbar(); 
+		$this->addToolbar();
 		parent::display($tpl);
 	}
 
