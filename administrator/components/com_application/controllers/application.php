@@ -90,6 +90,6 @@ class ApplicationControllerApplication extends JControllerForm
 			die($table->getError());
 		  }
 		}
-		$this->setRedirect('index.php?option=com_application');
+		$this->setRedirect(JRoute::_('index.php?option=com_application',false));
 	}	
 }

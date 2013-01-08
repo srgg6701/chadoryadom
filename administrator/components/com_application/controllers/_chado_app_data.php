@@ -75,7 +75,7 @@ class ApplicationController_chado_app_data extends JControllerAdmin
 				$errors++;
 		}else{
 			$this->getModel('Chado_app_data')->delete($pks);
-			$this->setRedirect('index.php?option=com_users');
+			$this->setRedirect(JRoute::_('index.php?option=com_users',false));
 		}
 	}
 	/**

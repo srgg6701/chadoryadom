@@ -9,7 +9,7 @@
 
 // No direct access
 defined('_JEXEC') or die;
-
+require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'tables'.DS.'chado_app_data.php';
 /**
  * application helper.
  */
@@ -34,7 +34,30 @@ class ApplicationHelper
 	 * @subpackage
 	 */
 	function getAppFields(){
-		return	array('id'=>'id заявки','family'=>'Фамилия','name'=>'Имя','middle_name'=>'Отчество','child_name'=>'Имя ребёнка','kindergarten'=>'Дет. сад (№/название)','group'=>'Группа д/с','email'=>'E-mail','mobila'=>'Моб. тел.');
+		// ВНИМАНИЕ! Не изменять порядок элементов по 'email' ВКЛЮЧИТЕЛЬНО! 
+		return	array('id'=>'id заявки','family'=>'Фамилия','name'=>'Имя','middle_name'=>'Отчество','email'=>'E-mail','child_name'=>'Имя ребёнка','kindergarten'=>'Дет. сад (№/название)','group'=>'Группа д/с','mobila'=>'Моб. тел.');
 	}
-
+/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	function addApplication($post){
+		$table = JTable::getInstance('Chado_app_data', 'ApplicationTable');
+		$table->reset();
+		$valid_fields=array_flip(ApplicationHelper::getAppFields());
+		foreach ($post as $field=>$value)
+		  	if (in_array($field,$valid_fields)) 
+				$table->set($field,$value);
+		// Check that the data is valid
+		if ($table->check())
+		{
+			// Store the data in the table
+			if (!$table->store(true))
+			{	JError::raiseWarning(100, JText::_('Не удалось сохранить данные заявки...'));
+				return false;
+			}
+		}
+		return true;		
+	}
 }

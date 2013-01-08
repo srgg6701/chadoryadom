@@ -32,9 +32,13 @@ $view->componentWrapper();
  <!--[if IE 6]><link rel="stylesheet" href="<?php echo $templateUrl; ?>/css/template.ie6.css" type="text/css" media="screen" /><![endif]-->
  <!--[if IE 7]><link rel="stylesheet" href="<?php echo $templateUrl; ?>/css/template.ie7.css" type="text/css" media="screen" /><![endif]-->
  <script type="text/javascript">if ('undefined' != typeof jQuery) document._artxJQueryBackup = jQuery;</script>
- <script type="text/javascript" src="<?php echo $templateUrl; ?>/jquery.js"></script>
- <script type="text/javascript">jQuery.noConflict();</script>
- <script type="text/javascript" src="<?php echo $templateUrl; ?>/script.js"></script>
+ 
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>  
+ 
+ 
+<script type="text/javascript" src="<?php echo $templateUrl; ?>/script.js"></script>
  <script type="text/javascript">if (document._artxJQueryBackup) jQuery = document._artxJQueryBackup;</script>
 </head>
 <body>

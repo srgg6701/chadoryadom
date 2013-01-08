@@ -291,8 +291,7 @@ class ModulesModelModules extends JModelList
 		if ($language = $this->getState('filter.language')) {
 			$query->where('a.language = ' . $db->quote($language));
 		}
-		echo "<div class=''>filter: ".JRequest::getCmd('filter_order')."<hr>query: ".$query."</div>";
-
+		
 		return $query;
 	}
 }
