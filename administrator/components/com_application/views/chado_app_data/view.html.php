@@ -21,6 +21,7 @@ class ApplicationViewChado_app_data extends JView
 	protected $pagination;
 	protected $state;
 	public $userdata;
+	public $fields;
 	/**
 	 * Display the view
 	 */
@@ -52,8 +53,6 @@ class ApplicationViewChado_app_data extends JView
 	 */
 	protected function addToolbar($layout=false)
 	{	
-		require_once JPATH_COMPONENT.DS.'helpers'.DS.'chado_app_data.php';
-
 		$state	= $this->get('State');
 		$canDo	= ApplicationHelper::getActions($state->get('filter.category_id'));
 		
@@ -68,10 +67,10 @@ class ApplicationViewChado_app_data extends JView
 		}
 		
 		JToolBarHelper::title(JText::_($header),$pic); 
-
-
-		JToolBarHelper::publish('_chado_app_data.activate', 'Подтвердить', true);
-		JToolBarHelper::divider();
+		if ($layout!='userdata'):
+			JToolBarHelper::publish('_chado_app_data.activate', 'Подтвердить', true);
+			JToolBarHelper::divider();
+		endif;
 		JToolBarHelper::deleteList('', '_chado_app_data.delete','JTOOLBAR_DELETE');
 
 		if ($canDo->get('core.admin')) {

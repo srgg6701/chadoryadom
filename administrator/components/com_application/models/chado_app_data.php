@@ -77,7 +77,7 @@ class ApplicationModelChado_app_data extends JModelList
 				$allow = (!$iAmSuperAdmin && JAccess::check($pk, 'core.admin')) ? false : $allow;
 
 				if ($allow)
-				{
+				{	$test=false; if ($test) die('delete record id '.$pk.", LINE: ".__LINE__);
 					if (!$table->delete($pk))
 					{
 						$this->setError($table->getError());

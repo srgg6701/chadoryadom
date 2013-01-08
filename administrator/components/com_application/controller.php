@@ -6,7 +6,9 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  * @author      srgg <srgg67@gmail.com> - http://www.facebook.com/srgg67
  */
+require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS."tables".DS."chado_app_data.php";
 
+require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS."helpers".DS."chado_app_data.php";
 // No direct access
 defined('_JEXEC') or die;
 
@@ -23,7 +25,6 @@ class ApplicationController extends JController
 	 */
 	public function display($cachable = false, $urlparams = false)
 	{
-		require_once JPATH_COMPONENT.'/helpers/chado_app_data.php';
 		$default_name='chado_app_data';
 		$layout=JRequest::getVar('layout');
 		$view=$this->getView($default_name, 'html' ); 

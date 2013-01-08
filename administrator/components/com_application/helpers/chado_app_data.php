@@ -28,5 +28,13 @@ class ApplicationHelper
 
 		return $result;
 	}
+	/**
+	 * Получить названия полей на русском
+	 * @package
+	 * @subpackage
+	 */
+	function getAppFields(){
+		return	array('id'=>'id заявки','family'=>'Фамилия','name'=>'Имя','middle_name'=>'Отчество','child_name'=>'Имя ребёнка','kindergarten'=>'Дет. сад (№/название)','group'=>'Группа д/с','email'=>'E-mail','mobila'=>'Моб. тел.');
+	}
 
 }

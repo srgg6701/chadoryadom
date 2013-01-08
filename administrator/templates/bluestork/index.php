@@ -47,6 +47,9 @@ if ($this->params->get('highContrast')) {
 <!--[if gte IE 8]>
 <link href="templates/<?php echo  $this->template ?>/css/ie8.css" rel="stylesheet" type="text/css" />
 <![endif]-->
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>  
 </head>
 <body id="minwidth-body">
 	<div id="border-top" class="h_blue">

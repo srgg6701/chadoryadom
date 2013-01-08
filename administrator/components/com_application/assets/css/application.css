@@ -1,3 +1,10 @@
+div#app_data_fields
+	input[type="text"]{
+		font-size:1.2em;
+	margin:4px;
+	margin-right:8px;
+	padding:2px 4px;
+}
 div.pagetitle.icon-48-_application_orders{
 	background-image:url(../../../../templates/bluestork/images/camera.png)
 }
