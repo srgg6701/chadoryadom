@@ -60,4 +60,23 @@ class ApplicationHelper
 		}
 		return true;		
 	}
+/**
+ * Синхронизация полей заявки и данных юзера и создание массива для вывода в профайле поциента (с)
+ * @package
+ * @subpackage
+ */
+	function getUserServiceData($user_id){
+		$db=JFactory::getDBO();
+		$query="DESC #__chado_app_data";
+		$db->setQuery($query);
+		$fields=$db->loadResultArray();
+		$query="SELECT `data` FROM #__users WHERE id = ".$user_id;
+		$db->setQuery($query);
+		$data=unserialize($db->loadResult());
+		$arrAppData=array();	
+		for($i=1,$j=count($fields);$i<$j;$i++)
+			if ($fields[$i]!="name"&&$fields[$i]!="email")
+				$arrAppData[$fields[$i]]=$data[$fields[$i]];
+		return $arrAppData;
+	}
 }

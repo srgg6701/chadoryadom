@@ -32,7 +32,7 @@ require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helper
 	foreach($arrTable as $field=>$desc):
 		if ($field!="id"):?>
 <span><?="<b>".$desc.":</b>";?></span>
-<input name="<?=$field?>" type="text" required id="<?=$field?>"><br>    
+<input name="<?=$field?>" type="text" required id="<?=$field?>"<? if($field=="mobila"){?> placeholder="71234567890"<? }?>><br>    
 <?		endif;
 		$i++;
 	endforeach;?>

@@ -33,14 +33,28 @@ $fieldsets = $this->form->getFieldsets();
 	<div class="width-60 fltlft">
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_USERS_USER_ACCOUNT_DETAILS'); ?></legend>
-			<ul class="adminformlist">
 			<?php foreach($this->form->getFieldset('user_details') as $field) :?>
 				<li><?php echo $field->label; ?>
 				<?php echo $field->input; ?></li>
 			<?php endforeach; ?>
 			</ul>
 		</fieldset>
-
+		<!--	xtra data - APPLICATION	-->
+        <fieldset class="adminform">
+<?	require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helpers'.DS.'chado_app_data.php';?>        
+			<legend><?php echo JText::_('Параметры заявки'); //COM_USERS_USER_ACCOUNT_DETAILS ?></legend>
+			<ul class="adminformlist">
+<?	$arrTable=ApplicationHelper::getAppFields();
+	$arrTable['password']="Пароль";
+	$arrAppData=ApplicationHelper::getUserServiceData(JRequest::getVar('id'));
+	foreach($arrAppData as $label=>$desc):?>
+    <li>
+    	<label id="jform_<?=$label?>-lbl" for="jform_<?=$desc?>" class="hasTip" title="" aria-invalid="false"><?=$arrTable[$label]?></label>
+<input type="text" name="jform[<?=$label?>]" id="jform_<?=$label?>" value="<?=$arrAppData[$label]?>" autocomplete="off" class="inputbox" size="30" aria-invalid="false"></li>
+<? 	endforeach;?>
+			</ul>
+		</fieldset>
+		
 		<?php if ($this->grouplist) :?>
 		<fieldset id="user-groups" class="adminform">
 			<legend><?php echo JText::_('COM_USERS_ASSIGNED_GROUPS'); ?></legend>
