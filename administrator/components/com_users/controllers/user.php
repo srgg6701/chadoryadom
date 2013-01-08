@@ -89,7 +89,32 @@ class UsersControllerUser extends JControllerForm
 	public function save($key = null, $urlVar = null)
 	{
 		$data = JRequest::getVar('jform', array(), 'post', 'array');
-
+		
+		if (isset($data['xtra'])){
+			// получить названия полей доп.данных:
+			$xtra=explode(",",$data['xtra']);
+			$xtra_data=array();
+			foreach($xtra as $i=>$field){
+				if ($field!="password"){
+					// присвоить эл. массива доп. данных значения:
+					$xtra_data[$field]=$data[$field];
+					// удалить данные, не соответствующие текущим полям:
+					unset($data[$field]);
+				}
+			}
+			unset($data['xtra']); // удалить элемент доп. данных	
+			$data['xtra_data']=serialize($xtra_data); // сохранить доп. данные в поле как сериализованный массив
+			$db	= JFactory::getDBO();
+			$query	= $db->getQuery(true);
+			$query->update('#__users');
+			$query->set(" `data` = '$data[xtra_data]' ");
+			$query->where(" id = $data[id] ");
+			$db->setQuery((string) $query);
+			if (!$db->query()) 
+				JError::raiseError(500, $db->getErrorMsg());
+			unset($data['xtra_data']);
+		}
+		
 		// TODO: JForm should really have a validation handler for this.
 		if (isset($data['password']) && isset($data['password2']))
 		{
@@ -102,7 +127,7 @@ class UsersControllerUser extends JControllerForm
 
 			unset($data['password2']);
 		}
-
+		
 		return parent::save();
 	}
 }

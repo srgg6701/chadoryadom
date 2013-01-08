@@ -38,7 +38,7 @@ class ApplicationHelper
 		return	array('id'=>'id заявки','family'=>'Фамилия','name'=>'Имя','middle_name'=>'Отчество','email'=>'E-mail','child_name'=>'Имя ребёнка','kindergarten'=>'Дет. сад (№/название)','group'=>'Группа д/с','mobila'=>'Моб. тел.');
 	}
 /**
- * Описание
+ * ДОбавить заявку с сайта
  * @package
  * @subpackage
  */
@@ -77,6 +77,7 @@ class ApplicationHelper
 		for($i=1,$j=count($fields);$i<$j;$i++)
 			if ($fields[$i]!="name"&&$fields[$i]!="email")
 				$arrAppData[$fields[$i]]=$data[$fields[$i]];
+		$arrAppData['password']=$data['password'];
 		return $arrAppData;
 	}
 }

@@ -47,14 +47,20 @@ $fieldsets = $this->form->getFieldsets();
 <?	$arrTable=ApplicationHelper::getAppFields();
 	$arrTable['password']="Пароль";
 	$arrAppData=ApplicationHelper::getUserServiceData(JRequest::getVar('id'));
-	foreach($arrAppData as $label=>$desc):?>
+	$xtra_fields_for_controller=array(); // контейнер для сохранения значений поля data. Будет отсылаться контроллеру (в виде строки) для того, чтобы он понял, что это - данные, которые должны быть сохранены в этом поле в виде сериализованного массива.  
+	foreach($arrAppData as $label=>$desc):
+		$xtra_fields_for_controller[]=$label;?>
     <li>
-    	<label id="jform_<?=$label?>-lbl" for="jform_<?=$desc?>" class="hasTip" title="" aria-invalid="false"><?=$arrTable[$label]?></label>
-<input type="text" name="jform[<?=$label?>]" id="jform_<?=$label?>" value="<?=$arrAppData[$label]?>" autocomplete="off" class="inputbox" size="30" aria-invalid="false"></li>
+    	<label id="jform_<?=$label?>-lbl" for="jform_<?=$desc?>" aria-invalid="false"><?=$arrTable[$label]?></label>
+    <? 	if($label=="password"):?>
+<input type="text" value="<?=$arrAppData[$label]?>" class="inputbox" size="30" aria-invalid="false" style="border:none;">
+	<?	else:?>
+<input type="text" name="jform[<?=$label?>]" id="jform_<?=$label?>" value="<?=$arrAppData[$label]?>" autocomplete="off" class="inputbox" size="30" aria-invalid="false"><?
+		endif;?></li>
 <? 	endforeach;?>
 			</ul>
+<input name="jform[xtra]" id="jform_xtra" type="hidden" value="<?=implode(",",$xtra_fields_for_controller)?>">
 		</fieldset>
-		
 		<?php if ($this->grouplist) :?>
 		<fieldset id="user-groups" class="adminform">
 			<legend><?php echo JText::_('COM_USERS_ASSIGNED_GROUPS'); ?></legend>

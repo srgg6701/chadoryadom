@@ -40,6 +40,7 @@ class ApplicationController_chado_app_data extends JControllerAdmin
 				$table->reset();
 				$password=$this->generate_password(10);
 				$xtra_data=serialize( array(
+										'family'=>$applicant_data->family,
 										'middle_name'=>$applicant_data->middle_name,
 										'child_name'=>$applicant_data->child_name,
 										'kindergarten'=>$applicant_data->kindergarten,
