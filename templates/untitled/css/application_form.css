@@ -1,0 +1,21 @@
+@charset "utf-8";
+/* CSS Document */
+form#app-form{ 
+	margin:20px 0px !important;
+}
+form#app-form
+	input[type="text"]{
+	margin:6px;
+	width:200px;
+}
+form#app-form
+	span:not([class]){
+	display:inline-block;
+	text-align:right;
+	width:200px;
+}
+div.postcontent h1{
+	margin-top:-7px;
+}
+
+

@@ -92,6 +92,7 @@ class UsersModelProfile extends JModelForm
 	 */
 	public function getData()
 	{
+		//var_dump("<h1>this:</h1><pre>",$this,"</pre>");
 		if ($this->data === null) {
 
 			$userId = $this->getState('user.id');

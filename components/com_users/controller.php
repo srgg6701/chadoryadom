@@ -27,7 +27,7 @@ class UsersController extends JControllerLegacy
 	 * @since	1.5
 	 */
 	public function display($cachable = false, $urlparams = false)
-	{
+	{	if ($testCall=JRequest::getVar('testCall')) echo "<h2>UsersController::display()</h2><h1>this: UsersController</h1>";
 		// Get the document object.
 		$document	= JFactory::getDocument();
 
@@ -35,7 +35,6 @@ class UsersController extends JControllerLegacy
 		$vName	 = JRequest::getCmd('view', 'login');
 		$vFormat = $document->getType();
 		$lName	 = JRequest::getCmd('layout', 'default');
-
 		if ($view = $this->getView($vName, $vFormat)) {
 			// Do any specific processing by view.
 			switch ($vName) {
@@ -105,15 +104,22 @@ class UsersController extends JControllerLegacy
 					$model = $this->getModel('Login');
 					break;
 			}
-
 			// Push the model into the view (as default).
-			$view->setModel($model, true);
+				if ($testCall) echo "line ".__LINE__.": <div>\$view->setModel(\$model, true)</div>"; 
+			$view->setModel($model, true); 
+			//
+				if ($testCall) echo "line ".__LINE__.": <div>\$view->setLayout(\$lName)</div>"; 
 			$view->setLayout($lName);
-
 			// Push document object into the view.
+				if ($testCall) echo "line ".__LINE__.": <div>\$view->assignRef('document', \$document)</div>"; 
 			$view->assignRef('document', $document);
-
+				if ($testCall) echo "line ".__LINE__.": <div>\$view->display()</div>"; 
+				if ($testCall) echo "<blockquote style='padding:10px;border:solid 1px;'>";
 			$view->display();
+				if ($testCall) {
+					echo "</blockquote>"; 
+					if($testCall=='2') die();
+				}
 		}
 	}
 }

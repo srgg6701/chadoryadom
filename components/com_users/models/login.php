@@ -7,7 +7,6 @@
  */
 
 defined('_JEXEC') or die;
-
 jimport('joomla.application.component.modelform');
 jimport('joomla.event.dispatcher');
 /**
@@ -31,7 +30,7 @@ class UsersModelLogin extends JModelForm
 	 * @since	1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
-	{
+	{	if ($testCall=JRequest::getVar('testCall')) echo "<h2>UsersModelLogin::getForm()</h2><h1>this: UsersModelLogin</h1>";
 		// Get the form.
 		$form = $this->loadForm('com_users.login', 'login', array('load_data' => $loadData));
 		if (empty($form)) {
@@ -48,7 +47,7 @@ class UsersModelLogin extends JModelForm
 	 * @since	1.6
 	 */
 	protected function loadFormData()
-	{
+	{	if ($testCall=JRequest::getVar('testCall')) echo "<h2>UsersModelLogin::loadFormData()</h2><h1>this: UsersModelLogin</h1>";
 		// Check the session for previously entered login form data.
 		$app	= JFactory::getApplication();
 		$data	= $app->getUserState('users.login.form.data', array());
@@ -78,11 +77,13 @@ class UsersModelLogin extends JModelForm
 	 * @since	1.6
 	 */
 	protected function populateState()
-	{
+	{	if ($testCall=JRequest::getVar('testCall')) echo "<h2>UsersModelLogin::populateState()</h2><h1>this: UsersModelLogin</h1>";
 		// Get the application object.
+			if ($testCall) echo "line ".__LINE__.": <div>\$params = JFactory::getApplication()->getParams('com_users')</div>"; 
 		$params	= JFactory::getApplication()->getParams('com_users');
-
+			if ($testCall) var_dump("<h1>params:</h1><pre>",$params,"</pre>");
 		// Load the parameters.
+			if ($testCall) echo "line ".__LINE__.": <div>\$this->setState('params', \$params)</div>"; 
 		$this->setState('params', $params);
 	}
 
@@ -96,27 +97,21 @@ class UsersModelLogin extends JModelForm
 	 * @since	1.6
 	 */
 	protected function preprocessForm(JForm $form, $data, $group = 'user')
-	{
+	{	if ($testCall=JRequest::getVar('testCall')) echo "<h2>UsersModelLogin::preprocessForm()</h2>";
 		// Import the approriate plugin group.
 		JPluginHelper::importPlugin($group);
-
 		// Get the dispatcher.
 		$dispatcher	= JDispatcher::getInstance();
-
 		// Trigger the form preparation event.
 		$results = $dispatcher->trigger('onContentPrepareForm', array($form, $data));
-
 		// Check for errors encountered while preparing the form.
 		if (count($results) && in_array(false, $results, true)) {
 			// Get the last error.
 			$error = $dispatcher->getError();
-
 			// Convert to a JException if necessary.
 			if (!($error instanceof Exception)) {
 				throw new Exception($error);
 			}
 		}
 	}
-
-
 }

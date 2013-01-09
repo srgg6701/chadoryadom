@@ -1,29 +1,16 @@
 <?
+defined('_JEXEC') or die('Restricted access');
 if(JRequest::getVar('stat')=='applicated')
 	require_once dirname(__FILE__).'/applicated.php';
-else{?>
-<style>
-form#app-form{ 
-	margin:20px 0px !important;
-}
-form#app-form
-	input[type="text"]{
-	margin:6px;
-	width:200px;
-}
-form#app-form
-	span{
-	display:inline-block;
-	text-align:right;
-	width:200px;
-}
-</style>
-<?php
-// No direct access to this file
-defined('_JEXEC') or die('Restricted access');
-// echo $this->msg;
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helpers'.DS.'chado_app_data.php';?>
-<h1>Заявка на подключение к сервису.</h1>
+else{
+	$app =& JFactory::getApplication();
+	$template = $app->getTemplate();?><link href="<?php echo $this->baseurl ?>/templates/<?php echo $template ?>/css/application_form.css" rel="stylesheet" type="text/css"><?php
+
+require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helpers'.DS.'chado_app_data.php';
+
+	if ($this->params->get('show_page_heading')) : 
+	?><h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
+<?php endif;?>
 <div>все поля обязательны для заполнения</div>
 <form action="<?php echo JRoute::_('index.php?option=com_application'); ?>" method="post" name="adminForm" id="app-form" class="form-validate" enctype="multipart/form-data">
 
@@ -32,12 +19,18 @@ require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helper
 	foreach($arrTable as $field=>$desc):
 		if ($field!="id"):?>
 <span><?="<b>".$desc.":</b>";?></span>
-<input name="<?=$field?>" type="text" required id="<?=$field?>"<? if($field=="mobila"){?> placeholder="71234567890"<? }?>><br>    
+<input name="<?=$field?>" type="text" required id="<?=$field?>"<? if($field=="mobila"){?> placeholder="7987654321"<? }?>><br>    
 <?		endif;
 		$i++;
 	endforeach;?>
     <br>
-    <div align="center" style="width:400px;"><button type="submit">Отправить заявку</button></div>
+    <div align="center" style="width:400px;">
+    	<span class="button_wrapper">
+        	
+            	<button class="button" type="submit">Отправить заявку</button>
+            
+        </span>
+    </div>
     <br>
     <br>
     <input type="hidden" name="task" value="add" />

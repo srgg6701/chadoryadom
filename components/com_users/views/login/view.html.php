@@ -29,13 +29,16 @@ class UsersViewLogin extends JViewLegacy
 	 * @since	1.5
 	 */
 	public function display($tpl = null)
-	{
+	{	if ($testCall=JRequest::getVar('testCall')) {
+			echo "<h1>UsersViewLogin::display()</h1>";
+			if ($testCall) echo "line ".__LINE__.": <div>get \$this->user, form, state, params</div><h1>this: UsersViewLogin</h1><blockquote style='padding:10px;border:solid 1px;'>"; 
+		}
 		// Get the view data.
 		$this->user		= JFactory::getUser();
 		$this->form		= $this->get('Form');
 		$this->state	= $this->get('State');
 		$this->params	= $this->state->get('params');
-
+			if ($testCall) echo "</blockquote>";
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode('<br />', $errors));
@@ -50,10 +53,14 @@ class UsersViewLogin extends JViewLegacy
 
 		//Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
-
+			if ($testCall) {
+				echo "line ".__LINE__.": <div>\$this->prepareDocument()</div>";
+				echo "line ".(__LINE__+1).": <div>parent::display(\$tpl)</div>
+				<blockquote style='padding:10px;border:solid 1px;'>";  
+			}
 		$this->prepareDocument();
-
 		parent::display($tpl);
+			if ($testCall) echo "</blockquote>";
 	}
 
 	/**
@@ -67,7 +74,6 @@ class UsersViewLogin extends JViewLegacy
 		$user		= JFactory::getUser();
 		$login		= $user->get('guest') ? true : false;
 		$title 		= null;
-
 		// Because the application sets a default page title,
 		// we need to get it from the menu item itself
 		$menu = $menus->getActive();

@@ -42,9 +42,11 @@ $view->componentWrapper();
  <script type="text/javascript">if (document._artxJQueryBackup) jQuery = document._artxJQueryBackup;</script>
 </head>
 <body>
+
 <div id="page-background-glare-wrapper">
     <div id="page-background-glare"></div>
 </div>
+
 <div id="main">
     <div class="cleared reset-box"></div>
 <? 	if (!(JRequest::getVar('option')=="com_kunena"
@@ -52,11 +54,11 @@ $view->componentWrapper();
 		 )
 	   ):?>    
 <div class="header">
-<div class="header-position">
-    <div class="header-wrapper">
-        <div class="cleared reset-box"></div>
-        <div class="header-inner">
-<div class="logo">
+    <div class="header-position">
+        <div class="header-wrapper">
+            <div class="cleared reset-box"></div>
+            <div class="header-inner">
+    <div class="logo">
 </div>
 
         </div>
@@ -71,152 +73,118 @@ div.box.sheet{
 </style>
 <?	endif;?>
 <div class="header1">
-<div class="header1-position">
-    <div class="header1-wrapper">
-        <div class="cleared reset-box"></div>
-        <div class="header1-inner">
-
-
+    <div class="header1-position">
+        <div class="header1-wrapper">
+            <div class="cleared reset-box"></div>
+            <div class="header1-inner">
+    
+    
+            </div>
         </div>
     </div>
 </div>
-</div>
+
 <div class="header2">
-<div class="header2-position">
-    <div class="header2-wrapper">
-        <div class="cleared reset-box"></div>
-        <div class="header2-inner">
-
-	<?php echo $view->position('header'); ?>
-
-
-
-
+    <div class="header2-position">
+        <div class="header2-wrapper">
+            <div class="cleared reset-box"></div>
+            <div class="header2-inner">
+        <?php echo $view->position('header'); ?>
+            </div>
         </div>
-
     </div>
 </div>
-
-
-
-
-
-
-
-
-</div>
-
 
 <div class="header3">
-<div class="header3-position">
-    <div class="header3-wrapper">
-        <div class="cleared reset-box"></div>
-        <div class="header3-inner">
-
-	<?php echo $view->position('header2'); ?>
-
-
-
-
+    <div class="header3-position">
+        <div class="header3-wrapper">
+            <div class="cleared reset-box"></div>
+            <div class="header3-inner">
+        <?php echo $view->position('header2'); ?>
+            </div>
+    
         </div>
-
     </div>
 </div>
 
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
 <div class="cleared reset-box"></div>
+
 <div class="box sheet">
     <div class="box-body sheet-body">
 <?php if ($view->containsModules('user3', 'extra1', 'extra2')) : ?>
-<div class="bar nav">
-<div class="nav-outer">
-	<?php if ($view->containsModules('extra1')) : ?>
-	<div class="hmenu-extra1"><?php echo $view->position('extra1'); ?></div>
-	<?php endif; ?>
-	<?php if ($view->containsModules('extra2')) : ?>
-	<div class="hmenu-extra2"><?php echo $view->position('extra2'); ?></div>
-	<?php endif; ?>
-	<?php echo $view->position('user3'); ?>
-</div>
-</div>
-<div class="cleared reset-box"></div>
-<?php endif; ?>
-<?php echo $view->position('banner1', 'nostyle'); ?>
-<?php echo $view->positions(array('top1' => 33, 'top2' => 33, 'top3' => 34), 'block'); ?>
-<div class="layout-wrapper">
-    <div class="content-layout">
-        <div class="content-layout-row">
-<?php if ($view->containsModules('left')) : ?>
-<div class="layout-cell sidebar1">
-<?php echo $view->position('left', 'block'); ?>
-
-  <div class="cleared"></div>
-</div>
-<?php endif; ?>
-<div class="layout-cell content">
-
-<?php
-  echo $view->position('banner2', 'nostyle');
-  if ($view->containsModules('breadcrumb'))
-    echo artxPost($view->position('breadcrumb'));
-  echo $view->positions(array('user1' => 50, 'user2' => 50), 'article');
-  echo $view->position('banner3', 'nostyle');
-  if ($view->hasMessages())
-    echo artxPost('<jdoc:include type="message" />');
-  echo '<jdoc:include type="component" />';
-  echo $view->position('banner4', 'nostyle');
-  echo $view->positions(array('user4' => 50, 'user5' => 50), 'article');
-  echo $view->position('banner5', 'nostyle');
-?>
-
-  <div class="cleared"></div>
-</div>
-<?php if ($view->containsModules('right')) : ?>
-<div class="layout-cell sidebar2">
-<?php echo $view->position('right', 'block'); ?>
-
-  <div class="cleared"></div>
-</div>
-<?php endif; ?>
-
+        <div class="bar nav">
+            <div class="nav-outer">
+                <?php if ($view->containsModules('extra1')) : ?>
+                <div class="hmenu-extra1"><?php echo $view->position('extra1'); ?></div>
+                <?php endif; ?>
+                <?php if ($view->containsModules('extra2')) : ?>
+                <div class="hmenu-extra2"><?php echo $view->position('extra2'); ?></div>
+                <?php endif; ?>
+                <?php echo $view->position('user3'); ?>
+            </div>
         </div>
-    </div>
-</div>
-<div class="cleared"></div>
-
-
-
-<?php echo $view->position('banner6', 'nostyle'); ?>
-<div class="footer">
-    <div class="footer-body">
-        <?php echo $view->position('syndicate'); ?>
-                <div class="footer-text">
-                   <?php echo $view->position('footer', 'nostyle'); ?>
+        <div class="cleared reset-box"></div>
+    <?php endif; ?>
+    <?php echo $view->position('banner1', 'nostyle'); ?>
+    <?php echo $view->positions(array('top1' => 33, 'top2' => 33, 'top3' => 34), 'block'); ?>
+        <div class="layout-wrapper">
+            <div class="content-layout">
+                <div class="content-layout-row">
+        <?php if ($view->containsModules('left')) : ?>
+        <div class="layout-cell sidebar1">
+        <?php echo $view->position('left', 'block'); ?>
+        
+          <div class="cleared"></div>
+        </div>
+        <?php endif; ?>
+        <div class="layout-cell content">
+        
+        <?php
+          echo $view->position('banner2', 'nostyle');
+          if ($view->containsModules('breadcrumb'))
+            echo artxPost($view->position('breadcrumb'));
+          echo $view->positions(array('user1' => 50, 'user2' => 50), 'article');
+          echo $view->position('banner3', 'nostyle');
+          if ($view->hasMessages())
+            echo artxPost('<jdoc:include type="message" />');
+          echo '<jdoc:include type="component" />';
+          echo $view->position('banner4', 'nostyle');
+          echo $view->positions(array('user4' => 50, 'user5' => 50), 'article');
+          echo $view->position('banner5', 'nostyle');
+        ?>
+        
+          <div class="cleared"></div>
+        </div>
+        <?php if ($view->containsModules('right')) : ?>
+        <div class="layout-cell sidebar2">
+        <?php echo $view->position('right', 'block'); ?>
+        
+          <div class="cleared"></div>
+        </div>
+        <?php endif; ?>
+        
                 </div>
-<?php echo $view->positions(array('bottom1' => 33, 'bottom2' => 33, 'bottom3' => 34), 'nostyle'); ?>
+            </div>
+        </div>
         <div class="cleared"></div>
+
+    <?php echo $view->position('banner6', 'nostyle'); ?>
+        <div class="footer">
+            <div class="footer-body">
+                <?php echo $view->position('syndicate'); ?>
+                        <div class="footer-text">
+                           <?php echo $view->position('footer', 'nostyle'); ?>
+                        </div>
+        <?php echo $view->positions(array('bottom1' => 33, 'bottom2' => 33, 'bottom3' => 34), 'nostyle'); ?>
+                <div class="cleared"></div>
+            </div>
+        </div>
+        
+        <div class="cleared"></div>
+
     </div>
 </div>
 
-		<div class="cleared"></div>
-
-    </div>
-</div>
 <div class="cleared"></div>
 <p class="page-footer"></p>
 

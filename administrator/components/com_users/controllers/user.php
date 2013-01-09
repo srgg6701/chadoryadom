@@ -89,7 +89,10 @@ class UsersControllerUser extends JControllerForm
 	public function save($key = null, $urlVar = null)
 	{
 		$data = JRequest::getVar('jform', array(), 'post', 'array');
-		
+		/**
+		 * srgg67@gmail.com
+		 */
+		// проверить и обработать дополнительные поля:
 		if (isset($data['xtra'])){
 			// получить названия полей доп.данных:
 			$xtra=explode(",",$data['xtra']);
@@ -114,6 +117,8 @@ class UsersControllerUser extends JControllerForm
 				JError::raiseError(500, $db->getErrorMsg());
 			unset($data['xtra_data']);
 		}
+		//***************************************************************
+		// конец проверки и обработки дополнительных полей. Далее все поля обрабатываются в том виде, в котором предусмотрено по умолчанию
 		
 		// TODO: JForm should really have a validation handler for this.
 		if (isset($data['password']) && isset($data['password2']))

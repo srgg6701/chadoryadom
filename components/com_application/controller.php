@@ -1,14 +1,14 @@
-﻿<?php
+﻿<?php 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
  
 // import Joomla controller library
-jimport('joomla.application.component.controller');
+//jimport('joomla.application.component.controller');
  
 /**
  * Application Controller
  */
-class ApplicationController extends JController
+class ApplicationController extends JControllerLegacy
 {
 	/**
  * Добавить заявку
@@ -33,4 +33,32 @@ class ApplicationController extends JController
 		echo ($db->loadResult())? 'found':'new'; 
 		exit;
 	}	
+	/**
+	 * Method to display a view.
+	 *
+	 * @param	boolean			If true, the view output will be cached
+	 * @param	array			An array of safe url parameters and their variable types, for valid values see {@link JFilterInput::clean()}.
+	 *
+	 * @return	JController		This object to support chaining.
+	 * @since	1.5
+	 */
+	public function display($cachable = false, $urlparams = false)
+	{	if ($testCall=JRequest::getVar('testCall')) echo "<h2>ApplicationController::display()</h2><h1>this: ApplicationController</h1>";
+		// Get the document object.
+		$document	= JFactory::getDocument();
+		// Set the default view name and format from the Request.
+		$vName	 = JRequest::getCmd('view', 'application');
+		$vFormat = $document->getType(); 
+		$lName	 = JRequest::getCmd('layout', 'default');
+		if ($view = $this->getView($vName, $vFormat)) {
+			$model = $this->getModel('Application');
+			$view->setModel($model, true);
+			$view->setLayout($lName);
+			$view->assignRef('document', $document);
+			
+				if ($testCall) echo "<blockquote style='padding:10px;border:solid 1px;'>";
+			$view->display();
+				if ($testCall) echo "</blockquote>";
+		}
+	}
 }
