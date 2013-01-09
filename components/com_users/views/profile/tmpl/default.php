@@ -16,7 +16,8 @@ JHtml::_('behavior.tooltip');
 	<?php echo $this->escape($this->params->get('page_heading')); ?>
 </h1>
 <?php endif; ?>
-
+<?	//var_dump("<h1>params:</h1><pre>",$this->params,"</pre>");
+	userAccount::accountManager($this->params->get('logout_redirect_url', $this->form->getValue('return')));?>
 <?php echo $this->loadTemplate('core'); ?>
 
 <?php echo $this->loadTemplate('params'); ?>

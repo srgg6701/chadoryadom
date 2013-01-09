@@ -96,11 +96,12 @@ class UsersControllerUser extends JControllerForm
 		if (isset($data['xtra'])){
 			// получить названия полей доп.данных:
 			$xtra=explode(",",$data['xtra']);
+			//var_dump("<h1>xtra:</h1><pre>",$xtra,"</pre>");
 			$xtra_data=array();
 			foreach($xtra as $i=>$field){
+				// присвоить эл. массива доп. данных значения:
+				$xtra_data[$field]=$data[$field];
 				if ($field!="password"){
-					// присвоить эл. массива доп. данных значения:
-					$xtra_data[$field]=$data[$field];
 					// удалить данные, не соответствующие текущим полям:
 					unset($data[$field]);
 				}
@@ -113,12 +114,9 @@ class UsersControllerUser extends JControllerForm
 			$query->set(" `data` = '$data[xtra_data]' ");
 			$query->where(" id = $data[id] ");
 			$db->setQuery((string) $query);
-			if (!$db->query()) 
-				JError::raiseError(500, $db->getErrorMsg());
-			unset($data['xtra_data']);
 		}
 		//***************************************************************
-		// конец проверки и обработки дополнительных полей. Далее все поля обрабатываются в том виде, в котором предусмотрено по умолчанию
+		// См. окончание после проверки соответствия паролей
 		
 		// TODO: JForm should really have a validation handler for this.
 		if (isset($data['password']) && isset($data['password2']))
@@ -131,7 +129,15 @@ class UsersControllerUser extends JControllerForm
 			}
 
 			unset($data['password2']);
+		
 		}
+		// если получали дополнительные данные:
+		if(isset($xtra)){
+			if (!$db->query()) 
+				JError::raiseError(500, $db->getErrorMsg());
+			unset($data['xtra_data']);
+		}
+		// конец проверки и обработки дополнительных полей. Далее все поля обрабатываются в том виде, в котором предусмотрено по умолчанию
 		
 		return parent::save();
 	}

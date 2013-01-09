@@ -8,8 +8,8 @@
  */
 
 defined('_JEXEC') or die;
-
 require_once JPATH_COMPONENT.'/helpers/route.php';
+require_once JPATH_COMPONENT.'/helpers/html/account.php';
 
 // Launch the controller.
 $controller = JControllerLegacy::getInstance('Users');

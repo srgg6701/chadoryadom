@@ -77,8 +77,6 @@ div.box.sheet{
         <div class="header1-wrapper">
             <div class="cleared reset-box"></div>
             <div class="header1-inner">
-    
-    
             </div>
         </div>
     </div>
