@@ -18,66 +18,88 @@ jimport('joomla.application.component.controlleradmin');
 class ApplicationController_chado_app_data extends JControllerAdmin
 {
 	/**
-	* Описание
+	* Сделать аппликанта юзером!
 	* @package
 	* @subpackage
 	*/
 	function activate(){
 		
-		$pks=JRequest::getVar('cid'); // массив id id юзеров
-	  	$model=$this->getModel('Item'); // будем получать данные аппликантов
-		$errors=0;
-		if(!$table = JTable::getInstance('Users', 'ApplicationTable'))
-			JError::raiseWarning(100, JText::_('Не получена таблица пользователей...'));
-		// 
-		$registerDate=date("Y-m-d H:i:s");
-		foreach ($pks as $i => $pk)
-		{	if (!$applicant_data=$model->getItem($pk)) {
-				JError::raiseWarning(100, JText::_('Не получены данные заявки...'));
-				die("LINE: ".__LINE__);
-			}
-			else{
-				$table->reset();
-				$password=$this->generate_password(10);
-				$xtra_data=serialize( array(
-										'family'=>$applicant_data->family,
-										'middle_name'=>$applicant_data->middle_name,
-										'child_name'=>$applicant_data->child_name,
-										'kindergarten'=>$applicant_data->kindergarten,
-										'group'=>$applicant_data->group,
-										'mobila'=>$applicant_data->mobila,
-										'password'=>$password
-									));
-				$data=array(
-						'id' => '0', // А без этого добавит ТОЛЬКО ОДНУ запись!!!
-						'name' => $applicant_data->name,
-						'username' => $applicant_data->email,
-						'email' => $applicant_data->email,
-						'password' => md5($password), 
-						'registerDate' =>$registerDate,
-						'groups'=>array('2'),
-						'data'=>$xtra_data
-					);
-			}
-			foreach ($data as $field=>$value)
-				$table->set($field,$value);
-			// Check that the data is valid
-			if ($table->check())
-			{
-				// Store the data in the table
-				if (!$table->store(true))
-				{	JError::raiseWarning(100, JText::_('Не удалось сохранить данные для id '.$pk.'...'));
-					$errors++;
+		$old=false;
+		if (!$old){ 
+			//********************************************
+			/* 	It has been got from here:
+					http://stackoverflow.com/a/4212791/1522479
+				...and slightly modified by source from here:
+					http://stackoverflow.com/a/10173680/1522479
+				...for an original source is deprecated for 2.5 version.
+			*/
+			// get the com_user params */			
+			jimport('joomla.application.component.helper'); // include libraries/application/component/helper.php
+			$usersParams = JComponentHelper::getParams( 'com_users' ); // load the Params
+			//********************************************
+			// собственный код:
+			$pks=JRequest::getVar('cid'); // массив id id юзеров
+			$model=$this->getModel('Item'); // будем получать данные аппликантов
+			// перебрать и зарегистрировать полученных аппликантов:
+			foreach ($pks as $i => $pk) {	
+				
+				if (!$applicant_data=$model->getItem($pk)) {
+					JError::raiseWarning(100, JText::_('Не получены данные заявки...'));
+					die("LINE: ".__LINE__);
+				}else{
+					
+					//********************************************
+					// http://stackoverflow.com/a/4212791/1522479
+					// "generate" a new JUser Object
+					// it's important to set the "0" otherwise your admin user information will be loaded
+					$user = JFactory::getUser(0);
+					// get the default usertype
+					$usertype = $usersParams->get( 'new_usertype' );
+					if (!$usertype) {
+						 $usertype = 'Registered';
+					}
+					// set up the "main" user information
+					//original logic of name creation
+					//$data['name'] = $firstname.' '.$lastname; // add first- and lastname
+					//default to defaultUserGroup i.e.,Registered:
+					$defaultUserGroup = $usersParams->get('new_usertype', 2);
+					$password=$this->generate_password(10);
+					$xtra_data=serialize( array(
+											'family'=>$applicant_data->family,
+											'middle_name'=>$applicant_data->middle_name,
+											'child_name'=>$applicant_data->child_name,
+											'kindergarten'=>$applicant_data->kindergarten,
+											'group'=>$applicant_data->group,
+											'mobila'=>$applicant_data->mobila,
+											'password'=>$password
+										));
+					$data=array(
+							'id' => '0', // А без этого добавит ТОЛЬКО ОДНУ запись!!!
+							'name' => $applicant_data->name,
+							'username' => $applicant_data->email,
+							'email' => $applicant_data->email,
+							'password' => $password, 
+							'password2' => $password, 
+							'groups'=>array($defaultUserGroup),
+							'sendEmail' => 1, // should the user receive system mails?
+							'block'=> 0,
+							'data'=>$xtra_data
+						);
 				}
-			}else die("Данные не валидны...");
+				if (!$user->bind($data)) { // now bind the data to the JUser Object, if it not works....
+					JError::raiseWarning('', JText::_( $user->getError())); // ...raise an Warning
+					return false;
+				}
+				if (!$user->save()) {
+					JError::raiseWarning('', JText::_( $user->getError())); // ...raise an Warning
+					return false; 
+					//********************************************
+				}else // удалим аппликанта, т.к. теперь он - юзер!
+					$this->getModel('Chado_app_data')->delete($pks);
+			}								
 		}
-		if($errors) {
-				JError::raiseWarning(100, JText::_('Не удалось добавить пользователя'));
-				$errors++;
-		}else{
-			$this->getModel('Chado_app_data')->delete($pks);
-			$this->setRedirect(JRoute::_('index.php?option=com_users',false));
-		}
+		// отправляемся на страницу с текущим списком юзеров:
+		$this->setRedirect(JRoute::_('index.php?option=com_users',false));
 	}
 	/**
 	 * Proxy for getModel.

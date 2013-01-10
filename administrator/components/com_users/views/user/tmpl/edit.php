@@ -40,6 +40,8 @@ $fieldsets = $this->form->getFieldsets();
 			</ul>
 		</fieldset>
 		<!--	xtra data - APPLICATION	-->
+        <!--	только если уже зарегистрирован! -->
+      	<? 	if ($this->item->id):?>
         <fieldset class="adminform">
 <?	require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helpers'.DS.'chado_app_data.php';?>        
 			<legend><?php echo JText::_('Параметры заявки'); //COM_USERS_USER_ACCOUNT_DETAILS ?></legend>
@@ -61,6 +63,8 @@ $fieldsets = $this->form->getFieldsets();
 			</ul>
 <input name="jform[xtra]" id="jform_xtra" type="hidden" value="<?=implode(",",$xtra_fields_for_controller)?>">
 		</fieldset>
+		<!--	/xtra data - APPLICATION	-->
+        <?	endif;?>
 		<?php if ($this->grouplist) :?>
 		<fieldset id="user-groups" class="adminform">
 			<legend><?php echo JText::_('COM_USERS_ASSIGNED_GROUPS'); ?></legend>

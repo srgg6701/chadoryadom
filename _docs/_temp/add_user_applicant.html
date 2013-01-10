@@ -1,0 +1,439 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru-ru" lang="ru-ru" dir="ltr" >
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="generator" content="Joomla! - Open Source Content Management" />
+  <title>Чадо рядом - Панель управления</title>
+  <link href="/~chadoryadom/administrator/templates/bluestork/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+  <link rel="stylesheet" href="../../administrator/components/com_application/assets/css/application.css" type="text/css" />
+  <link rel="stylesheet" href="../../administrator/templates/system/css/system.css" type="text/css" />
+  <link rel="stylesheet" href="../../administrator/templates/bluestork/css/template.css" type="text/css" />
+  <link rel="stylesheet" href="../../administrator/language/ru-RU/ru-RU.css" type="text/css" />
+  <style type="text/css">
+
+.icon-16-kunena-logo-white {
+	background: url(../../administrator/components/com_kunena/media/icons/favicons/kunena-logo-white.png) no-repeat;
+}
+
+.icon-16-kunena-config {
+	background: url(../../administrator/components/com_kunena/media/icons/favicons/kunena-config.png) no-repeat;
+}
+
+.icon-16-kunena-categories {
+	background: url(../../administrator/components/com_kunena/media/icons/favicons/kunena-categories.png) no-repeat;
+}
+
+.icon-16-kunena-users {
+	background: url(../../administrator/components/com_kunena/media/icons/favicons/kunena-users.png) no-repeat;
+}
+
+.icon-16-kunena-templates {
+	background: url(../../administrator/components/com_kunena/media/icons/favicons/kunena-templates.png) no-repeat;
+}
+
+.icon-16-kunena-smileys {
+	background: url(../../administrator/components/com_kunena/media/icons/favicons/kunena-smileys.png) no-repeat;
+}
+
+.icon-16-kunena-ranks {
+	background: url(../../administrator/components/com_kunena/media/icons/favicons/kunena-ranks.png) no-repeat;
+}
+
+.icon-16-kunena-trash {
+	background: url(../../administrator/components/com_kunena/media/icons/favicons/kunena-trash.png) no-repeat;
+}
+
+  </style>
+  <script src="/~chadoryadom/media/system/js/mootools-core.js" type="text/javascript"></script>
+  <script src="/~chadoryadom/media/system/js/core.js" type="text/javascript"></script>
+  <script src="/~chadoryadom/media/system/js/mootools-more.js" type="text/javascript"></script>
+  <script src="/~chadoryadom/media/system/js/multiselect.js" type="text/javascript"></script>
+  <script type="text/javascript">
+window.addEvent('domready', function() {
+			$$('.hasTip').each(function(el) {
+				var title = el.get('title');
+				if (title) {
+					var parts = title.split('::', 2);
+					el.store('tip:title', parts[0]);
+					el.store('tip:text', parts[1]);
+				}
+			});
+			var JTooltips = new Tips($$('.hasTip'), { maxTitleChars: 50, fixed: false});
+		});
+  </script>
+
+
+<!--[if IE 7]>
+<link href="templates/bluestork/css/ie7.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+
+<!--[if gte IE 8]>
+<link href="templates/bluestork/css/ie8.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>  
+</head>
+<body id="minwidth-body">
+	<div id="border-top" class="h_blue">
+		<span class="logo"><a href="http://www.joomla.org" target="_blank"><img src="../../administrator/templates/bluestork/images/logo.png" alt="Joomla!" /></a></span>
+		<span class="title"><a href="../../administrator/index.php">Панель управления</a></span>
+	</div>
+	<div id="header-box">
+		<div id="module-menu">
+			<ul id="menu" >
+<li class="node"><a href="#">Сайт</a><ul>
+<li><a class="icon-16-cpanel" href="../../administrator/index.php">Панель управления</a></li>
+<li class="separator"><span></span></li>
+<li><a class="icon-16-profile" href="../../administrator/index.php?option=com_admin&amp;task=profile.edit&amp;id=42">Мой профиль</a></li>
+<li class="separator"><span></span></li>
+<li><a class="icon-16-config" href="../../administrator/index.php?option=com_config">Общие настройки</a></li>
+<li class="separator"><span></span></li>
+<li class="node"><a class="icon-16-maintenance" href="../../administrator/index.php?option=com_checkin">Обслуживание</a><ul id="menu-com-checkin" class="menu-component">
+<li><a class="icon-16-checkin" href="../../administrator/index.php?option=com_checkin">Снять блокировки</a></li>
+<li class="separator"><span></span></li>
+<li><a class="icon-16-clear" href="../../administrator/index.php?option=com_cache">Очистить весь кэш</a></li>
+<li><a class="icon-16-purge" href="../../administrator/index.php?option=com_cache&amp;view=purge">Очистить устаревший кэш</a></li>
+</ul>
+</li>
+<li class="separator"><span></span></li>
+<li><a class="icon-16-info" href="../../administrator/index.php?option=com_admin&amp;view=sysinfo">Информация о системе</a></li>
+<li class="separator"><span></span></li>
+<li><a class="icon-16-logout" href="/~chadoryadom/administrator/index.php?option=com_login&amp;task=logout&amp;feb06e2c7b3bba3ac9bbb1ff126e49ab=1">Выйти</a></li>
+</ul>
+</li>
+<li class="node"><a href="#">Пользователи</a><ul>
+<li class="node"><a class="icon-16-user" href="../../administrator/index.php?option=com_users&amp;view=users">Менеджер пользователей</a><ul id="menu-com-users-users" class="menu-component">
+<li><a class="icon-16-newarticle" href="../../administrator/index.php?option=com_users&amp;task=user.add">Создать пользователя</a></li>
+</ul>
+</li>
+<li class="node"><a class="icon-16-groups" href="../../administrator/index.php?option=com_users&amp;view=groups">Группы</a><ul id="menu-com-users-groups" class="menu-component">
+<li><a class="icon-16-newarticle" href="../../administrator/index.php?option=com_users&amp;task=group.add">Создать группу</a></li>
+</ul>
+</li>
+<li class="node"><a class="icon-16-levels" href="../../administrator/index.php?option=com_users&amp;view=levels">Уровни доступа</a><ul id="menu-com-users-levels" class="menu-component">
+<li><a class="icon-16-newarticle" href="../../administrator/index.php?option=com_users&amp;task=level.add">Создать уровень доступа</a></li>
+</ul>
+</li>
+<li class="separator"><span></span></li>
+<li class="node"><a class="icon-16-user-note" href="../../administrator/index.php?option=com_users&amp;view=notes">Заметки о пользователях</a><ul id="menu-com-users-notes" class="menu-component">
+<li><a class="icon-16-newarticle" href="../../administrator/index.php?option=com_users&amp;task=note.add">Создать заметку о пользователе</a></li>
+</ul>
+</li>
+<li class="node"><a class="icon-16-category" href="../../administrator/index.php?option=com_categories&amp;view=categories&amp;extension=com_users">Категории заметок</a><ul id="menu-com-categories-categories-com-users" class="menu-component">
+<li><a class="icon-16-newarticle" href="../../administrator/index.php?option=com_categories&amp;task=category.add&amp;extension=com_users">Создать категорию</a></li>
+</ul>
+</li>
+<li class="separator"><span></span></li>
+<li><a class="icon-16-massmail" href="../../administrator/index.php?option=com_users&amp;view=mail">Массовая рассылка сообщений</a></li>
+</ul>
+</li>
+<li class="node"><a href="#">Меню</a><ul>
+<li class="node"><a class="icon-16-menumgr" href="../../administrator/index.php?option=com_menus&amp;view=menus">Менеджер меню</a><ul id="menu-com-menus-menus" class="menu-component">
+<li><a class="icon-16-newarticle" href="../../administrator/index.php?option=com_menus&amp;view=menu&amp;layout=edit">Создать меню</a></li>
+</ul>
+</li>
+<li class="separator"><span></span></li>
+<li class="node"><a class="icon-16-menu" href="../../administrator/index.php?option=com_menus&amp;view=items&amp;menutype=mainmenu">Main Menu <span><img src="/~chadoryadom/administrator/templates/bluestork/images/menu/icon-16-default.png" alt="*" title="Главная" /></span></a><ul id="menu-com-menus-items-mainmenu" class="menu-component">
+<li><a class="icon-16-newarticle" href="../../administrator/index.php?option=com_menus&amp;view=item&amp;layout=edit&amp;menutype=mainmenu">Создать пункт меню</a></li>
+</ul>
+</li>
+<li class="node"><a class="icon-16-menu" href="../../administrator/index.php?option=com_menus&amp;view=items&amp;menutype=kunenamenu">Kunena меню</a><ul id="menu-com-menus-items-kunenamenu" class="menu-component">
+<li><a class="icon-16-newarticle" href="../../administrator/index.php?option=com_menus&amp;view=item&amp;layout=edit&amp;menutype=kunenamenu">Создать пункт меню</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="node"><a href="#">Материалы</a><ul>
+<li class="node"><a class="icon-16-article" href="../../administrator/index.php?option=com_content">Менеджер материалов</a><ul id="menu-com-content" class="menu-component">
+<li><a class="icon-16-newarticle" href="../../administrator/index.php?option=com_content&amp;task=article.add">Создать материал</a></li>
+</ul>
+</li>
+<li class="node"><a class="icon-16-category" href="../../administrator/index.php?option=com_categories&amp;extension=com_content">Менеджер категорий</a><ul id="menu-com-categories-com-content" class="menu-component">
+<li><a class="icon-16-newarticle" href="../../administrator/index.php?option=com_categories&amp;task=category.add&amp;extension=com_content">Создать категорию</a></li>
+</ul>
+</li>
+<li><a class="icon-16-featured" href="../../administrator/index.php?option=com_content&amp;view=featured">Избранные материалы</a></li>
+<li class="separator"><span></span></li>
+<li><a class="icon-16-media" href="../../administrator/index.php?option=com_media">Медиа-менеджер</a></li>
+</ul>
+</li>
+<li class="node"><a href="#">Компоненты</a><ul>
+<li><a class="icon-16-component" href="../../administrator/index.php?option=com_application">customer_apps</a></li>
+<li class="node"><a class="icon-16-kunena-logo-white" href="../../administrator/index.php?option=com_kunena">Kunena форум</a><ul id="menu-com-kunena" class="menu-component">
+<li><a class="icon-16-kunena-config" href="../../administrator/index.php?option=com_kunena&amp;view=config">Конфигурация</a></li>
+<li><a class="icon-16-kunena-categories" href="../../administrator/index.php?option=com_kunena&amp;view=categories">Категории</a></li>
+<li><a class="icon-16-kunena-users" href="../../administrator/index.php?option=com_kunena&amp;view=users">Пользователи</a></li>
+<li><a class="icon-16-kunena-templates" href="../../administrator/index.php?option=com_kunena&amp;view=templates">Шаблоны</a></li>
+<li><a class="icon-16-kunena-smileys" href="../../administrator/index.php?option=com_kunena&amp;view=smilies">Смайлы</a></li>
+<li><a class="icon-16-kunena-ranks" href="../../administrator/index.php?option=com_kunena&amp;view=ranks">Статусы</a></li>
+<li><a class="icon-16-kunena-trash" href="../../administrator/index.php?option=com_kunena&amp;view=trash">Мусор</a></li>
+</ul>
+</li>
+<li class="node"><a class="icon-16-banners" href="../../administrator/index.php?option=com_banners">Баннеры</a><ul id="menu-com-banners" class="menu-component">
+<li><a class="icon-16-banners" href="../../administrator/index.php?option=com_banners">Баннеры</a></li>
+<li><a class="icon-16-banners-cat" href="../../administrator/index.php?option=com_categories&amp;extension=com_banners">Категории</a></li>
+<li><a class="icon-16-banners-clients" href="../../administrator/index.php?option=com_banners&amp;view=clients">Клиенты</a></li>
+<li><a class="icon-16-banners-tracks" href="../../administrator/index.php?option=com_banners&amp;view=tracks">Статистика</a></li>
+</ul>
+</li>
+<li class="node"><a class="icon-16-contact" href="../../administrator/index.php?option=com_contact">Контакты</a><ul id="menu-com-contact" class="menu-component">
+<li><a class="icon-16-contact" href="../../administrator/index.php?option=com_contact">Контакты</a></li>
+<li><a class="icon-16-contact-cat" href="../../administrator/index.php?option=com_categories&amp;extension=com_contact">Категории</a></li>
+</ul>
+</li>
+<li class="node"><a class="icon-16-newsfeeds" href="../../administrator/index.php?option=com_newsfeeds">Ленты новостей</a><ul id="menu-com-newsfeeds" class="menu-component">
+<li><a class="icon-16-newsfeeds" href="../../administrator/index.php?option=com_newsfeeds">Ленты</a></li>
+<li><a class="icon-16-newsfeeds-cat" href="../../administrator/index.php?option=com_categories&amp;extension=com_newsfeeds">Категории</a></li>
+</ul>
+</li>
+<li><a class="icon-16-redirect" href="../../administrator/index.php?option=com_redirect">Перенаправление</a></li>
+<li><a class="icon-16-search" href="../../administrator/index.php?option=com_search">Поиск</a></li>
+<li class="node"><a class="icon-16-messages" href="../../administrator/index.php?option=com_messages">Сообщения</a><ul id="menu-com-messages" class="menu-component">
+<li><a class="icon-16-messages-add" href="../../administrator/index.php?option=com_messages&amp;task=message.add">Создать личное сообщение</a></li>
+<li><a class="icon-16-messages-read" href="../../administrator/index.php?option=com_messages">Читать личные сообщения</a></li>
+</ul>
+</li>
+<li class="node"><a class="icon-16-weblinks" href="../../administrator/index.php?option=com_weblinks">Ссылки</a><ul id="menu-com-weblinks" class="menu-component">
+<li><a class="icon-16-weblinks" href="../../administrator/index.php?option=com_weblinks">Ссылки</a></li>
+<li><a class="icon-16-weblinks-cat" href="../../administrator/index.php?option=com_categories&amp;extension=com_weblinks">Категории</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="node"><a href="#">Расширения</a><ul>
+<li><a class="icon-16-install" href="../../administrator/index.php?option=com_installer">Менеджер расширений</a></li>
+<li class="separator"><span></span></li>
+<li><a class="icon-16-module" href="../../administrator/index.php?option=com_modules">Менеджер модулей</a></li>
+<li><a class="icon-16-plugin" href="../../administrator/index.php?option=com_plugins">Менеджер плагинов</a></li>
+<li><a class="icon-16-themes" href="../../administrator/index.php?option=com_templates">Менеджер шаблонов</a></li>
+<li><a class="icon-16-language" href="../../administrator/index.php?option=com_languages">Менеджер языков</a></li>
+</ul>
+</li>
+<li class="node"><a href="#">Справка</a><ul>
+<li><a class="icon-16-help" href="../../administrator/index.php?option=com_admin&amp;view=help">Справка по Joomla!</a></li>
+<li class="separator"><span></span></li>
+<li><a class="icon-16-help-forum" href="http://forum.joomla.org" target="_blank" >Официальный форум поддержки</a></li>
+<li><a class="icon-16-help-forum" href="http://forum.joomla.org/viewforum.php?f=26" target="_blank" >Официальный русский форум</a></li>
+<li><a class="icon-16-help-docs" href="http://docs.joomla.org" target="_blank" >Wiki-документация</a></li>
+<li class="separator"><span></span></li>
+<li class="node"><a class="icon-16-weblinks" href="#">Полезные ссылки по Joomla</a><ul class="menu-component">
+<li><a class="icon-16-help-jed" href="http://extensions.joomla.org" target="_blank" >Расширения Joomla!</a></li>
+<li><a class="icon-16-help-trans" href="http://community.joomla.org/translations.html" target="_blank" >Локализации Joomla!</a></li>
+<li><a class="icon-16-help-jrd" href="http://resources.joomla.org" target="_blank" >Ресурсы Joomla</a></li>
+<li><a class="icon-16-help-community" href="http://community.joomla.org" target="_blank" >Портал сообщества Joomla!</a></li>
+<li><a class="icon-16-help-security" href="http://developer.joomla.org/security.html" target="_blank" >Центр обеспечения безопасности</a></li>
+<li><a class="icon-16-help-dev" href="http://developer.joomla.org" target="_blank" >Ресурсы для разработчиков</a></li>
+<li><a class="icon-16-help-shop" href="http://shop.joomla.org" target="_blank" >Журнал Joomla!</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+		</div>
+		<div id="module-status">
+			<span class="loggedin-users">На сайте: 0</span><span class="backloggedin-users">В панели: 1</span><span class="no-unread-messages"><a href="/~chadoryadom/administrator/index.php?option=com_messages">0</a></span>
+			<span class="viewsite"><a href="http://localhost/~chadoryadom/" target="_blank">Просмотр сайта</a></span><span class="logout"><a href="/~chadoryadom/administrator/index.php?option=com_login&amp;task=logout&amp;feb06e2c7b3bba3ac9bbb1ff126e49ab=1">Выйти</a></span>		</div>
+		<div class="clr"></div>
+	</div>
+
+	<div id="content-box">
+		<div id="toolbar-box">
+			<div class="m">
+				<div class="toolbar-list" id="toolbar">
+<ul>
+<li class="button" id="toolbar-publish">
+<a href="#" onclick="if (document.adminForm.boxchecked.value==0){alert('Пожалуйста, выберите объект из списка');}else{ Joomla.submitbutton('_chado_app_data.activate')}" class="toolbar">
+<span class="icon-32-publish">
+</span>
+Подтвердить
+</a>
+</li>
+
+<li class="divider">
+</li>
+
+<li class="button" id="toolbar-delete">
+<a href="#" onclick="if (document.adminForm.boxchecked.value==0){alert('Пожалуйста, выберите объект из списка');}else{ Joomla.submitbutton('_chado_app_data.delete')}" class="toolbar">
+<span class="icon-32-delete">
+</span>
+Удалить
+</a>
+</li>
+
+</ul>
+<div class="clr"></div>
+</div>
+					<div class="pagetitle icon-48-_application_orders"><h2>Заявки на подключение к сервису</h2></div>
+			</div>
+		</div>
+				
+				
+<div id="system-message-container">
+</div>
+		<div id="element-box">
+			<div class="m">
+				<form action="/~chadoryadom/administrator/index.php?option=com_application" method="post" name="adminForm" id="adminForm">
+	<fieldset id="filter-bar">
+		<div class="filter-search fltlft">
+			<label class="filter-search-lbl" for="filter_search">Фильтр:</label>
+			<input type="text" name="filter_search" id="filter_search" value="" title="Search" />
+			<button type="submit">Искать</button>
+			<button type="button" onclick="document.id('filter_search').value='';this.form.submit();">Очистить</button>
+		</div>
+		<div class="filter-select fltrt">
+
+              
+
+		</div>
+	</fieldset>
+	<div class="clr"> </div>
+	  <table class="adminlist">
+		<thead>
+			<tr>
+				<th width="1%">
+					<input type="checkbox" name="checkall-toggle" value="" onclick="checkAll(this)" />				</th>
+
+				<th>
+				<a href="#" onclick="Joomla.tableOrdering('a.id','desc','');" title="Нажмите для сортировки по этой колонке">id<img src="/~chadoryadom/media/system/images/sort_asc.png" alt=""  /></a>				</th>
+				<th>
+				<a href="#" onclick="Joomla.tableOrdering('a.family','asc','');" title="Нажмите для сортировки по этой колонке">Фамилия</a>				</th>
+				<th>
+				<a href="#" onclick="Joomla.tableOrdering('a.name','asc','');" title="Нажмите для сортировки по этой колонке">Имя</a>				</th>
+				<th>
+				<a href="#" onclick="Joomla.tableOrdering('a.middle_name','asc','');" title="Нажмите для сортировки по этой колонке">Отчество</a>				</th>
+				<th>
+				<a href="#" onclick="Joomla.tableOrdering('a.child_name','asc','');" title="Нажмите для сортировки по этой колонке">Имя ребёнка</a>				</th>
+				<th>
+				<a href="#" onclick="Joomla.tableOrdering('a.kindergarten','asc','');" title="Нажмите для сортировки по этой колонке">Детский сад</a>				</th>
+				<th>
+				<a href="#" onclick="Joomla.tableOrdering('a.group','asc','');" title="Нажмите для сортировки по этой колонке">Группа</a>				</th>
+                <th>
+				<a href="#" onclick="Joomla.tableOrdering('a.email','asc','');" title="Нажмите для сортировки по этой колонке">E-mail</a>                </th>
+              <th>
+				<a href="#" onclick="Joomla.tableOrdering('a.mobila','asc','');" title="Нажмите для сортировки по этой колонке">Моб. тел.</a>                </th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td colspan="10">
+					<div class="container"><div class="pagination">
+
+<div class="limit">Кол-во строк: <select id="limit" name="limit" class="inputbox" size="1" onchange="Joomla.submitform();">
+	<option value="5">5</option>
+	<option value="10">10</option>
+	<option value="15">15</option>
+	<option value="20" selected="selected">20</option>
+	<option value="25">25</option>
+	<option value="30">30</option>
+	<option value="50">50</option>
+	<option value="100">100</option>
+	<option value="0">Все</option>
+</select>
+</div>
+<div class="limit"></div>
+<input type="hidden" name="limitstart" value="0" />
+</div></div>				</td>
+			</tr>
+		</tfoot>
+        		<tbody>
+					<tr class="row0">
+				<td class="center">
+					<input type="checkbox" id="cb0" name="cid[]" value="22" onclick="Joomla.isChecked(this.checked);" title="Чекбокс для строки 1" />				</td>
+
+				<td>
+					22				</td>
+				<td>
+									<a href="/~chadoryadom/administrator/index.php?option=com_application&amp;task=application.edit&amp;id=22">
+					Бонд44</a>
+								</td>
+				<td>
+					Джеймс				</td>
+				<td>
+					Джонович				</td>
+				<td>
+					Джошуа				</td>
+				<td>
+					19				</td>
+				<td>
+					3				</td>
+				<td>
+					ваывавы				</td>
+				<td>
+					ваыва				</td>
+			</tr>
+				<tr class="row1">
+				<td class="center">
+					<input type="checkbox" id="cb1" name="cid[]" value="24" onclick="Joomla.isChecked(this.checked);" title="Чекбокс для строки 2" />				</td>
+
+				<td>
+					24				</td>
+				<td>
+									<a href="/~chadoryadom/administrator/index.php?option=com_application&amp;task=application.edit&amp;id=24">
+					Канарек</a>
+								</td>
+				<td>
+					Солов				</td>
+				<td>
+					Воробьич				</td>
+				<td>
+					Дрозд				</td>
+				<td>
+					16				</td>
+				<td>
+					3				</td>
+				<td>
+					kanar@ee.com				</td>
+				<td>
+					89045226545				</td>
+			</tr>
+				<tr class="row0">
+				<td class="center">
+					<input type="checkbox" id="cb2" name="cid[]" value="25" onclick="Joomla.isChecked(this.checked);" title="Чекбокс для строки 3" />				</td>
+
+				<td>
+					25				</td>
+				<td>
+									<a href="/~chadoryadom/administrator/index.php?option=com_application&amp;task=application.edit&amp;id=25">
+					Клюшкин</a>
+								</td>
+				<td>
+					Евгений				</td>
+				<td>
+					Викторович				</td>
+				<td>
+					Марфа				</td>
+				<td>
+					112				</td>
+				<td>
+					23				</td>
+				<td>
+					klushka@gmail.com				</td>
+				<td>
+					+79044428447				</td>
+			</tr>
+			</tbody>
+	  </table>
+	  <div>
+		<input type="hidden" name="task" value="" />
+		<input type="hidden" name="boxchecked" value="0" />
+		<input type="hidden" name="filter_order" value="a.id" />
+		<input type="hidden" name="filter_order_Dir" value="asc" />
+		<input type="hidden" name="feb06e2c7b3bba3ac9bbb1ff126e49ab" value="1" />	</div>
+</form>
+				<div class="clr"></div>
+			</div>
+		</div>
+		<noscript>
+			Внимание! JavaScript должен быть разрешен для правильной работы Панели управления.		</noscript>
+	</div>
+
+	
+	<div id="footer">
+		<p class="copyright">
+			<a href="http://www.joomla.org">Joomla!&#174;</a> - бесплатное программное обеспечение, распространяемое по лицензии <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU General Public License</a><br/>Локализация: <a href="http://joomlaportal.ru">Портал Joomla! по-русски</a>. Техническая поддержка: <a href="http://joomlaforum.ru">Форум русской поддержки Joomla! CMS</a><br/>		</p>
+	</div>
+</body>
+</html>
