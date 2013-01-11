@@ -54,7 +54,7 @@ class ApplicationController extends JController
 	function add_payment(){
 		$model=$this->getModel('Chado_payments');
 		if (!$model->add_payment(JRequest::getVar('user_id')))
-			die('Ошибка добавления данных');
+			die('Ошибка добавления данных...');
 		else
 			$this->setRedirect(JRoute::_($this->direct,false));
 	}
@@ -66,7 +66,7 @@ class ApplicationController extends JController
 	function apply_payment(){
 		$model=$this->getModel('Chado_payments');
 		if (!$model->apply_payment(JRequest::getVar('id')))
-			die('Ошибка обновления данных');
+			die('Ошибка обновления данных...');
 		else 
 			$this->setRedirect(JRoute::_($this->direct,false));
 	}	
@@ -78,7 +78,7 @@ class ApplicationController extends JController
 	function delete_payment(){
 		$model=$this->getModel('Chado_payments');
 		if (!$model->delete_payment(JRequest::getVar('id')))
-			die('Ошибка удаления данных');
+			die('Ошибка удаления данных...');
 		else
 			$this->setRedirect(JRoute::_($this->direct,false));
 	}
