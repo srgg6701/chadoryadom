@@ -153,7 +153,7 @@ class ApplicationModelChado_payments extends JModelList
     a.summ,
     a.payment_mode,
     a.identity,
-    if (a.applied<>0,'ok','?') as applied,
+    if (a.applied<>0,'OK','?') as applied,
         us.name, 
         us.data")); 
 		$query->from($db->quoteName('#__chado_payments').' as a, #__users as us');
@@ -214,6 +214,50 @@ class ApplicationModelChado_payments extends JModelList
 			}else 
 				return true;
 		}else die("Формат данных не валиден...");
+	}
+/**
+ * Подтвердить платёж
+ * @package
+ * @subpackage
+ */
+	function apply_payment($id){
+		$table = JTable::getInstance('Chado_payments', 'ApplicationTable');
+		if (!$table->load($id))
+		{
+		  // handle failed load
+		  die($table->getError());
+		}
+		else
+		{
+		  $table->set('applied', 1);
+		  if ($table->check())
+		  {
+			if (!$table->store(true))
+			{
+				// handle failed update
+				die($table->getError());
+			}
+		  }
+		  else
+		  {
+			// handle invalid input
+			die($table->getError());
+		  }
+		}
+		return true;
+	}	
+/**
+ * Удалить платёж
+ * @package
+ * @subpackage
+ */
+	function delete_payment($id){
+		$table = JTable::getInstance('Chado_payments', 'ApplicationTable');
+		// Store the data in the table
+		if (!$table->delete($id))
+			JError::raiseWarning(100, JText::_('Не удалось удалить данные...'));
+		else 
+			return true;
 	}
 /**
  * Получить список клиентов и их данные

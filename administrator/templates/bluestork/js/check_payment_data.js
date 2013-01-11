@@ -21,18 +21,21 @@ $(function(){
 		.click( function(){
 			var trPayment=$(this).parents('tr');
 			if ($(this).parent().attr('class')!="command"){
-				var pId=$(trPayment).children('td').eq(0).text();
+				var pId=$(trPayment).children('td').eq(1).text();
 				if(!confirm('Удалить проводку?'))
 					return false;
 				else{
 					// POST/GET
-					var goUrl="<?=JUri::root()?>index.php?option=com_application&task=delete_payment&id="+pId;
+					var goUrl="index.php?option=com_application&task=delete_payment&id="+pId;
 					//alert(goUrl); return false;
 					
 					var op=false;
-					if (op)
+					if (op){
+						//alert(goUrl);
+						//return false;
 						window.open(goUrl,'ajax');
-					
+						return false;
+					}
 					$.ajax({
 						type: "GET",
 						url: goUrl,
@@ -43,7 +46,37 @@ $(function(){
 							alert('Не удалось удалить проводку...');
 						}
 					 });
-
+				}
+			}
+		});
+	var applySign=$('td a[href="#"] b:contains("?")');
+	$(applySign).mouseover().attr('title','Подтвердить проводку')
+		.click( function(){
+			var trPayment=$(this).parents('tr');
+			if ($(this).parent().attr('class')!="command"){
+				var pId=$(trPayment).children('td').eq(1).text();
+				if(!confirm('Подтвердить проводку?'))
+					return false;
+				else{
+					// POST/GET
+					var goUrl="index.php?option=com_application&task=apply_payment&id="+pId;
+					var op=true;
+					if (op){
+						//alert(goUrl);
+						//return false;
+						window.open(goUrl,'ajax');
+						return false;
+					}
+					$.ajax({
+						type: "GET",
+						url: goUrl,
+						success: function(msg){
+							$(this).parent().html('OK');
+						},
+						error: function(msg){
+							alert('Не удалось подтвердить проводку...');
+						}
+					 });
 				}
 			}
 		});

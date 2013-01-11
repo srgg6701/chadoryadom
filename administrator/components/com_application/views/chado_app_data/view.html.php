@@ -81,7 +81,7 @@ class ApplicationViewChado_app_data extends JView
 	{	
 		$state	= $this->get('State');
 		$canDo	= ApplicationHelper::getActions($state->get('filter.category_id'));
-		
+		$controller='_chado_app_data';
 		switch($layout){
 			case 'userdata':
 				$header="Данные заявителя";
@@ -90,6 +90,7 @@ class ApplicationViewChado_app_data extends JView
 			case 'payments':
 				$header="Платежи";
 				$pic='_application_payments.png';
+				$controller='_chado_payments';
 					break;
 			default:
 				$header="Заявки на подключение к сервису";
@@ -103,10 +104,10 @@ class ApplicationViewChado_app_data extends JView
 		echo "</div>";
 		JToolBarHelper::title(JText::_($header),$pic); 
 		if ($layout!='userdata'):
-			JToolBarHelper::publish('_chado_app_data.activate', 'Подтвердить', true);
+			JToolBarHelper::publish($controller.'.activate', 'Подтвердить', true);
 			JToolBarHelper::divider();
 		endif;
-		JToolBarHelper::deleteList('', '_chado_app_data.delete','JTOOLBAR_DELETE');
+		JToolBarHelper::deleteList('', $controller.'.delete','JTOOLBAR_DELETE');
 
 		if ($canDo->get('core.admin')) {
 			JToolBarHelper::preferences('com_application');

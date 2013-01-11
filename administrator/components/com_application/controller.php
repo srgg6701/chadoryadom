@@ -14,6 +14,7 @@ defined('_JEXEC') or die;
 
 class ApplicationController extends JController
 {
+	private $direct='index.php?option=com_application&layout=payments';
 	/**
 	 * Method to display a view.
 	 *
@@ -46,14 +47,40 @@ class ApplicationController extends JController
 		$this->display();
 	}
 /**
- * Описание
+ * Добавить проводку
  * @package
  * @subpackage
  */
 	function add_payment(){
 		$model=$this->getModel('Chado_payments');
-		if ($model->add_payment(JRequest::getVar('user_id')))
-		$this->setRedirect(JRoute::_('index.php?option=com_application&layout=payments',false));
+		if (!$model->add_payment(JRequest::getVar('user_id')))
+			die('Ошибка добавления данных');
+		else
+			$this->setRedirect(JRoute::_($this->direct,false));
+	}
+/**
+ * Подтвердить платёж!
+ * @package
+ * @subpackage
+ */
+	function apply_payment(){
+		$model=$this->getModel('Chado_payments');
+		if (!$model->apply_payment(JRequest::getVar('id')))
+			die('Ошибка обновления данных');
+		else 
+			$this->setRedirect(JRoute::_($this->direct,false));
+	}	
+/**
+ * Удалить проводку
+ * @package
+ * @subpackage
+ */
+	function delete_payment(){
+		$model=$this->getModel('Chado_payments');
+		if (!$model->delete_payment(JRequest::getVar('id')))
+			die('Ошибка удаления данных');
+		else
+			$this->setRedirect(JRoute::_($this->direct,false));
 	}
 	
 }

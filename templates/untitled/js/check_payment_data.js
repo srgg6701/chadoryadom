@@ -26,7 +26,7 @@ $(function(){
 					return false;
 				else{
 					// POST/GET
-					var goUrl="<?=JUri::root()?>index.php?option=com_application&task=delete_payment&id="+pId;
+					var goUrl="index.php?option=com_application&task=delete_payment&id="+pId;
 					//alert(goUrl); return false;
 					
 					var op=false;

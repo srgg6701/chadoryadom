@@ -74,7 +74,7 @@ $saveOrder	= $listOrder == 'a.ordering';
             <th>
             <?php echo JHtml::_('grid.sort',  'Информация о платеже', /*COM_APPLICATION__CHADO_APP_DATA_KINDERGARTEN*/ 'a.identity', $listDirn, $listOrder); ++$cnt;?>
             </th>
-          <th>
+          <th align="center" class="command">
             <?php echo JHtml::_('grid.sort',  'ОК?', /*COM_APPLICATION__CHADO_APP_DATA_GROUP*/ 'a.applied', $listDirn, $listOrder); ++$cnt;?>
             </th>
             <th align="center" class="command"><img src="templates/bluestork/images/menu/icon-16-delete.png" />
@@ -141,7 +141,7 @@ $saveOrder	= $listOrder == 'a.ordering';
             <td align="center">
                 <?php 
 				$ok=$item->applied;
-				if ($ok=="?"){?><a href="#"><?=$ok?></a><? }
+				if ($ok=="?"){?><a href="#"><b><?=$ok?></b></a><? }
 				else echo $ok; ?>
             </td>
             <td align="center"><img src="templates/bluestork/images/menu/icon-16-delete.png" /></td>
