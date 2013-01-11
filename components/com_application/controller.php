@@ -61,4 +61,46 @@ class ApplicationController extends JControllerLegacy
 				if ($testCall) echo "</blockquote>";
 		}
 	}
+/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	function delete_payment(){
+		JTable::addIncludePath(JPATH_SITE.'/administrator/components/com_application/tables');
+		$table =& JTable::getInstance('chado_payments','ApplicationTable');
+		if(!$table->delete(JRequest::getVar('id')))
+			echo $table->getError();
+		else die('OK');
+	}
+
+/**
+ * Обработать информацию о платеже:
+ * @package
+ * @subpackage
+ */
+	function send_payment(){
+		JTable::addIncludePath(JPATH_SITE.'/administrator/components/com_application/tables');
+		$tbl_name='chado_payments';
+		$table =& JTable::getInstance($tbl_name,'ApplicationTable');
+		$arrFields=array('user_id','date_time','summ','payment_mode','identity');
+		$user = JFactory::getUser();
+		foreach($arrFields as $i=>$field){
+			$data=($field=='date_time')? JRequest::getVar('date')." ".JRequest::getVar('time'):JRequest::getVar($field);
+			if ($field=='user_id')
+				$data=$user->get('id');			
+			$table->set($field,$data);
+		}
+		// Check that the data is valid
+		if ($table->check())
+		{
+			// Store the data in the table
+			if (!$table->store(true))
+			{	JError::raiseWarning(100, JText::_('Не удалось сохранить данные...'));
+			}else
+				$this->setRedirect(JRoute::_('index.php?option=com_users&view=login&layout=account',false));
+
+		}else die("Формат данных не валиден...");
+	}
+	
 }

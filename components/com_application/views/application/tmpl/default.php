@@ -3,10 +3,8 @@ defined('_JEXEC') or die('Restricted access');
 if(JRequest::getVar('stat')=='applicated')
 	require_once dirname(__FILE__).'/applicated.php';
 else{
-	$app =& JFactory::getApplication();
-	$template = $app->getTemplate();?><link href="<?php echo $this->baseurl ?>/templates/<?php echo $template ?>/css/application_form.css" rel="stylesheet" type="text/css"><?php
 
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helpers'.DS.'chado_app_data.php';
+	require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helpers'.DS.'chado_app_data.php';
 
 	if ($this->params->get('show_page_heading')) : 
 	?><h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>

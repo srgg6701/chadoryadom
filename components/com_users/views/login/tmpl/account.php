@@ -31,4 +31,6 @@ defined('_JEXEC') or die;
 	<?php if (($this->params->get('logoutdescription_show') == 1 && str_replace(' ', '', $this->params->get('logout_description')) != '')|| $this->params->get('logout_image') != '') : ?>
 	</div>
 	<?php endif ; ?>
+    <h4>История платежей</h4>
+    <? userAccount::buildPaymentTable();?>
 </div>

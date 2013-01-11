@@ -26,9 +26,10 @@ $view->componentWrapper();
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $document->language; ?>" lang="<?php echo $document->language; ?>" dir="ltr">
 <head>
  <jdoc:include type="head" />
- <link rel="stylesheet" href="<?php echo $document->baseurl; ?>/templates/system/css/system.css" type="text/css" />
- <link rel="stylesheet" href="<?php echo $document->baseurl; ?>/templates/system/css/general.css" type="text/css" />
- <link rel="stylesheet" type="text/css" href="<?php echo $templateUrl; ?>/css/template.css" media="screen" />
+ <link rel="stylesheet" href="<?=$templateUrl?>/css/system.css" type="text/css" />
+ <link rel="stylesheet" href="<?=$templateUrl?>/css/general.css" type="text/css" />
+ <link rel="stylesheet" href="<?=$templateUrl?>/css/template.css" media="screen" type="text/css" />
+ <link href="<?=$templateUrl?>/css/application.css" rel="stylesheet" type="text/css">
  <!--[if IE 6]><link rel="stylesheet" href="<?php echo $templateUrl; ?>/css/template.ie6.css" type="text/css" media="screen" /><![endif]-->
  <!--[if IE 7]><link rel="stylesheet" href="<?php echo $templateUrl; ?>/css/template.ie7.css" type="text/css" media="screen" /><![endif]-->
  <script type="text/javascript">if ('undefined' != typeof jQuery) document._artxJQueryBackup = jQuery;</script>
@@ -164,6 +165,7 @@ div.box.sheet{
                 </div>
             </div>
         </div>
+        &nbsp;
         <div class="cleared"></div>
 
     <?php echo $view->position('banner6', 'nostyle'); ?>

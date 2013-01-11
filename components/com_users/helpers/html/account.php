@@ -39,7 +39,13 @@ class userAccount
 </div>
 <!--<div>Меню личного кабинета</div>-->		
 <div class="account menu">
-    	<div<? userAccount::selCurrentLink('profile');?>><a href="<?=JRoute::_($link_base.'profile')?>">Профиль</a></div>
+    	<div<? 
+		if ( JRequest::getVar('view')=='profile'
+		     && JRequest::getVar('layout')=='edit'
+		   ){?> class="menuActiveEdit"<? 
+		}else
+			userAccount::selCurrentLink('profile');
+		?>><a href="<?=JRoute::_($link_base.'profile')?>">Профиль</a></div>
         <div<? userAccount::selCurrentLink('login','account');?>><a href="<?=$link_base.'login&layout=account'?>">Счёт</a></div>
         <div<? userAccount::selCurrentLink('login');?>><a href="<?=$link_base.'login'?>">Сервис</a></div>
 </div>
@@ -56,4 +62,120 @@ class userAccount
 			 && ( (!$layout&&!$tLayout) || $tLayout==$layout ) // account
 		   ) echo ' class="menuActive"';
 	}
+/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	static public function buildPaymentTable(){
+		JTable::addIncludePath(JPATH_SITE.'/administrator/components/com_application/tables');
+		$tbl_name='chado_payments';
+		$table =& JTable::getInstance($tbl_name,'ApplicationTable');
+		$arrFields=array('id'=>'#','date_time'=>'Дата/время','summ'=>'Сумма','payment_mode'=>'Способ','identity'=>'Информация о платеже','applied'=>'Подтверждение');
+		$fields=implode(",",array_keys($arrFields));
+		$user = JFactory::getUser();
+		$query="SELECT ".$fields." FROM #__".$tbl_name." WHERE user_id = ".$user->get('id')." ORDER BY date_time DESC";
+		$db=JFactory::getDBO();
+		$db->setQuery($query);
+		$rows=$db->loadAssocList();?>
+<table class="tblUserData" cellspacing="0">
+        	<tr	bgcolor="#B0EE62">
+	<?	foreach($arrFields as $key=>$header):?>
+    			<th><?=$header?></th>
+	<?	endforeach;?>
+        		<td><img src="administrator/templates/bluestork/images/menu/icon-16-delete.png" width="16" height="16" /></td>
+    		</tr>
+    
+	<?	foreach($rows as $key=>$data):?>
+    		<tr>
+		<?	foreach($data as $key=>$content):
+				if ($key=='date_time'){
+					$dttime=$content[8].$content[9].".".$content[5].$content[6].".".$content=$content[0].$content[1].$content[2].$content[3];
+					if ($dttime=='00.00.0000')
+						$dttime="<span style='color:red' title='Вы указали время платежа, не соответствующее требуемому формату (ЧЧ:ММ)'>".$dttime."</span>";
+					$content="<div title=\"Время платежа: ".substr($content,11,5)."\">".$dttime."</div>";
+				}?>
+				<td><?=$content?></td>
+        <?	endforeach;?>
+        		<td><img src="administrator/templates/bluestork/images/menu/icon-16-delete.png" /></td>
+            </tr>
+	<?	endforeach;?>
+        </table>
+<form action="<?php echo JRoute::_('index.php?option=com_application'); ?>" method="post" name="paymentForm" id="<?="payment-form"?>" class="form-validate" enctype="multipart/form-data">
+
+  <span class="req"></span>Дата: <? 
+		echo JHTML::_('calendar', $value = '', $name='date', $id='date', $format = '%Y-%m-%d', $attribs = array('required'=>'','placeholder'=>'ГГГГ-ММ-ДД'));?>
+  &nbsp;
+  Время (желательно): 
+  <input id="time" name="time" type="text" placeholder="ЧЧ:ММ"> 
+  <br><span class="req"></span>Сумма: <input id="summ" name="summ" type="text" size="2" required> .руб
+  &nbsp; 
+  <span class="req"></span>Способ платежа: <input id="payment_mode" name="payment_mode" type="text" size="38" placeholder="Банк. перевод, эл. деньги и т.п." required>
+  <br><span class="req"></span>Информация о платеже (нужна для его идентификации):
+<textarea name="identity" id="identity" rows="5" placeholder="Отправитель платежа, название платёжной системы и т.п. сведения, позволяющие идентифицировать вас как плательщика..." required></textarea>
+  <button type="submit" class="button">Сообщить!</button>
+  &nbsp; &nbsp;  
+  <a href="javascript:void()" id="cancel_payment">не сообщать...</a>
+  <br>
+  <input type="hidden" name="task" value="send_payment" />
+</form>
+<script>
+$(function(){ 
+	$('input#time').blur( function(){
+			var tVal=$(this).val();
+			if (tVal!=''){
+				var re = /[^\w:]/g; 
+				if(re.test(tVal)){
+					alert('Вы ввели недопустимые символы в поле для указания времени платежа. Допустимый формат: ЧЧ:ММ');
+					return false; 
+				}
+			}
+		});
+	$('a#send_payment').click( function(){
+			$('form#payment-form').fadeToggle(200);
+		});
+	$('a#cancel_payment').click( function(){
+			$('form#payment-form').fadeOut(200);
+		});
+	var delImg=$('img[src$="delete.png"]');
+	$(delImg).mouseover().attr('title','Удалить проводку')
+		.click( function(){
+				var trPayment=$(this).parents('tr');
+				var pId=$(trPayment).children('td').eq(0).text();
+				if(!confirm('Удалить проводку?'))
+					return false;
+				else{
+					// POST/GET
+					var goUrl="<?=JUri::root()?>index.php?option=com_application&task=delete_payment&id="+pId;
+					//alert(goUrl); return false;
+					<? 	$t=false;
+						if ($t){?>
+					window.open(goUrl,'ajax');
+					<?	}?>
+					$.ajax({
+						type: "GET",
+						url: goUrl,
+						success: function(msg){
+							$(trPayment).fadeOut(300);
+						},
+						error: function(msg){
+							alert('Не удалось удалить проводку...');
+						}
+					 });
+
+				}
+			});
+	/*$('form#payment-form').submit( function(){
+			alert('go check!');
+			return false;
+		});*/
+});
+</script>
+        <div class="content_holder">
+    <?	if (!$rows):?>
+    	Платежей нет...&nbsp; | &nbsp; 
+    <?	endif;?>
+    	<a href="javascript:void()" id="send_payment"><b>Сообщить о платеже</b></a></div>
+	<?	return true; 
+	}	
 }

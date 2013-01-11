@@ -1,0 +1,74 @@
+@charset "utf-8";
+/* CSS Document */
+div.account.menu 
+	> div{
+	display:inline-block;
+	margin:3px 0 8px 0;
+	padding:10px 14px;
+}
+form#app-form{ 
+	margin:20px 0px !important;
+}
+form#app-form
+	input[type="text"]{
+	margin:6px;
+	width:200px;
+}
+form#app-form
+	span:not([class]){
+	display:inline-block;
+	text-align:right;
+	width:200px;
+}
+.calendar{ 
+	vertical-align:middle;
+}
+div.content_holder{
+	padding:8px;
+}
+input[type="text"], textarea{
+	margin-bottom:8px;
+	padding:2px 4px;
+}
+textarea{
+	margin-top:4px;
+	margin-left:-1px;
+	width:90%;
+}
+div.menuActive{
+	background:#9F0;
+	background: url('../images/nav.png') 50% 50% no-repeat;
+	border-radius:9px;
+}
+div.menuActiveEdit{
+	border:solid 2px #1CAA1C;
+	border-radius:9px;
+	padding:8px 12px !important; /* edit profile */
+}
+div.menuActive
+	a{
+	color:#FFF !important;
+}
+form#payment-form{
+	background:#FFFF99; 
+	border-radius:9px;
+	display:none; 
+	padding:14px !important; 
+	margin-bottom:10px !important;
+}
+div.postcontent{
+	padding-top:16px;
+}
+div.postcontent h1{
+	margin-top:-7px;
+}
+table.tblUserData{
+	border:solid 1px #006600;
+	margin:8px 0;
+}
+table.tblUserData
+	td,
+table.tblUserData
+	th{
+	padding:4px;
+}

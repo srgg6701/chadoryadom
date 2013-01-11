@@ -2748,3 +2748,8 @@ background-image: none;
 color: #000000;
 font-size: 12px;
 }
+
+span.req:after{
+	content:'*';
+	color:red;
+}
