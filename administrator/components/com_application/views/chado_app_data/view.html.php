@@ -1,4 +1,4 @@
-<?php
+<?php		
 /**
  * @version     2.1.0
  * @package     com_application
@@ -22,6 +22,7 @@ class ApplicationViewChado_app_data extends JView
 	protected $state;
 	public $userdata;
 	public $fields;
+	public $clientsArray;
 	/**
 	 * Display the view
 	 */
@@ -42,10 +43,35 @@ class ApplicationViewChado_app_data extends JView
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
+		
+		if ($this->_layout=='payments')
+			$this->setClientsData();
+			
 		$this->addToolbar($this->_layout);
 		parent::display($tpl);
 	}
-
+/**
+ * Получить список клиентов и их данные
+ * @package
+ * @subpackage
+ */
+	function setClientsData(){
+		$model=$this->getModel('Chado_payments');
+		$clients=$model->getClients();
+		$users=array();
+		foreach($clients as $i=>$array):
+			$data=unserialize($array['data']);
+			$users[$array['id']]=array(
+						'name'=>$array['name'],
+						'middle_name'=>$data['middle_name'],
+						'child_name'=>$data['child_name'],
+						'kindergarten'=>$data['kindergarten'],
+						'email'=>$array['email'],
+						'mobila'=>$data['mobila'],
+					);
+		endforeach;
+		$this->clientsArray=$users;
+	}
 	/**
 	 * Add the page title and toolbar.
 	 *
@@ -61,11 +87,20 @@ class ApplicationViewChado_app_data extends JView
 				$header="Данные заявителя";
 				$pic='_application_userdata.png';
 					break;
+			case 'payments':
+				$header="Платежи";
+				$pic='_application_payments.png';
+					break;
 			default:
 				$header="Заявки на подключение к сервису";
 				$pic='_application_orders.png';
 		}
-		
+		$defLink='index.php?option=com_application';
+		echo "<div class=\"secondSubmenu\" align='right'>";
+		echo "	<a href=\"".JRoute::_($defLink)."\">Заявки на подключение</a>";
+		echo " 	&nbsp; | &nbsp; ";
+		echo "	<a href=\"".JRoute::_($defLink.'&layout=payments')."\">Платежи</a>";
+		echo "</div>";
 		JToolBarHelper::title(JText::_($header),$pic); 
 		if ($layout!='userdata'):
 			JToolBarHelper::publish('_chado_app_data.activate', 'Подтвердить', true);

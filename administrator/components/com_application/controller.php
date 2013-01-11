@@ -24,15 +24,14 @@ class ApplicationController extends JController
 	 * @since	1.5
 	 */
 	public function display($cachable = false, $urlparams = false)
-	{
-		$default_name='chado_app_data';
-		$layout=JRequest::getVar('layout');
-		$view=$this->getView($default_name, 'html' ); 
-		$model=$this->getModel($default_name); 
+	{	
+		$model_name='chado_';
+		$model_name.=($layout=JRequest::getVar('layout'))? $layout:'app_data';
+		$view=$this->getView('chado_app_data', 'html' ); 
+		$model=$this->getModel($model_name); 
 		$view->setModel($model,true);
 		$view->setLayout( $layout ); 
 		// Use the View display method 
-		//echo "<div class=''>layout= ".$layout."</div>";die();
 		$view->display(); 
 	}
 	/**
@@ -46,4 +45,15 @@ class ApplicationController extends JController
 		$model->getItem($pk);
 		$this->display();
 	}
+/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	function add_payment(){
+		$model=$this->getModel('Chado_payments');
+		if ($model->add_payment(JRequest::getVar('user_id')))
+		$this->setRedirect(JRoute::_('index.php?option=com_application&layout=payments',false));
+	}
+	
 }

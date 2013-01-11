@@ -19,7 +19,8 @@ defined('_JEXEC') or die;
 if (!$app) 
 	$app =& JFactory::getApplication();
 $template = $app->getTemplate();
-$link=JUri::base().'templates/'.$template.'/css/application_form.css';
+$gotmpl=JUri::base().'templates/'.$template;
+$link=$gotmpl.'/css/application_form.css';
 //die("link=".$link);
 ?><link href="<?=$link?>" rel="stylesheet" type="text/css"><?	
 class userAccount
@@ -83,20 +84,26 @@ class userAccount
 	<?	foreach($arrFields as $key=>$header):?>
     			<th><?=$header?></th>
 	<?	endforeach;?>
-        		<td><img src="administrator/templates/bluestork/images/menu/icon-16-delete.png" width="16" height="16" /></td>
+        		<th class="command"><img src="administrator/templates/bluestork/images/menu/icon-16-delete.png" width="16" height="16" /></th>
     		</tr>
     
 	<?	foreach($rows as $key=>$data):?>
     		<tr>
-		<?	foreach($data as $key=>$content):
+		<?	$i=0;
+			foreach($data as $key=>$content):
 				if ($key=='date_time'){
 					$dttime=$content[8].$content[9].".".$content[5].$content[6].".".$content=$content[0].$content[1].$content[2].$content[3];
 					if ($dttime=='00.00.0000')
 						$dttime="<span style='color:red' title='Вы указали время платежа, не соответствующее требуемому формату (ЧЧ:ММ)'>".$dttime."</span>";
 					$content="<div title=\"Время платежа: ".substr($content,11,5)."\">".$dttime."</div>";
-				}?>
-				<td><?=$content?></td>
-        <?	endforeach;?>
+				}
+				if ($key=='applied') 
+					$content=($content=='0')? 'нет...':'ОК';?>
+				<td<? 
+				if(!$i||$i==2){?> align="right"<? }
+				elseif ($i==5) echo ' align="center"';?>><?=$content?></td>
+        <?		$i++;
+			endforeach;?>
         		<td><img src="administrator/templates/bluestork/images/menu/icon-16-delete.png" /></td>
             </tr>
 	<?	endforeach;?>
@@ -119,63 +126,15 @@ class userAccount
   <br>
   <input type="hidden" name="task" value="send_payment" />
 </form>
-<script>
-$(function(){ 
-	$('input#time').blur( function(){
-			var tVal=$(this).val();
-			if (tVal!=''){
-				var re = /[^\w:]/g; 
-				if(re.test(tVal)){
-					alert('Вы ввели недопустимые символы в поле для указания времени платежа. Допустимый формат: ЧЧ:ММ');
-					return false; 
-				}
-			}
-		});
-	$('a#send_payment').click( function(){
-			$('form#payment-form').fadeToggle(200);
-		});
-	$('a#cancel_payment').click( function(){
-			$('form#payment-form').fadeOut(200);
-		});
-	var delImg=$('img[src$="delete.png"]');
-	$(delImg).mouseover().attr('title','Удалить проводку')
-		.click( function(){
-				var trPayment=$(this).parents('tr');
-				var pId=$(trPayment).children('td').eq(0).text();
-				if(!confirm('Удалить проводку?'))
-					return false;
-				else{
-					// POST/GET
-					var goUrl="<?=JUri::root()?>index.php?option=com_application&task=delete_payment&id="+pId;
-					//alert(goUrl); return false;
-					<? 	$t=false;
-						if ($t){?>
-					window.open(goUrl,'ajax');
-					<?	}?>
-					$.ajax({
-						type: "GET",
-						url: goUrl,
-						success: function(msg){
-							$(trPayment).fadeOut(300);
-						},
-						error: function(msg){
-							alert('Не удалось удалить проводку...');
-						}
-					 });
-
-				}
-			});
-	/*$('form#payment-form').submit( function(){
-			alert('go check!');
-			return false;
-		});*/
-});
-</script>
         <div class="content_holder">
     <?	if (!$rows):?>
     	Платежей нет...&nbsp; | &nbsp; 
     <?	endif;?>
     	<a href="javascript:void()" id="send_payment"><b>Сообщить о платеже</b></a></div>
+<? $app =& JFactory::getApplication();
+$template = $app->getTemplate();
+$gotmpl=JUri::base().'templates/'.$template;?>
+<script src="<?=$gotmpl?>/js/check_payment_data.js"></script>
 	<?	return true; 
 	}	
 }

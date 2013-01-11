@@ -6,8 +6,51 @@ div#app_data_fields
 	padding:2px 4px;
 }
 div.pagetitle.icon-48-_application_orders{
-	background-image:url(../../../../templates/bluestork/images/camera.png)
+	background-image:url(../../../../templates/bluestork/images/camera.png);
+}
+div.pagetitle.icon-48-_application_payments{
+	background-image:url(../../../../templates/bluestork/images/header/icon-48-contacts-categories.png);
 }
 div.pagetitle.icon-48-_application_userdata{
-	background-image:url(../../../../templates/bluestork/images/header/icon-48-contacts.png)
+	background-image:url(../../../../templates/bluestork/images/header/icon-48-contacts.png);
+}
+.secondSubmenu{
+	margin-bottom:-14px;
+}
+.secondSubmenu a {
+	font-size:1.1em;
+	font-weight:700;
+}
+
+
+
+@charset "utf-8";
+/* CSS Document */
+.calendar{ 
+	vertical-align:middle;
+}
+div.content_holder{
+	padding:8px;
+}
+input[type="text"], textarea{
+	margin-bottom:8px;
+	padding:2px 4px;
+}
+textarea{
+	margin-top:4px;
+	margin-left:-1px;
+	width:90%;
+}
+form#payment-form{
+	background:#FFFF99; 
+	border:solid 1px #CCC;
+	border-radius:10px;
+	display:none; 
+	margin-bottom:10px !important;
+	max-width:500px;
+	padding:14px !important; 
+}
+span.req:after{
+	content:'*';
+	color:red;
 }

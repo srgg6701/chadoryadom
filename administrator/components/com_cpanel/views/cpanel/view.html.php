@@ -24,6 +24,21 @@ class CpanelViewCpanel extends JViewLegacy
 
 	public function display($tpl = null)
 	{
+		
+		$session =& JFactory::getSession();
+		// если зашли в первый раз, будем проверять необработанные платежи и перенаправлять туда, где они выведены:
+		if (!$session->get('admin_login')) {
+			$session->set('admin_login',true);
+			$query="SELECT COUNT(*) FROM #__chado_payments WHERE applied = 0";
+			$db=JFactory::getDBO();
+			$db->setQuery($query);
+			$res=$db->loadResult();
+			if ((int)$res) {
+				// echo $_SERVER['HTTP_REFERER']; die();
+				$app =& JFactory::getApplication(); 
+				$app->redirect('index.php?option=com_application&layout=payments'); 
+			}
+		}
 		// Set toolbar items for the page
 		JToolBarHelper::title(JText::_('COM_CPANEL'), 'cpanel.png');
 		JToolBarHelper::help('screen.cpanel');
