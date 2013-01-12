@@ -137,27 +137,37 @@ $gotmpl=JUri::base().'templates/'.$template;?>
 		$total_sum=$db->loadResult(); 
 		
 		$first_payment_date=userAccount::getBorderUserPaymentDate($user_id);
-		$datetime1 = new DateTime($first_payment_date);
-		$datetime2 = new DateTime(date("Y-m-d H:i:s"));
-		$interval = $datetime2->diff($datetime1);
-		
-		$day_payment_summ=250*30/365;
-		$cut_assets=$interval->d*$day_payment_summ;
+		$date_start_value = new DateTime($first_payment_date);
+		$today = new DateTime(date("Y-m-d H:i:s"));
+		$time_passed = $today->diff($date_start_value);
+		require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helpers'.DS.'chado_app_data.php';
+		$monthly_sum=ApplicationHelper::getSettings('monthly_sum');
+		$day_payment_summ=(int)$monthly_sum['monthly_sum']['value']*12/365;
+		$days_passed=$time_passed->d;
+		$cut_assets=$days_passed*$day_payment_summ;
 		$balance=$total_sum-$cut_assets;
-		//echo $interval->format('%R% дней');
-		echo "<div class=''>
+		$assetsData=array(
+					'applied'=>$total_sum,
+					'days_passed'=>$days_passed,
+					'paid'=>round($cut_assets),
+					'balance'=>round($balance),
+				);
+		return $assetsData;
+		/*echo "<div class=''>
 				total_sum=$total_sum<hr>
-				cut_assets=$cut_assets<hr>
-				balance=$balance<hr>
-				Y: ".$interval->y."<br>
-				M: ".$interval->m."<br>
-				D: ".$interval->d."<br>
-				h: ".$interval->h."<br>
-				i: ".$interval->i."<br>
-				s: ".$interval->s."<br>
+				day_payment_summ=$day_payment_summ<hr>
+				days_passed=$days_passed<hr>
+				cut_assets=".round($cut_assets)."<hr>
+				balance=".round($balance)."<hr>
+				Y: ".$time_passed->y."<br>
+				M: ".$time_passed->m."<br>
+				D: ".$time_passed->d."<br>
+				h: ".$time_passed->h."<br>
+				i: ".$time_passed->i."<br>
+				s: ".$time_passed->s."<br>
 		</div>";	
-		//var_dump('<h1>interval</h1><pre>',$interval,'</pre>');
-		var_dump('<h1>userPayments</h1><pre>',$userPayments,'</pre>'); die();
+		//var_dump('<h1>interval</h1><pre>',$time_passed,'</pre>');
+		var_dump('<h1>userPayments</h1><pre>',$userPayments,'</pre>'); die();*/
 	}
 /**
  * Получить последний платёж юзера

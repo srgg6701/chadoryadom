@@ -25,10 +25,31 @@ $userdata=unserialize($user->data);?>
 	else:
 		$bAlign='left';	
 	endif;
-	userAccount::calculateUserAssets($user->id)?>
-    <h4 style="float:<?=$bAlign?>;">Ваш <a href="<?=JRoute::_('index.php?option=com_users&layout=account', false)?>">баланс</a>: БАЛАНС</h4>
+	$assetsData=userAccount::calculateUserAssets($user->id)?>
+    <h4 style="float:<?=$bAlign?>;">Ваш <a href="<?=JRoute::_('index.php?option=com_users&layout=account', false)?>" title="Перейти в раздел истории проводок">баланс</a>: <a style="color:#FF9900;" href="#" id="expandBalance" title="Подробности..."><?=$assetsData['balance']?></a> руб.</h4>
+    <div class="cleared"></div>
+  <div id="balance_details" style="display:<?="none"?>;">
+      <div class="content_holder" style="background:#CFC; border-radius:8px; display:inline-block">
+    	<div>Сумма подтверждённых платежей: <?=$assetsData['applied']?> руб.</div>
+        <div>Дней предоставления услуг: <?=$assetsData['days_passed']?></div>
+        <div>Списано: <?=$assetsData['paid']?> руб.</div>
+      </div>
+    </div>
+    <hr size="1" noshade>
+	<br>
+    <div>
+    <strong>Инструкции по настройке сервиса для:</strong>
+<ul>
+      <li><a href="<?=JRoute::_('index.php?option=com_users&layout=manual&device=iphone', false)?>">IPhone</a></li>
+        <li><a href="<?=JRoute::_('index.php?option=com_users&layout=manual&device=android', false)?>">Android</a></li>
+      </ul>
+    </div>
 
-	<?php if (($this->params->get('logoutdescription_show') == 1 && str_replace(' ', '', $this->params->get('logout_description')) != '')|| $this->params->get('logout_image') != '') : ?>
+
+
+
+
+  <?php if (($this->params->get('logoutdescription_show') == 1 && str_replace(' ', '', $this->params->get('logout_description')) != '')|| $this->params->get('logout_image') != '') : ?>
     <div class="logout-description">
 	<?php endif ; ?>
 
@@ -54,3 +75,10 @@ $userdata=unserialize($user->data);?>
 	</form>
 <?	endif;?>
 </div>
+<script>
+$(function(){
+		$('a#expandBalance').click(function(){
+				$('div#balance_details').fadeToggle(300);
+			});
+	})
+</script>

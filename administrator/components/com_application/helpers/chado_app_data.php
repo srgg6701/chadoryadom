@@ -61,6 +61,25 @@ class ApplicationHelper
 		return true;		
 	}
 /**
+ * Загрузить настройки обслуживания
+ * @package
+ * @subpackage
+ */
+	function getSettings($option=false){
+		$where=($option)? ' WHERE `option` = "'.$option.'"':'';
+		$db=JFactory::getDBO();
+		$query="SELECT * FROM #__chado_settings{$where}";
+		$db->setQuery($query);
+		$settings=$db->loadAssocList();
+		$options=array();
+		foreach($settings as $i=>$array){
+			$option=$array['option'];
+			unset($array['option']);
+			$options[$option]=$array;
+		}
+		return $options;
+	}
+/**
  * Синхронизация полей заявки и данных юзера и создание массива для вывода в профайле поциента (с)
  * @package
  * @subpackage
