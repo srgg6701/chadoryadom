@@ -15,39 +15,29 @@ jimport('joomla.application.component.controlleradmin');
 /**
  * _customer_orders list controller class.
  */
-class ApplicationController_chado_payments extends JControllerAdmin
+class ApplicationController_chado_settings extends JControllerAdmin
 {
-	private $direct='index.php?option=com_application&layout=payments';
+	private $direct='index.php?option=com_application&layout=settings';
 	/**
 	* Подтвердить платёж!
 	* @package
 	* @subpackage
 	*/
-	function activate(){
+	function save(){
+		$model=$this->getModel();
+		// value[1], value[2] ... 
+		$values=JRequest::getVar('value'); // Array
 		foreach (JRequest::getVar('cid') as $i=>$id)
-			if (!$this->getModel()->apply_payment($id))
+			if (!$model->save_settings($id,$values[$id]))
 				die('Ошибка обновления записи...');
 		// отправляемся на страницу с текущим списком юзеров:
 		$this->setRedirect(JRoute::_($this->direct,false));
 	}
 	/**
-	* Удалить платёж!
-	* @package
-	* @subpackage
-	*/
-	function delete(){
-		foreach (JRequest::getVar('cid') as $i=>$id)
-			if (!$this->getModel()->delete_payment($id))
-				die('Ошибка удаления записи...');
-		// отправляемся на страницу с текущим списком юзеров:
-		$this->setRedirect(JRoute::_($this->direct,false));
-	}
-	
-	/**
 	 * Proxy for getModel.
 	 * @since	1.6
 	 */
-	public function &getModel($name = 'chado_payments', $prefix = 'ApplicationModel')
+	public function &getModel($name = 'chado_settings', $prefix = 'ApplicationModel')
 	{
 		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
 		return $model;

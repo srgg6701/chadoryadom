@@ -82,6 +82,7 @@ class ApplicationViewChado_app_data extends JView
 		$state	= $this->get('State');
 		$canDo	= ApplicationHelper::getActions($state->get('filter.category_id'));
 		$controller='_chado_app_data';
+		$action='activate';
 		switch($layout){
 			case 'userdata':
 				$header="Данные заявителя";
@@ -92,23 +93,34 @@ class ApplicationViewChado_app_data extends JView
 				$pic='_application_payments.png';
 				$controller='_chado_payments';
 					break;
+			case 'settings':
+				$header="Настройки";
+				$pic='_application_settings.png';
+				$controller='_chado_settings';
+				$action='save';
+					break;
 			default:
 				$header="Заявки на подключение к сервису";
 				$pic='_application_orders.png';
 		}
 		$defLink='index.php?option=com_application';
+		
 		echo "<div class=\"secondSubmenu\" align='right'>";
 		echo "	<a href=\"".JRoute::_($defLink)."\">Заявки на подключение</a>";
 		echo " 	&nbsp; | &nbsp; ";
 		echo "	<a href=\"".JRoute::_($defLink.'&layout=payments')."\">Платежи</a>";
+		echo " 	&nbsp; | &nbsp; ";
+		echo "	<a href=\"".JRoute::_($defLink.'&layout=settings')."\">Настройки</a>";
 		echo "</div>";
+		
 		JToolBarHelper::title(JText::_($header),$pic); 
 		if ($layout!='userdata'):
-			JToolBarHelper::publish($controller.'.activate', 'Подтвердить', true);
+			JToolBarHelper::publish($controller.'.'.$action, 'Подтвердить', true);
 			JToolBarHelper::divider();
 		endif;
-		JToolBarHelper::deleteList('', $controller.'.delete','JTOOLBAR_DELETE');
-
+		if ($layout!='settings'):
+			JToolBarHelper::deleteList('', $controller.'.delete','JTOOLBAR_DELETE');
+		endif;
 		if ($canDo->get('core.admin')) {
 			JToolBarHelper::preferences('com_application');
 		}

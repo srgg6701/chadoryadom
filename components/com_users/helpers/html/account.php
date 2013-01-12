@@ -30,7 +30,7 @@ class userAccount
 														?>
         
 <div style="position:relative">
-    <form style="position:absolute; right:0;top:3px;" action="<?php echo JRoute::_('index.php?option=com_users&task=user.logout'); ?>" method="post">
+    <form id="formGoLogout" action="<?php echo JRoute::_('index.php?option=com_users&task=user.logout'); ?>" method="post">
 		<div>
 			<button type="submit" class="button"><?php echo JText::_('JLOGOUT'); ?></button>
 			<input type="hidden" name="return" value="<?php echo base64_encode($params); ?>" />
@@ -52,19 +52,7 @@ class userAccount
 </div>
 <?	}
 /**
- * Описание
- * @package
- * @subpackage
- */
-	public static function selCurrentLink($tView,$tLayout=false){
-		$view=JRequest::getVar('view');
-		$layout=JRequest::getVar('layout');
-		if ( $view == $tView // login
-			 && ( (!$layout&&!$tLayout) || $tLayout==$layout ) // account
-		   ) echo ' class="menuActive"';
-	}
-/**
- * Описание
+ * Построить таблицу платежей
  * @package
  * @subpackage
  */
@@ -75,10 +63,7 @@ class userAccount
 		$arrFields=array('id'=>'#','date_time'=>'Дата/время','summ'=>'Сумма','payment_mode'=>'Способ','identity'=>'Информация о платеже','applied'=>'Подтверждение');
 		$fields=implode(",",array_keys($arrFields));
 		$user = JFactory::getUser();
-		$query="SELECT ".$fields." FROM #__".$tbl_name." WHERE user_id = ".$user->get('id')." ORDER BY date_time DESC";
-		$db=JFactory::getDBO();
-		$db->setQuery($query);
-		$rows=$db->loadAssocList();?>
+		$rows=userAccount::getUserAssets($user->get('id'),$fields);?>
 <table class="tblUserData" cellspacing="0">
         	<tr	bgcolor="#B0EE62">
 	<?	foreach($arrFields as $key=>$header):?>
@@ -137,4 +122,94 @@ $gotmpl=JUri::base().'templates/'.$template;?>
 <script src="<?=$gotmpl?>/js/check_payment_data.js"></script>
 	<?	return true; 
 	}	
+/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	static public function calculateUserAssets($user_id){
+		//$userPayments=userAccount::getUserAssets($user_id,false,'applied <> 0');
+		$query="SELECT SUM(summ) 
+  FROM #__chado_payments
+ WHERE user_id = ".$user_id." AND applied <> 0";
+		$db=JFactory::getDBO();
+		$db->setQuery($query);
+		$total_sum=$db->loadResult(); 
+		
+		$first_payment_date=userAccount::getBorderUserPaymentDate($user_id);
+		$datetime1 = new DateTime($first_payment_date);
+		$datetime2 = new DateTime(date("Y-m-d H:i:s"));
+		$interval = $datetime2->diff($datetime1);
+		
+		$day_payment_summ=250*30/365;
+		$cut_assets=$interval->d*$day_payment_summ;
+		$balance=$total_sum-$cut_assets;
+		//echo $interval->format('%R% дней');
+		echo "<div class=''>
+				total_sum=$total_sum<hr>
+				cut_assets=$cut_assets<hr>
+				balance=$balance<hr>
+				Y: ".$interval->y."<br>
+				M: ".$interval->m."<br>
+				D: ".$interval->d."<br>
+				h: ".$interval->h."<br>
+				i: ".$interval->i."<br>
+				s: ".$interval->s."<br>
+		</div>";	
+		//var_dump('<h1>interval</h1><pre>',$interval,'</pre>');
+		var_dump('<h1>userPayments</h1><pre>',$userPayments,'</pre>'); die();
+	}
+/**
+ * Получить последний платёж юзера
+ * @package
+ * @subpackage
+ */
+	function getBorderUserPaymentDate($user_id,$border='MIN'){
+		$query="SELECT ".$border."(date_time) 
+  FROM #__chado_payments
+ WHERE user_id = ".$user_id;
+		$db=JFactory::getDBO();
+		$db->setQuery($query);
+		return $db->loadResult(); 
+	}
+
+/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	function getUserAssets($user_id=false,$fields=false,$where=false){
+		if (!$fields)
+			$fields='date_time,summ,payment_mode,identity,applied';
+		// Create a new query object.
+        $db = JFactory::getDBO();
+		$query = $db->getQuery(true);
+		// Select fields from the table.
+		$query->select($fields); 
+		$query->from($db->quoteName('#__chado_payments'));
+		if ($user_id||$where){
+			if ($user_id&&$where)
+				$where.=" AND user_id = ".$user_id;
+			elseif($user_id)
+				$where='user_id = '.$user_id;
+			$query->where($where);
+		}
+		// Add the list ordering clause.
+		$query->order('id');
+		$db->setQuery($query); // а иначе вытащит старый запрос!
+		$result=$db->loadAssocList();
+		return $result;  
+	}
+/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	public static function selCurrentLink($tView,$tLayout=false){
+		$view=JRequest::getVar('view');
+		$layout=JRequest::getVar('layout');
+		if ( $view == $tView // login
+			 && ( (!$layout&&!$tLayout) || $tLayout==$layout ) // account
+		   ) echo ' class="menuActive"';
+	}
 }

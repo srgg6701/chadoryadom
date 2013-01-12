@@ -53,7 +53,7 @@ $saveOrder	= $listOrder == 'a.ordering';
             <th>
             <?php echo JHtml::_('grid.sort',  'id', /*COM_APPLICATION__CHADO_APP_DATA_ID*/ 'a.id', $listDirn, $listOrder); ++$cnt;?>
             </th>
-            <th>
+            <th style="text-align:left;padding-left: 9px;">
             <?php echo JHtml::_('grid.sort',  'id', /*COM_APPLICATION__CHADO_APP_DATA_FAMILY*/ 'a.user_id', $listDirn, $listOrder); ++$cnt;?> клиента, имя, отчество
             </th>
           	<th>Моб. тел.
@@ -108,15 +108,14 @@ $saveOrder	= $listOrder == 'a.ordering';
             <td align="right">
                 <?php echo $item->id; ?>
             </td>
-            <td>
-            <?php echo $this->escape($item->user_id).", ";
+            <td><?php 
+			echo $this->escape($item->user_id).", ";
 			
 			$fdata=$item->data;
 			$middle_name_start=strpos($fdata,'"middle_name";s:16:"')+20; //24
 			$middle_name_finish=strpos($fdata,'";s:10:"child_name'); //24
 			$strlen=$middle_name_finish-$middle_name_start;
-			$middle_name=substr($fdata,$middle_name_start,$strlen);
-			echo $item->name." ".$middle_name; ?>
+			$middle_name=substr($fdata,$middle_name_start,$strlen);?><a href="            index.php?option=com_users&view=user&layout=edit&id=<?=$item->user_id?>"><? echo $item->name." ".$middle_name; ?></a>
             </td>
             <td>
 	<?php	$mobila_start=strpos($fdata,'"mobila";s:11:"')+15; //24

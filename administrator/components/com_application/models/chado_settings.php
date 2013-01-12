@@ -19,7 +19,7 @@ jimport('joomla.application.component.modellist');
  * @subpackage  com_menus
  * @since       1.6
  */
-class ApplicationModelChado_app_data extends JModelList
+class ApplicationModelChado_settings extends JModelList
 {
 	/**
 	 * Constructor.
@@ -33,31 +33,26 @@ class ApplicationModelChado_app_data extends JModelList
 	public function __construct($config = array())
 	{
 		if (empty($config['filter_fields']))
-		{	
+		{
 			$config['filter_fields'] = array(
 				'id', 'a.id',
-				'family', 'a.family',
-				'name', 'a.name',
-				'middle_name', 'a.middle_name',
-				'child_name', 'a.child_name',
-				'kindergarten', 'a.kindergarten',
-				'group', 'a.group',
-				'email', 'a.email',
-				'mobila', 'a.mobila',
+				'option', 'a.option',
+				'option_name', 'a.option_name',
+				'value', 'a.value',
 			);
 		}
 		parent::__construct($config);
 	}
 	/**
-	 * Удалить заявку на подключение к сервису
+	 * Удалить 
 	 * 
 	 * 
 	 */
 	public function delete(&$pks)
-	{	
+	{
 		// Initialise variables.
 		$user	= JFactory::getUser();
-		$table = JTable::getInstance('Chado_app_data', 'ApplicationTable');
+		$table = JTable::getInstance('Chado_settings', 'ApplicationTable');
 		//$table	= $this->getTable();
 		
 		$pks	= (array) $pks;
@@ -150,10 +145,10 @@ class ApplicationModelChado_app_data extends JModelList
 		$query = $db->getQuery(true);
 
 		// Select all fields from the table.
-		$query->select($this->getState('list.select', 'a.*'));
-		$query->from($db->quoteName('#__chado_app_data').' AS a');
+		$query->select($this->getState('list.select',"a.id, a.option,a.option_name,a.value")); 
+		$query->from($db->quoteName('#__chado_settings').' as a');
 		// Add the list ordering clause.
-		$query->order($db->getEscaped($this->getState('filter_order')) . ' ' . $db->getEscaped($this->getState('filter_order_Dir', 'ASC')));
+		$query->order($db->getEscaped($this->getState('filter_order')) . ' ' . $db->getEscaped($this->getState('filter_order_Dir', 'DESC')));
 		return $query;
 	}
 
@@ -182,6 +177,38 @@ class ApplicationModelChado_app_data extends JModelList
         $this->setState('filter_order', $filter_order);
         $this->setState('filter_order_Dir', $filter_order_Dir);
 		// List state information.
-		parent::populateState('a.id', 'asc');
+		parent::populateState('a.id', 'desc');
 	}
+/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	function save_settings($id,$value){
+		$table = JTable::getInstance('Chado_settings', 'ApplicationTable');
+		if (!$table->load($id))
+		{
+		  // handle failed load
+		  die($table->getError());
+		}
+		else
+		{
+		  $table->set('value',$value);
+		  if ($table->check())
+		  {
+			if (!$table->store(true))
+			{
+				// handle failed update
+				die($table->getError());
+			}
+		  }
+		  else
+		  {
+			// handle invalid input
+			die($table->getError());
+		  }
+		}
+		return true;
+	}
+	
 }

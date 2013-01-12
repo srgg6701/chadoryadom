@@ -1,4 +1,4 @@
-<?php
+<?php	// die('LOGOUT');
 /**
  * @package		Joomla.Site
  * @subpackage	com_users
@@ -8,16 +8,28 @@
  */
 
 defined('_JEXEC') or die;
-?>
+$user = JFactory::getUser();
+$userdata=unserialize($user->data);?>
 <div class="logout<?php echo $this->pageclass_sfx?>">
 	<?php if ($this->params->get('show_page_heading')) : ?>
 	<h1>
 		<?php echo $this->escape($this->params->get('page_heading')); ?>
 	</h1>
 	<?php endif; ?>
-<?	userAccount::accountManager($this->params->get('logout_redirect_url', $this->form->getValue('return')));?>
+<?	userAccount::accountManager($this->params->get('logout_redirect_url', $this->form->getValue('return')));
+	$session =& JFactory::getSession();
+	if(!$session->get('greeting')||JRequest::getVar('gr')):?>
+	<h4 style="float:left;">Здравствуйте, <?=$user->name." ".$userdata['middle_name']?>!</h4>
+<?		$session->set('greeting',true);
+		$bAlign='right';
+	else:
+		$bAlign='left';	
+	endif;
+	userAccount::calculateUserAssets($user->id)?>
+    <h4 style="float:<?=$bAlign?>;">Ваш <a href="<?=JRoute::_('index.php?option=com_users&layout=account', false)?>">баланс</a>: БАЛАНС</h4>
+
 	<?php if (($this->params->get('logoutdescription_show') == 1 && str_replace(' ', '', $this->params->get('logout_description')) != '')|| $this->params->get('logout_image') != '') : ?>
-	<div class="logout-description">
+    <div class="logout-description">
 	<?php endif ; ?>
 
 		<?php if ($this->params->get('logoutdescription_show') == 1) : ?>
@@ -33,7 +45,6 @@ defined('_JEXEC') or die;
 	<?php endif ; 
 	$button='hide';
 	if ($button!='hide'):?>
-
 	<form action="<?php echo JRoute::_('index.php?option=com_users&task=user.logout'); ?>" method="post">
 		<div>
 			<button type="submit" class="button"><?php echo JText::_('JLOGOUT'); ?></button>

@@ -6,6 +6,12 @@ div.account.menu
 	margin:3px 0 8px 0;
 	padding:10px 14px;
 }
+.calendar{ 
+	vertical-align:middle;
+}
+div.content_holder{
+	padding:8px;
+}
 form#app-form{ 
 	margin:20px 0px !important;
 }
@@ -20,21 +26,43 @@ form#app-form
 	text-align:right;
 	width:200px;
 }
-.calendar{ 
-	vertical-align:middle;
+form#formGoLogout{
+	position: absolute;
+	right: 0;
+	top: -41px;
+	right:-31px;
+	float: right;
 }
-div.content_holder{
-	padding:8px;
+form#formGoLogout
+	span{ 
+	background-image:none;
+}
+form#formGoLogout
+	button{
+	color: #1AAF06 !important;/*#3E81A8*/
+	font-style:normal; 
+	font-weight:bold;
 }
 input[type="text"], textarea{
 	margin-bottom:8px;
 	padding:2px 4px;
 }
-.logincabinet,
-.profilecabinet,
-.logoutcabinet,
+*[class$="cabinet"],
 .logincabinet ~div{
-	margin:auto 28px;
+	margin:-20px 68px 20px;
+}
+*[class$="cabinet"]
+	h1{
+	color:#3E81A8;
+	font-size:20px;
+	margin-bottom: 18px;
+	margin-left:-20px;
+}
+*[class$="cabinet"]
+	div.account.menu{
+	float: right;
+	margin-right: 33px;
+	margin-top: -50px;
 }
 textarea{
 	margin-top:4px;

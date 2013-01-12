@@ -14,6 +14,10 @@ div.pagetitle.icon-48-_application_payments{
 div.pagetitle.icon-48-_application_userdata{
 	background-image:url(../../../../templates/bluestork/images/header/icon-48-contacts.png);
 }
+div.pagetitle.icon-48-_application_settings{
+	background-image:url(../../../../templates/bluestork/images/header/icon-48-cpanel.png);
+}
+
 .secondSubmenu{
 	margin-bottom:-14px;
 }
