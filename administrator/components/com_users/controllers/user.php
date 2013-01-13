@@ -93,7 +93,14 @@ class UsersControllerUser extends JControllerForm
 		 * srgg67@gmail.com
 		 */
 		// проверить и обработать дополнительные поля:
-		if (isset($data['xtra'])){
+		if (isset($data['xtra'])||isset($data['videoscript'])){
+			$setXtraData=true;
+			//var_dump('<h1>data</h1><pre>',$data,'</pre>'); //die();
+			$db	= JFactory::getDBO();
+			$query	= $db->getQuery(true);
+			$query->update('#__users');
+		}
+		if (isset($data['xtra'])) {
 			// получить названия полей доп.данных:
 			$xtra=explode(",",$data['xtra']);
 			//var_dump("<h1>xtra:</h1><pre>",$xtra,"</pre>");
@@ -108,10 +115,27 @@ class UsersControllerUser extends JControllerForm
 			}
 			unset($data['xtra']); // удалить элемент доп. данных	
 			$data['xtra_data']=serialize($xtra_data); // сохранить доп. данные в поле как сериализованный массив
-			$db	= JFactory::getDBO();
-			$query	= $db->getQuery(true);
-			$query->update('#__users');
-			$query->set(" `data` = '$data[xtra_data]' ");
+			$fill_data_field=" `data` = '$data[xtra_data]' ";
+		}
+		if(isset($data['videoscript'])){
+			$videoscript=explode(",",$data['videoscript']);
+			$videoscript_params=array();
+			foreach($videoscript as $i=>$field){
+				// присвоить эл. массива доп. данных значения:
+				$videoscript_params[$field]=$data[$field];
+				unset($data[$field]);
+			}
+			unset($data['videoscript']); // удалить элемент доп. данных	
+			$data['script_data']=serialize($videoscript_params); // сохранить доп. данные в поле как сериализованный массив
+			$fill_script_field=" `script_params` = '$data[script_data]' ";
+		}
+		if (isset($setXtraData)){
+			if ($fill_data_field&&$fill_script_field)
+				$set_exp=$fill_data_field.", ".$fill_script_field;
+			else
+				$set_exp=($fill_data_field)? $fill_data_field:$fill_script_field;
+			//echo "<div class=''>set_exp= ".$set_exp."</div>";die();
+			$query->set($set_exp);
 			$query->where(" id = $data[id] ");
 			$db->setQuery((string) $query);
 		}
@@ -127,15 +151,14 @@ class UsersControllerUser extends JControllerForm
 				$this->setMessage(JText::_('JLIB_USER_ERROR_PASSWORD_NOT_MATCH'), 'warning');
 				$this->setRedirect(JRoute::_('index.php?option=com_users&view=user&layout=edit', false));
 			}
-
 			unset($data['password2']);
-		
 		}
 		// если получали дополнительные данные:
-		if(isset($xtra)){
+		if(isset($setXtraData)){
 			if (!$db->query()) 
 				JError::raiseError(500, $db->getErrorMsg());
 			unset($data['xtra_data']);
+			unset($data['videoscript']);
 		}
 		// конец проверки и обработки дополнительных полей. Далее все поля обрабатываются в том виде, в котором предусмотрено по умолчанию
 		

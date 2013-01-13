@@ -15,7 +15,6 @@ JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 $canDo = UsersHelper::getActions();
-
 // Get the form fieldsets.
 $fieldsets = $this->form->getFieldsets();
 ?>
@@ -39,32 +38,58 @@ $fieldsets = $this->form->getFieldsets();
 			<?php endforeach; ?>
 			</ul>
 		</fieldset>
+      	<? 	if ($this->item->id){?>
 		<!--	xtra data - APPLICATION	-->
         <!--	только если уже зарегистрирован! -->
-      	<? 	if ($this->item->id):?>
         <fieldset class="adminform">
-<?	require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helpers'.DS.'chado_app_data.php';?>        
-			<legend><?php echo JText::_('Параметры заявки'); //COM_USERS_USER_ACCOUNT_DETAILS ?></legend>
+			<?	require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helpers'.DS.'chado_app_data.php';?>        
+			<legend><?php 
+				echo JText::_('Параметры заявки'); //COM_USERS_USER_ACCOUNT_DETAILS ?></legend>
+<?				$arrTable=ApplicationHelper::getAppFields();
+				$arrTable['password']="Пароль";
+				$arrAppData=ApplicationHelper::getUserServiceData(JRequest::getVar('id'));
+				$xtra_fields_for_controller=array(); // контейнер для сохранения значений поля data. Будет отсылаться контроллеру (в виде строки) для того, чтобы он понял, что это - данные, которые должны быть сохранены в этом поле в виде сериализованного массива.?>
 			<ul class="adminformlist">
-<?	$arrTable=ApplicationHelper::getAppFields();
-	$arrTable['password']="Пароль";
-	$arrAppData=ApplicationHelper::getUserServiceData(JRequest::getVar('id'));
-	$xtra_fields_for_controller=array(); // контейнер для сохранения значений поля data. Будет отсылаться контроллеру (в виде строки) для того, чтобы он понял, что это - данные, которые должны быть сохранены в этом поле в виде сериализованного массива.  
-	foreach($arrAppData as $label=>$desc):
-		$xtra_fields_for_controller[]=$label;?>
+			<?	foreach($arrAppData as $label=>$desc):
+					$xtra_fields_for_controller[]=$label;?>
     <li>
     	<label id="jform_<?=$label?>-lbl" for="jform_<?=$desc?>" aria-invalid="false"><?=$arrTable[$label]?></label>
-    <? 	if($label=="password"):?>
+    			<? 	if($label=="password"):?>
 <input type="text" value="<?=$arrAppData[$label]?>" class="inputbox" size="30" aria-invalid="false" style="border:none;">
-	<?	else:?>
+				<?	else:?>
 <input type="text" name="jform[<?=$label?>]" id="jform_<?=$label?>" value="<?=$arrAppData[$label]?>" autocomplete="off" class="inputbox" size="30" aria-invalid="false"><?
-		endif;?></li>
-<? 	endforeach;?>
+					endif;?></li>
+			<? 	endforeach;?>
 			</ul>
 <input name="jform[xtra]" id="jform_xtra" type="hidden" value="<?=implode(",",$xtra_fields_for_controller)?>">
 		</fieldset>
 		<!--	/xtra data - APPLICATION	-->
-        <?	endif;?>
+        
+ 		<!--	xtra data - CAMERA SCRIPT	-->
+        <fieldset class="adminform">
+			<legend><?php echo JText::_('Данные скрипта видеокамер'); //COM_USERS_USER_ACCOUNT_DETAILS ?></legend>
+            <?	$scriptParams=ApplicationHelper::getAppCameraScriptParams();
+				$arrVideoScriptData=ApplicationHelper::getAppCameraScriptData($this->item->id);
+				$xtra_data_for_controller=array(); // контейнер для сохранения значений поля data. Будет отсылаться контроллеру (в виде строки) для того, чтобы он понял, что это - данные, которые должны быть сохранены в этом поле в виде сериализованного массива.  ?>
+			<ul class="adminformlist">
+			<?	foreach($scriptParams as $label=>$desc):
+					$xtra_data_for_controller[]=$label;?>
+    <li>
+    	<label id="jform_<?=$label?>-lbl" for="jform_<?=$desc?>" aria-invalid="false"><?=$scriptParams[$label]?><? if($label=='sound'){?> включён? &#8212;<? }?></label>
+		<input name="jform[<?=$label?>]" id="jform_<?=$label?>" type=<? 
+					if($label=='sound'){
+						echo '"checkbox" value="1"';
+						if ($arrVideoScriptData[$label]):
+							echo " checked";
+						endif;
+					}else{?>"text" autocomplete="on" class="inputbox" size="30" aria-invalid="false"<? }?> value="<?=$arrVideoScriptData[$label]?>"></li>
+			<? 	endforeach;?>
+			</ul>
+<input name="jform[videoscript]" id="jform_videoscript" type="hidden" value="<?=implode(",",$xtra_data_for_controller)?>">
+		</fieldset>
+		<!--	/xtra data - CAMERA SCRIPT	-->
+        <?	}?>
+       
 		<?php if ($this->grouplist) :?>
 		<fieldset id="user-groups" class="adminform">
 			<legend><?php echo JText::_('COM_USERS_ASSIGNED_GROUPS'); ?></legend>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
 <file name="index.html" server="ftp.chado.1gb.ru/http/" local="130019379868593000" remote="130021844400000000" />
-<file name="chado_app_data.php" server="ftp.chado.1gb.ru/http/" local="130024018727819500" remote="130024104600000000" />
+<file name="chado_app_data.php" server="ftp.chado.1gb.ru/http/" local="130024936958480000" remote="130024937400000000" />
 <file name="item.php" server="ftp.chado.1gb.ru/http/" local="130020242585658000" remote="130021844400000000" />
-<file name="chado_payments.php" server="ftp.chado.1gb.ru/http/" local="130024126507249500" remote="130024137600000000" />
+<file name="chado_payments.php" server="ftp.chado.1gb.ru/http/" local="130024137600000000" remote="130024937400000000" />
+<file name="chado_settings.php" server="ftp.chado.1gb.ru/http/" local="130024854827650000" remote="130024937400000000" />
 </dwsync>

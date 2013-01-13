@@ -5,5 +5,6 @@
 <file name="default.php" server="ftp.chado.1gb.ru/http/" local="130020545950670000" remote="130021844400000000" />
 <file name="userdata.php" server="ftp.chado.1gb.ru/http/" local="130023910473739500" remote="130024104600000000" />
 <file name="index.html" server="ftp.chado.1gb.ru/http/" local="129841589556958500" remote="130021844400000000" />
-<file name="payments.php" server="ftp.chado.1gb.ru/http/" local="130024129560229500" remote="130024137600000000" />
+<file name="payments.php" server="ftp.chado.1gb.ru/http/" local="130024936958530000" remote="130024937400000000" />
+<file name="settings.php" server="ftp.chado.1gb.ru/http/" local="130024859676290000" remote="130024937400000000" />
 </dwsync>

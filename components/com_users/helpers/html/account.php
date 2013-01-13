@@ -153,21 +153,6 @@ $gotmpl=JUri::base().'templates/'.$template;?>
 					'balance'=>round($balance),
 				);
 		return $assetsData;
-		/*echo "<div class=''>
-				total_sum=$total_sum<hr>
-				day_payment_summ=$day_payment_summ<hr>
-				days_passed=$days_passed<hr>
-				cut_assets=".round($cut_assets)."<hr>
-				balance=".round($balance)."<hr>
-				Y: ".$time_passed->y."<br>
-				M: ".$time_passed->m."<br>
-				D: ".$time_passed->d."<br>
-				h: ".$time_passed->h."<br>
-				i: ".$time_passed->i."<br>
-				s: ".$time_passed->s."<br>
-		</div>";	
-		//var_dump('<h1>interval</h1><pre>',$time_passed,'</pre>');
-		var_dump('<h1>userPayments</h1><pre>',$userPayments,'</pre>'); die();*/
 	}
 /**
  * Получить последний платёж юзера

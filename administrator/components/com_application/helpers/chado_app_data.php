@@ -35,7 +35,55 @@ class ApplicationHelper
 	 */
 	function getAppFields(){
 		// ВНИМАНИЕ! Не изменять порядок элементов по 'email' ВКЛЮЧИТЕЛЬНО! 
-		return	array('id'=>'id заявки','family'=>'Фамилия','name'=>'Имя','middle_name'=>'Отчество','email'=>'E-mail','child_name'=>'Имя ребёнка','kindergarten'=>'Дет. сад (№/название)','group'=>'Группа д/с','mobila'=>'Моб. тел.');
+		return	array(
+					'id'=>'id заявки',
+					'family'=>'Фамилия',
+					'name'=>'Имя',
+					'middle_name'=>'Отчество',
+					'email'=>'E-mail',
+					'child_name'=>'Имя ребёнка',
+					'kindergarten'=>'Дет. сад (№/название)',
+					'group'=>'Группа д/с',
+					'mobila'=>'Моб. тел.'
+				);
+	}
+	/**
+	 * Получить названия полей на русском
+	 * @package
+	 * @subpackage
+	 */
+	function getAppCameraScriptParams(){
+		/*	•	СЕРВЕР
+			•	ПОРТ
+			•	Логин
+			•	Пароль
+			•	Камера 1
+			•	Камера 2
+			•	Камера 3
+			•	Камера 4
+			•	Звук (Да\Нет) чекбокс */
+		return	array(
+					'server'=>'СЕРВЕР',
+					'port'=>'ПОРТ',
+					'script_login'=>'Логин',
+					'script_password'=>'Пароль',
+					'camera 1'=>'Камера 1',
+					'camera 2'=>'Камера 2',
+					'camera 3'=>'Камера 3',
+					'camera 4'=>'Камера 4',
+					'sound'=>'Звук'
+				);
+	}
+	/**
+	 * Получить данные скрипта вывода видео
+	 * @package
+	 * @subpackage
+	 */
+	function getAppCameraScriptData($user_id){
+		$query="SELECT script_params FROM #__users WHERE id = ".$user_id;
+		$db=JFactory::getDBO();
+		$db->setQuery($query);
+		return unserialize($db->loadResult()); 
 	}
 /**
  * ДОбавить заявку с сайта

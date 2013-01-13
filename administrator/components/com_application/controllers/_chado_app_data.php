@@ -42,10 +42,10 @@ class ApplicationController_chado_app_data extends JControllerAdmin
 			$model=$this->getModel('Item'); // будем получать данные аппликантов
 			// перебрать и зарегистрировать полученных аппликантов:
 			foreach ($pks as $i => $pk) {	
-				
-				if (!$applicant_data=$model->getItem($pk)) {
+				$applicant_data=$model->getItem($pk);
+				if (!$applicant_data) {
 					JError::raiseWarning(100, JText::_('Не получены данные заявки...'));
-					die("LINE: ".__LINE__);
+					die("ApplicationController_chado_app_data::activate(), LINE: ".__LINE__);
 				}else{
 					
 					//********************************************
