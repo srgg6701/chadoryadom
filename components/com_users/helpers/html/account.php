@@ -21,12 +21,13 @@ if (!$app)
 $template = $app->getTemplate();
 $gotmpl=JUri::base().'templates/'.$template;
 $link=$gotmpl.'/css/application_form.css';
-//die("link=".$link);
-?><link href="<?=$link?>" rel="stylesheet" type="text/css"><?	
+echo '<link href="$link" rel="stylesheet" type="text/css">';
+	
 class userAccount
 {
-	public static function accountManager($params)
-	{	$link_base="index.php?option=com_users&view=";
+	public static function accountManager($params) {	
+		
+		$link_base="index.php?option=com_users&view=";
 														?>
         
 <div style="position:relative">

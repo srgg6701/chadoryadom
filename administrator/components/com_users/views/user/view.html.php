@@ -4,7 +4,7 @@
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('_JEXEC') or die;
+defined('_JEXEC') or die; 
 
 /**
  * @package		Joomla.Administrator
@@ -37,7 +37,6 @@ class UsersViewUser extends JViewLegacy
 
 		$this->form->setValue('password',		null);
 		$this->form->setValue('password2',	null);
-
 		parent::display($tpl);
 		$this->addToolbar();
 	}

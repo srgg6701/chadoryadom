@@ -26,7 +26,7 @@ $userdata=unserialize($user->data);?>
 		$bAlign='left';	
 	endif;
 	$assetsData=userAccount::calculateUserAssets($user->id)?>
-    <h4 style="float:<?=$bAlign?>;">Ваш <a href="<?=JRoute::_('index.php?option=com_users&layout=account', false)?>" title="Перейти в раздел истории проводок">баланс</a>: <a style="color:#FF9900;" href="#" id="expandBalance" title="Подробности..."><?=$assetsData['balance']?></a> руб.</h4>
+    <h4 style="float:<?=$bAlign?>;">Ваш <a href="<?=JRoute::_('index.php?option=com_users&layout=account', false)?>" title="Перейти в раздел истории проводок">баланс</a>: <a style="color:#FF9900;" href="javascript:void()" id="expandBalance" title="Подробности..."><?=$assetsData['balance']?></a> руб.</h4>
     <div class="cleared"></div>
   <div id="balance_details" style="display:<?="none"?>;">
       <div class="content_holder" style="background:#CFC; border-radius:8px; display:inline-block">
@@ -44,7 +44,71 @@ $userdata=unserialize($user->data);?>
         <li><a href="<?=JRoute::_('index.php?option=com_users&layout=manual&device=android', false)?>">Android</a></li>
       </ul>
     </div>
+<?	if(!$arrCamsData=ApplicationHelper::getAppCameraScriptData($user->id)):?>
+	<h5>Данные подключения не установлены. Обратитесь к администрации.</h5>
+<?	else:?>
+<br>
+<script type="text/javascript" src="http://www.devline.ru/js/swfobject.js"></script>	
+<?		function setScript($cam_user_number,$cam_index,$script_params){?>
+	<h4>Камера <?=$cam_user_number?>.</h4>
+	<div class="videoBox" style="border:solid 1px #CCC;">
 
+<script type="text/javascript">
+var flashvars={};
+var attributes={
+		allowfullscreen:"true",
+		menu:"false",
+		quality:"hight"
+	};
+var params={
+		value:"ip=<? 
+			echo $script_params['server'];?>,port=<?
+			echo $script_params['port'];?>,login=<?
+			echo $script_params['script_login'];?>,pass=<?
+			echo $script_params['script_password'];?>,uriCamera=/cameras/<?
+			echo $cam_index;?>,quality=60,fps=8,sound=<?
+			echo $script_params['sound'];?>,ptz=true,logo=false"
+	};
+swfobject.embedSWF("http://www.devline.ru/miniflash.swf","devline_639","640","480","9.0.115",flashvars,params,attributes);
+</script>
+
+<object type="application/x-shockwave-flash" data="http://www.devline.ru/miniflash.swf" width="640" height="480" id="devline_639" style="visibility: visible;">
+
+<param name="allowfullscreen" value="true">
+<param name="menu" value="false">
+<param name="quality" value="hight">
+<param name="flashvars" value="value=ip=<?
+			echo $script_params['server'];?>,port=<?
+			echo $script_params['port'];?>,login=<?
+			echo $script_params['script_login'];?>,pass=<?
+			echo $script_params['script_password'];?>,uriCamera=/cameras/<?
+			echo $cam_index;?>,quality=60,fps=8,sound=<?
+			echo $script_params['sound'];?>,ptz=true,logo=false">
+</object> 
+	</div>
+			
+	<?	}
+	endif;
+	$script_params=array(
+						'server'=>$arrCamsData['server'],
+						'port'=>$arrCamsData['port'],
+						'script_login'=>$arrCamsData['script_login'],
+						'script_password'=>$arrCamsData['script_password'],
+						'sound'=>$arrCamsData['sound'],
+					);
+	
+	foreach ($arrCamsData as $key=>$data):
+		if (strstr($key,'camera ')):
+			$cmnmb=explode(" ",$key);
+			if ($data!='') 
+				setScript( 	// значения аргументов теоретически могут не совпадать
+							array_pop($cmnmb), 	// string
+						   	$data,				// number
+							$script_params
+						 );
+			//var_dump('<h1>camera ('.gettype((int)array_pop($cmnmb)).')'.(int)array_pop($cmnmb).', script_params:</h1><pre>',$script_params,'</pre>');
+		endif;
+	endforeach;	/*?>
 	<h4>Камера 1.</h4>
 	<div class="videoBox" style="border:solid 1px #CCC;">
 <script type="text/javascript" src="http://www.devline.ru/js/swfobject.js"></script>
@@ -72,35 +136,11 @@ swfobject.embedSWF("http://www.devline.ru/miniflash.swf","devline_639","640","48
 </object> 
 	</div>
 
-	<h4>Камера 2.</h4>
-	<div class="videoBox" style="border:solid 1px #CCC;">
-<script type="text/javascript" src="http://www.devline.ru/js/swfobject.js"></script>
-
-<script type="text/javascript">
-var flashvars={};
-var attributes={
-		allowfullscreen:"true",
-		menu:"false",
-		quality:"hight"
-	};
-var params={
-		value:"ip=37.8.158.72,port=9786,login=admin,pass=str0890full,uriCamera=/cameras/0,quality=60,fps=8,sound=true,ptz=true,logo=false"
-	};
-swfobject.embedSWF("http://www.devline.ru/miniflash.swf","devline_639","640","480","9.0.115",flashvars,params,attributes);
-</script>
-
-<object type="application/x-shockwave-flash" data="http://www.devline.ru/miniflash.swf" width="640" height="480" id="devline_639" style="visibility: visible;">
-
-<param name="allowfullscreen" value="true">
-<param name="menu" value="false">
-<param name="quality" value="hight">
-<param name="flashvars" value="value=ip=37.8.158.72,port=9786,login=admin,pass=str0890full,uriCamera=/cameras/0,quality=60,fps=8,sound=true,ptz=true,logo=false">
-
-</object> 
-	</div>
 
 
-<?php if (($this->params->get('logoutdescription_show') == 1 && str_replace(' ', '', $this->params->get('logout_description')) != '')|| $this->params->get('logout_image') != '') : ?>
+<?php */
+	
+	if (($this->params->get('logoutdescription_show') == 1 && str_replace(' ', '', $this->params->get('logout_description')) != '')|| $this->params->get('logout_image') != '') : ?>
     <div class="logout-description">
 	<?php endif ; ?>
 
