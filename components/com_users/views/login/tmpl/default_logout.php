@@ -8,6 +8,7 @@
  */
 
 defined('_JEXEC') or die;
+require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helpers'.DS.'chado_app_data.php';
 $user = JFactory::getUser();
 $userdata=unserialize($user->data);?>
 <div class="logout<?php echo $this->pageclass_sfx?>">
@@ -108,7 +109,7 @@ swfobject.embedSWF("http://www.devline.ru/miniflash.swf","devline_639","640","48
 			endif;
 		endforeach;	
 	endif;
-	if ($assetsData['balance']<=0):?>
+	if ($assetsData['balance']<=0&&$arrCamsData):?>
   <h4>Сервис недоступен из-за недостатка средств на вашем счету.</h4>
     <a href="<?=JRoute::_('index.php?option=com_users&layout=account', false)?>">Пожалуйста, пополните свой баланс! </a>
 <?	endif;

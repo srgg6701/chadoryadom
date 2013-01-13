@@ -985,8 +985,10 @@ ul.hmenu>li:first-child:before{
 /* begin Layout */
 .layout-wrapper
 {
-   position:relative;
    margin:0 auto 0 auto;
+   padding:0 6px;
+   position:relative;
+   max-width:960px;
 }
 
 .content-layout

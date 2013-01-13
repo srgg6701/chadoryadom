@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<favorite name="<?=JRoute::_('index.php?option=com_users&layout=account', false)?>" value="<?=JRoute::_('index.php?option=com_users&layout=account', false)?>"/>
+<favorite name="%D0%A1%D1%87%D1%91%D1%82" value="<?=JRoute::_('index.php?option=com_users&layout=account', false)?>"/>

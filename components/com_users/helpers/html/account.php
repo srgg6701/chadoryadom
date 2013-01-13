@@ -138,13 +138,33 @@ $gotmpl=JUri::base().'templates/'.$template;?>
 		$total_sum=$db->loadResult(); 
 		
 		$first_payment_date=userAccount::getBorderUserPaymentDate($user_id);
-		$date_start_value = new DateTime($first_payment_date);
-		$today = new DateTime(date("Y-m-d H:i:s"));
-		$time_passed = $today->diff($date_start_value);
-		require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helpers'.DS.'chado_app_data.php';
-		$monthly_sum=ApplicationHelper::getSettings('monthly_sum');
-		$day_payment_summ=(int)$monthly_sum['monthly_sum']['value']*12/365;
-		$days_passed=$time_passed->d;
+		if(strstr($_SERVER['HTTP_HOST'],"localhost")){
+			$date_start_value = new DateTime($first_payment_date);
+			$today = new DateTime(date("Y-m-d H:i:s"));
+			$time_passed = $today->diff($date_start_value);
+			require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helpers'.DS.'chado_app_data.php';
+			$monthly_sum=ApplicationHelper::getSettings('monthly_sum');
+			$day_payment_summ=(int)$monthly_sum['monthly_sum']['value']*12/365;
+			$days_passed=$time_passed->d;
+			
+		}else{
+			// 2012-12-29   0 7 : 3 0 : 3 7
+			// 0123456789101112131415161718
+			$year=$first_payment_date[0].
+				  $first_payment_date[1].
+				  $first_payment_date[2].
+				  $first_payment_date[3];
+			$days=$first_payment_date[8].$first_payment_date[9];
+			$months=$first_payment_date[5].$first_payment_date[6];
+			$hours=$first_payment_date[11].$first_payment_date[12];
+			$minutes=$first_payment_date[14].$first_payment_date[15];
+			$seconds=$first_payment_date[17].$first_payment_date[18];
+			
+			$timeX = mktime((int)$seconds, (int)$minutes, (int)$hours, (int)$months, (int)$days, (int)$year); //s:i:H m-d-Y
+			$timeNow = time();
+			$delta = $timeNow - $timeX;
+			$days_passed=floor($delta/(24*60*60));
+		}
 		$cut_assets=$days_passed*$day_payment_summ;
 		$balance=$total_sum-$cut_assets;
 		$assetsData=array(
