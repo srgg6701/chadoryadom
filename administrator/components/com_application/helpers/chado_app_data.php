@@ -83,7 +83,10 @@ class ApplicationHelper
 		$query="SELECT script_params FROM #__users WHERE id = ".$user_id;
 		$db=JFactory::getDBO();
 		$db->setQuery($query);
-		return unserialize($db->loadResult()); 
+		$params=unserialize($db->loadResult()); 
+		if ((int)$params['sound'])
+			$params['sound']='true';
+		return $params;
 	}
 /**
  * ДОбавить заявку с сайта

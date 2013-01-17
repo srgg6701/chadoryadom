@@ -38,6 +38,7 @@ $userdata=unserialize($user->data);?>
     </div>
     <hr size="1" noshade>
 	<br>
+<?	/*
     <div>
     <strong>Инструкции по настройке сервиса для:</strong>
 <ul>
@@ -45,7 +46,8 @@ $userdata=unserialize($user->data);?>
         <li><a href="<?=JRoute::_('index.php?option=com_users&layout=manual&device=android', false)?>">Android</a></li>
       </ul>
     </div>
-<?	if(!$arrCamsData=ApplicationHelper::getAppCameraScriptData($user->id)):?>
+<?	*/
+	if(!$arrCamsData=ApplicationHelper::getAppCameraScriptData($user->id)):?>
 	<h5>Данные подключения не установлены. Обратитесь к администрации.</h5>
 <?	elseif($assetsData['balance']>0):?>
 <br>
@@ -67,7 +69,7 @@ var params={
 			echo $script_params['port'];?>,login=<?
 			echo $script_params['script_login'];?>,pass=<?
 			echo $script_params['script_password'];?>,uriCamera=/cameras/<?
-			echo $cam_index;?>,quality=60,fps=8,sound=<?
+			echo $cam_index;?>,quality=80,fps=25,sound=<?
 			echo $script_params['sound'];?>,ptz=true,logo=false"
 	};
 swfobject.embedSWF("http://www.devline.ru/miniflash.swf","devline_639","640","480","9.0.115",flashvars,params,attributes);

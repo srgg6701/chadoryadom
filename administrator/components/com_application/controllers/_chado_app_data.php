@@ -11,7 +11,6 @@
 defined('_JEXEC') or die;
 
 jimport('joomla.application.component.controlleradmin');
-
 /**
  * _customer_orders list controller class.
  */

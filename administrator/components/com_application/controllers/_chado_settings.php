@@ -19,7 +19,7 @@ class ApplicationController_chado_settings extends JControllerAdmin
 {
 	private $direct='index.php?option=com_application&layout=settings';
 	/**
-	* Подтвердить платёж!
+	* Подтвердить изменение настроек!
 	* @package
 	* @subpackage
 	*/
@@ -31,7 +31,7 @@ class ApplicationController_chado_settings extends JControllerAdmin
 			if (!$model->save_settings($id,$values[$id]))
 				die('Ошибка обновления записи...');
 		// отправляемся на страницу с текущим списком юзеров:
-		$this->setRedirect(JRoute::_($this->direct,false));
+		$this->setRedirect(JRoute::_($this->direct),"Настройки подтверждены.");
 	}
 	/**
 	 * Proxy for getModel.

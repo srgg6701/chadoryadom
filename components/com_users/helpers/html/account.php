@@ -21,7 +21,7 @@ if (!$app)
 $template = $app->getTemplate();
 $gotmpl=JUri::base().'templates/'.$template;
 $link=$gotmpl.'/css/application_form.css';
-echo '<link href="$link" rel="stylesheet" type="text/css">';
+echo '<link href="'.$link.'" rel="stylesheet" type="text/css">';
 	
 class userAccount
 {
@@ -50,6 +50,7 @@ class userAccount
 		?>><a href="<?=JRoute::_($link_base.'profile')?>">Профиль</a></div>
         <div<? userAccount::selCurrentLink('login','account');?>><a href="<?=$link_base.'login&layout=account'?>">Счёт</a></div>
         <div<? userAccount::selCurrentLink('login');?>><a href="<?=$link_base.'login'?>">Сервис</a></div>
+        <div<? userAccount::selCurrentLink('profile','manuals');?>><a href="<?=$link_base.'profile&layout=manuals'?>">Инструкции</a></div>
 </div>
 <?	}
 /**
@@ -129,14 +130,12 @@ $gotmpl=JUri::base().'templates/'.$template;?>
  * @subpackage
  */
 	static public function calculateUserAssets($user_id){
-		//$userPayments=userAccount::getUserAssets($user_id,false,'applied <> 0');
 		$query="SELECT SUM(summ) 
   FROM #__chado_payments
  WHERE user_id = ".$user_id." AND applied <> 0";
 		$db=JFactory::getDBO();
 		$db->setQuery($query);
 		$total_sum=$db->loadResult(); 
-		
 		$first_payment_date=userAccount::getBorderUserPaymentDate($user_id);
 		if(strstr($_SERVER['HTTP_HOST'],"localhost")){
 			$date_start_value = new DateTime($first_payment_date);
@@ -188,7 +187,14 @@ $gotmpl=JUri::base().'templates/'.$template;?>
 		$db->setQuery($query);
 		return $db->loadResult(); 
 	}
-
+	
+	static public function getArticleContent($id){
+		$query = "SELECT * FROM #__content WHERE id = 2";
+		//  Load query into an object
+		$db = JFactory::getDBO();
+		$db->setQuery($query);
+		return $db->loadAssoc();
+	}
 /**
  * Описание
  * @package
