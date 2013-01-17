@@ -1,6 +1,40 @@
 /* begin Page */
 /* Created by Artisteer v3.1.0.46558 */
 
+.bg-fon1{
+	background-color:#C8A2C8;
+	background: url("../images/fon1.png") top right no-repeat transparent;
+}
+.bg-fon1
+	h3.t{
+	font-family: Arial;
+	font-size: 22px;
+	font-weight: 100;
+}
+div.bg-fon1,
+div.box.blockcontent{
+	border-radius:8px;
+}
+div.box.blockcontent{
+	padding:0;
+}
+div.box.blockcontent
+	ul{
+	background-color:#C8A2C8;
+	border-radius:8px;
+	margin:-5px;
+	padding-top: 6px;
+	padding-bottom: 18px;
+}
+div.box.blockcontent
+	ul a{
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:13.5px;
+	font-style:italic;
+}
+div.custom_lastBottom{
+	margin:0 18px;
+}
 #main, table
 {
    font-family: Arial, Helvetica, Sans-Serif;
@@ -823,14 +857,15 @@ ul.hmenu img.menu-image-right
 /* begin MenuItem */
 ul.hmenu>li>a
 {
-   position: relative;
-   display: block;
-   height: 26px;
-   cursor: pointer;
-   text-decoration: none;
    color: #F2F5F7;
-   padding: 0 17px;
+   cursor: pointer;
+   display: block;
+   font-weight:bold;
+   height: 26px;
    line-height: 26px;
+   text-decoration: none;
+   padding: 0 17px;
+   position: relative;
    text-align: center;
 }
 
@@ -1386,14 +1421,12 @@ div.block img
 
 .blockheader .t
 {
-   min-height: 26px;
-   line-height:26px;
+   line-height:35px;
    color: #F9FAFB;
    font-size: 16px;
    margin:0;
-   padding: 0 5px 0 5px;
+   padding: 0 12px;
    white-space: nowrap;
-background: url("../images/fon1.png") 0% 50% no-repeat transparent;
 }
 
 .blockheader .t a,
@@ -1424,7 +1457,7 @@ background: url("../images/fon1.png") 0% 50% no-repeat transparent;
    content: url('../images/blockcontent_t.png');
    font-size: 0;
   /* background-image: url('../images/blockcontent_b.png');*/
-background-color: rgb(169,137,184);
+	/* background-color: #C8A2C8;*//*rgb(169,137,184);*/
 }
 .blockcontent:after{
    clip:rect(auto, auto, auto, 969px);
@@ -1487,7 +1520,7 @@ font-style: italic;
    line-height: 125%;
    color: #3D5266;
    margin: 5px 0 0 10px;
-   padding: 0 0 0 12px;
+   padding: 0 12px;
    background-image: url('../images/blockcontentbullets.png');
    background-repeat: no-repeat;
    background-position: center left;
@@ -2754,4 +2787,9 @@ font-size: 12px;
 span.req:after{
 	content:'*';
 	color:red;
+}
+
+td#tblImageLeft img{
+	margin-right:10px;
+	margin-bottom:10px;
 }

@@ -76,7 +76,7 @@ if (!defined('_ARTX_FUNCTIONS')) {
         
         <?php echo str_replace('class="box block">', 'class="box block' . $classes . '">', ob_get_clean()); ?>
         <?php if ($hasCaption): ?>
-<div class="bar blockheader">
+<div class="bar blockheader bg-fon1">
             <h3 class="t">
         <?php echo $caption; ?>
 </h3>
