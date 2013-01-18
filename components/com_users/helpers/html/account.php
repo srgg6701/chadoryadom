@@ -50,7 +50,7 @@ class userAccount
 		?>><a href="<?=JRoute::_($link_base.'profile')?>">Профиль</a></div>
         <div<? userAccount::selCurrentLink('login','account');?>><a href="<?=$link_base.'login&layout=account'?>">Счёт</a></div>
         <div<? userAccount::selCurrentLink('login');?>><a href="<?=$link_base.'login'?>">Сервис</a></div>
-        <div<? userAccount::selCurrentLink('profile','manuals');?>><a href="<?=$link_base.'profile&layout=manuals'?>">Инструкции</a></div>
+        <div<? userAccount::selCurrentLink('profile','manuals');?>><a href="<?=$link_base.'profile&layout=manuals'?>">Для моб. устройств</a></div>
 </div>
 <?	}
 /**
