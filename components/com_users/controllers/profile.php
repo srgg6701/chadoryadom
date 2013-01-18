@@ -162,4 +162,34 @@ class UsersControllerProfile extends UsersController
 		// Flush the data from the session.
 		$app->setUserState('com_users.edit.profile.data', null);
 	}
+/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	function changeMobila(){
+		//die('changeMobila');
+		$user = JFactory::getUser();
+		$where=' id = '.$user->id;
+		$tbl='#__users';
+		$query="SELECT `data` FROM $tbl WHERE $where";
+		$db=JFactory::getDBO();
+		$db->setQuery($query);
+		$data=unserialize($db->loadResult()); 
+		$data['mobila']=JRequest::getVar('mobila');
+		$data=serialize($data);
+		//echo "<div class=''>query= ".$query."</div>";
+		$query	= $db->getQuery(true);
+		$query->update($tbl);
+		$query->set(" `data` = '$data' ");
+		$query->where($where);
+		//echo "<div class=''>query2= ".$query."</div>";die();
+		$db->setQuery((string) $query);
+		if (!$db->query()) {
+            //sendErrorMess включён
+			JError::raiseError(500, $db->getErrorMsg());
+		}
+		// Redirect to the edit screen.
+		$this->setRedirect(JRoute::_('index.php?option=com_users&view=profile', false));
+	}	
 }

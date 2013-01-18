@@ -95,7 +95,11 @@ class userAccount
             </tr>
 	<?	endforeach;?>
         </table>
-<form action="<?php echo JRoute::_('index.php?option=com_application'); ?>" method="post" name="paymentForm" id="<?="payment-form"?>" class="form-validate" enctype="multipart/form-data">
+<form action="<?php echo JRoute::_('index.php?option=com_application'); ?>" method="post" name="paymentForm" id="<?="payment-form"?>" class="form-validate" enctype="multipart/form-data"<?
+	if(JRequest::getVar('do')=='add'):
+	?> style="display:block;"<?
+	endif;
+?>>
 
   <span class="req"></span>Дата: <? 
 		echo JHTML::_('calendar', $value = '', $name='date', $id='date', $format = '%Y-%m-%d', $attribs = array('required'=>'','placeholder'=>'ГГГГ-ММ-ДД'));?>
@@ -187,7 +191,11 @@ $gotmpl=JUri::base().'templates/'.$template;?>
 		$db->setQuery($query);
 		return $db->loadResult(); 
 	}
-	
+/**
+ * Описание
+ * @package
+ * @subpackage
+ */
 	static public function getArticleContent($id){
 		$query = "SELECT * FROM #__content WHERE id = 2";
 		//  Load query into an object
@@ -221,6 +229,25 @@ $gotmpl=JUri::base().'templates/'.$template;?>
 		$db->setQuery($query); // а иначе вытащит старый запрос!
 		$result=$db->loadAssocList();
 		return $result;  
+	}
+/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	function getUserFromTable($user_id=false){
+		if(!$user_id){
+			$user = JFactory::getUser();
+			$user_id=$user->id;
+		}
+		$query="SELECT * FROM #__users WHERE id = ".$user_id;
+		$db=JFactory::getDBO();
+		$db->setQuery($query);
+		$user_data=$db->loadAssoc(); 
+		$xtra=unserialize($user_data['data']);
+		unset($user_data['data']);
+		$data=array_merge($user_data,$xtra);
+		return $data;
 	}
 /**
  * Описание

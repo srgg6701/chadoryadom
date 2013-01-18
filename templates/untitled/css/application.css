@@ -49,14 +49,14 @@ input[type="text"], textarea{
 }
 *[class$="cabinet"],
 .logincabinet ~div{
-	margin:-20px 68px 20px;
+	margin:-20px 68px 20px 28px;
 }
 *[class$="cabinet"]
 	h1{
 	color:#3E81A8;
 	font-size:20px;
 	margin-bottom: 18px;
-	margin-left:-20px;
+	/*margin-left:-20px;*/
 }
 *[class$="cabinet"]
 	div.account.menu{
@@ -99,11 +99,29 @@ div.postcontent h1{
 table.tblUserData{
 	border:solid 1px #006600;
 	margin:8px 0;
+	width:100%;
+}
+table.tblUserData
+	tbody
+		> tr:first-child{
+	background: url('../images/nav.png') center repeat-x;
+
+}
+table.tblUserData tbody tr th{
+	color:#FFF;
+	padding-top:6px;
+	padding-bottom:8px;
 }
 table.tblUserData
 	td,
 table.tblUserData
 	th{
+	padding:4px;
+}
+table#userTable{
+	margin-left:20px;
+}
+table#userTable td{
 	padding:4px;
 }
 .videoBox{

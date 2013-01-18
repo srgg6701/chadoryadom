@@ -8,7 +8,7 @@
 .bg-fon1
 	h3.t{
 	font-family: Arial;
-	font-size: 22px;
+	font-size: 19px;
 	font-weight: 100;
 }
 div.bg-fon1,
@@ -1362,7 +1362,7 @@ ul.vmenu ul li a:hover, ul.vmenu ul li a:hover.active {
 .block
 {
    max-width:972px;
-   margin: 10px;
+   margin: 0 10px;
 }
 .block-body 
 {
@@ -1425,7 +1425,7 @@ div.block img
    color: #F9FAFB;
    font-size: 16px;
    margin:0;
-   padding: 0 12px;
+   padding: 0 9px;
    white-space: nowrap;
 }
 
