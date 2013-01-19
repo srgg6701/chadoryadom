@@ -258,16 +258,22 @@ div.color_swatch {
 				$n = count($this->options);
 				$n = 4;
 				for ($i = 0; $i < $n; $i++) {
-					?>
-					<tr class="dragable" id="<?php echo $i+1; ?>" >
+										$option_id=($this->options[$i]->id)? 
+						$this->options[$i]->id:$i+1;?>
+					<tr class="dragable" id="<?php echo $i+1; ?>">
 						<td align="center"><b><?php echo $i+1; ?></b></td>
 						<td>
-							<input class="inputbox checkit" type="text" name="polloption[<?php echo $this->options[$i]->id; ?>]" id="polloption<?php echo $this->options[$i]->id; ?>" value="<?php echo $this->options[$i]->text; ?>" size="60" />
-							<input type="hidden" name="ordering[<?php echo $this->options[$i]->id; ?>]" id="ordering<?php echo $this->options[$i]->id; ?>" value="<?php echo $this->options[$i]->ordering; ?>" size="1" class="ordering" />
+							<input class="inputbox checkit" type="text" name="polloption[<?php echo $option_id; ?>]" id="polloption<?php echo $option_id; ?>" value="<?php echo $this->options[$i]->text; ?>" size="60" />
+							<input type="hidden" name="ordering[<?php 
+			echo $option_id; ?>]" id="ordering<?php echo $option_id; ?>" value="<?php 		echo ($this->options[$i]->ordering)? 
+				$this->options[$i]->ordering:$i+1; ?>" size="1" class="ordering" />
 						</td>
 						<td>
 							<div style="position:relative;">
-								<input type="hidden" size="7"  name="color[<?php echo $this->options[$i]->id; ?>]" id="color<?php echo $this->options[$i]->id; ?>" value="#<?php echo $this->options[$i]->color; ?>" class="colorpicker" />&nbsp;
+								<input type="hidden" size="7"  name="color[<?php echo $option_id; ?>]" id="color<?php 
+			echo $option_id; ?>" value="#<?php 
+			echo ($this->options[$i]->color)? 
+				$this->options[$i]->color:$colors[$i]; ?>" class="colorpicker" />&nbsp;
 							</div>
 						</td>
 						<td align="center">

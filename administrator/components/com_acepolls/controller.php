@@ -63,6 +63,7 @@ class AcepollsController extends JController {
 	function save() {
 		// Check for request forgeries
 		JRequest::checkToken() or jexit('Invalid Token');
+		$Table='#__acepolls_options';
 
 		$db	=& JFactory::getDBO();
 
@@ -108,18 +109,35 @@ class AcepollsController extends JController {
 					$obj->text     = $text;
 					$obj->color    = substr($colors[$i], -6);
 					$obj->ordering = $orderings[$i];
-					$db->insertObject('#__acepolls_options', $obj);
+					$db->insertObject($Table, $obj);
 				}
 			} 
 			else {
 				if ($text != ''){
 					
+					/*$obj = new stdClass();
+					$obj->id  	  	= (int)$i;
+					$obj->text 	   	= $text;
+					$obj->color	   	= substr($colors[$i], -6);
+					$obj->ordering	= $orderings[$i];
+					$db->updateObject('#__acepolls_options', $obj, 'id');*/
+					$q="SELECT COUNT(*) FROM $Table WHERE id = ".$i;
+					//echo ": $i \n";
+					$db->setQuery($q);
+					$exists=$db->loadResult();
+					//echo "<div class=''>q($exists)= ".$q."</div>";
 					$obj = new stdClass();
 					$obj->id  	  	= (int)$i;
 					$obj->text 	   	= $text;
 					$obj->color	   	= substr($colors[$i], -6);
 					$obj->ordering	= $orderings[$i];
-					$db->updateObject('#__acepolls_options', $obj, 'id');
+					if ($exists){
+						$db->updateObject($Table, $obj, 'id');
+					}else{
+						$obj->poll_id  = (int)$row->id;
+						$db->insertObject($Table, $obj);
+					}
+					
 				}
 				else {
 					//If there are empty options delete them so we don't waste database space
@@ -145,7 +163,7 @@ class AcepollsController extends JController {
 					$obj->text     = $text;
 					$obj->color    = substr($extra_colors[$k], -6);
 					$obj->ordering = $extra_ordering[$k];
-					$db->insertObject('#__acepolls_options', $obj);	
+					$db->insertObject($Table, $obj);	
 				}				
 			}
 		}
