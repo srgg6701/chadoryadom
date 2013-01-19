@@ -135,7 +135,7 @@ div.box.sheet{
         
           				<div class="cleared"></div>
 			<?php if ($view->containsModules('left_bottom')) : ?>
-                        <div class="layout-poll">LEFT BOTTOM
+                        <div class="layout-poll">
             <?php echo $view->position('left_bottom', 'block'); ?>
             
                             <div class="cleared"></div>
