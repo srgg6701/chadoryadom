@@ -130,12 +130,21 @@ div.box.sheet{
             <div class="content-layout">
                 <div class="content-layout-row">
         <?php if ($view->containsModules('left')) : ?>
-        <div class="layout-cell sidebar1">
+        			<div class="layout-cell sidebar1">
         <?php echo $view->position('left', 'block'); ?>
         
-          <div class="cleared"></div>
-        </div>
+          				<div class="cleared"></div>
+			<?php if ($view->containsModules('left_bottom')) : ?>
+                        <div class="layout-poll">LEFT BOTTOM
+            <?php echo $view->position('left_bottom', 'block'); ?>
+            
+                            <div class="cleared"></div>
+                        </div>
+            <?php endif; ?>
+        			</div>
         <?php endif; ?>
+        
+        
         <div class="layout-cell content">
         
         <?php

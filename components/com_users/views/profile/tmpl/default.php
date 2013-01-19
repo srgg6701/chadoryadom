@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die;
 JHtml::_('behavior.tooltip');
-?>
+require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helpers'.DS.'chado_app_data.php';?>
 <div class="profile<?php echo $this->pageclass_sfx?>">
 <?php if ($this->params->get('show_page_heading')) : ?>
 <h1>
