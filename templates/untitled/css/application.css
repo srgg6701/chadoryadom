@@ -6,6 +6,13 @@ div.account.menu
 	margin:3px 0 8px 0;
 	padding:10px 14px;
 }
+div.box-body.blockcontent-body
+	div.poll
+		h4{
+	font-size: 12px;
+	margin: 0;
+	margin-bottom: 14px;
+}
 .calendar{ 
 	vertical-align:middle;
 }
@@ -89,6 +96,13 @@ form#payment-form{
 	display:none; 
 	padding:14px !important; 
 	margin-bottom:10px !important;
+}
+div[id^="polldiv_"]{
+	background:#9ACD32;
+	border-radius:8px;
+	color:#FFF;
+	margin:-4px;
+	padding:6px;
 }
 div.postcontent{
 	padding-top:16px;

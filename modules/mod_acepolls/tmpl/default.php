@@ -150,8 +150,10 @@ $document->addScriptDeclaration($js);
 			
 			<div>
 				<div style="padding:3px;"><?php echo $row->text." - ".$percent; ?>%</div>
-				<div style="height:10px; padding:1px; border:1px solid #<?php echo $params->get('poll_bars_border_color'); ?>;">
-					<div style="width: <?php echo $width; ?>%; height:10px;background:#<?php echo $background_color; ?>;"></div>
+				<div style="height:10px; padding:1px;">
+				  <div style="background:#FFF">
+                    <div style="width: <?php echo $width; ?>%; height:10px;background:#<?php echo $background_color; ?>;">&nbsp;</div>
+                    </div>
 				</div>
 			</div>
 <?php  endforeach;
