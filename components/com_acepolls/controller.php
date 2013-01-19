@@ -82,7 +82,7 @@ class AcepollsController extends JController {
 
 		$itemid  = isset($items[0]) ? '&Itemid='.$items[0]->id : '';
 
-		$this->setRedirect(JRoute::_('index.php?option=com_acepolls&view=poll&id='. $poll_id.':'.$poll->alias.$itemid, false), $msg, $tom);
+		$this->setRedirect(JRoute::_('index.php'/*.'?option=com_acepolls&view=poll&id='. $poll_id.':'.$poll->alias.$itemid*/, false)/*, $msg, $tom*/);
 	}
 }
 ?>

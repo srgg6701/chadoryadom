@@ -257,6 +257,8 @@ div.color_swatch {
 				<?php
 				$n = count($this->options);
 				$n = 4;
+				$colors=array('FF0000','FFFF99','CCFF66','FF99CC',
+							  '99FFFF','9966FF','FF9900','33FF00');
 				for ($i = 0; $i < $n; $i++) {
 										$option_id=($this->options[$i]->id)? 
 						$this->options[$i]->id:$i+1;?>
