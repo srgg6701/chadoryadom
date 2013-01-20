@@ -10,7 +10,8 @@
 defined('_JEXEC') or die;
 require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helpers'.DS.'chado_app_data.php';
 $user = JFactory::getUser();
-$userdata=unserialize($user->data);?>
+//$userdata=unserialize($user->data);
+$userdata=$user->data;?>
 <div class="logout<?php echo $this->pageclass_sfx?>">
 	<?php if ($this->params->get('show_page_heading')) : ?>
 	<h1>

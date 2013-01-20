@@ -93,14 +93,14 @@ class UsersControllerUser extends JControllerForm
 		 * srgg67@gmail.com
 		 */
 		// проверить и обработать дополнительные поля:
-		if (isset($data['xtra'])||isset($data['videoscript'])){
+		if(isset($data['xtra'])||isset($data['videoscript'])){
 			$setXtraData=true;
 			//var_dump('<h1>data</h1><pre>',$data,'</pre>'); //die();
 			$db	= JFactory::getDBO();
 			$query	= $db->getQuery(true);
 			$query->update('#__users');
 		}
-		if (isset($data['xtra'])) {
+		if(isset($data['xtra'])) {
 			// получить названия полей доп.данных:
 			$xtra=explode(",",$data['xtra']);
 			//var_dump("<h1>xtra:</h1><pre>",$xtra,"</pre>");
@@ -129,7 +129,7 @@ class UsersControllerUser extends JControllerForm
 			$data['script_data']=serialize($videoscript_params); // сохранить доп. данные в поле как сериализованный массив
 			$fill_script_field=" `script_params` = '$data[script_data]' ";
 		}
-		if (isset($setXtraData)){
+		if(isset($setXtraData)){
 			if ($fill_data_field&&$fill_script_field)
 				$set_exp=$fill_data_field.", ".$fill_script_field;
 			else

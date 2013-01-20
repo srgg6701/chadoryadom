@@ -19,6 +19,7 @@ require_once JPATH_COMPONENT.'/controller.php';
  */
 class UsersControllerProfile extends UsersController
 {
+	private $goBack='index.php?option=com_users&view=profile';
 	/**
 	 * Method to check out a user for editing and redirect to the edit form.
 	 *
@@ -66,11 +67,11 @@ class UsersControllerProfile extends UsersController
 	 * @return	void
 	 * @since	1.6
 	 */
-	public function save()
+	public function save($datapass=false)
 	{
+		//var_dump('<h1>post</h1><pre>',JRequest::get('post'),'</pre>'); die();
 		// Check for request forgeries.
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
-
 		// Initialise variables.
 		$app	= JFactory::getApplication();
 		$model	= $this->getModel('Profile', 'UsersModel');
@@ -79,7 +80,15 @@ class UsersControllerProfile extends UsersController
 
 		// Get the user data.
 		$data = JRequest::getVar('jform', array(), 'post', 'array');
-
+		if($datapass){
+			$data['name']=$user->name;
+			$data['username']=$user->username;
+			$data['email1']=$user->email;
+			$data['email2']=$user->email;
+			//$data['params']=unserialize($user->params);
+			$data['password1']=$datapass['password1'];
+			$data['password2']=$datapass['password1'];
+		}
 		// Force the ID to this user.
 		$data['id'] = $userId;
 
@@ -89,10 +98,18 @@ class UsersControllerProfile extends UsersController
 			JError::raiseError(500, $model->getError());
 			return false;
 		}
+		$xtra_data=unserialize($user->data);
 
+		$xtra_data['password']=($data['password1'])? 
+			$data['password1']:$data['jform[password1]'];
+		
 		// Validate the posted data.
-		$data = $model->validate($form, $data);
-
+		if(!$datapass)
+			$data = $model->validate($form, $data);
+		
+		$data['data']=serialize($xtra_data);
+		
+		//var_dump('<h1>data(line: '.__LINE__.')</h1><pre>',$data,'</pre>'); 
 		// Check for errors.
 		if ($data === false) {
 			// Get the validation messages.
@@ -118,7 +135,9 @@ class UsersControllerProfile extends UsersController
 
 		// Attempt to save the data.
 		$return	= $model->save($data);
-
+		
+		//if ($datapass) return true;
+		//var_dump('<h1>data(line: '.__LINE__.')</h1><pre>',$data,'</pre>'); die();
 		// Check for errors.
 		if ($return === false) {
 			// Save the data in the session.
@@ -152,10 +171,13 @@ class UsersControllerProfile extends UsersController
 
 				// Clear the profile id from the session.
 				$app->setUserState('com_users.edit.profile.id', null);
-
-				// Redirect to the list screen.
-				$this->setMessage(JText::_('COM_USERS_PROFILE_SAVE_SUCCESS'));
-				$this->setRedirect(JRoute::_(($redirect = $app->getUserState('com_users.edit.profile.redirect')) ? $redirect : 'index.php?option=com_users&view=profile&user_id='.$return, false));
+				if (!strstr($this->getTask(),'changePassword')){
+					// Redirect to the list screen.
+					$this->setMessage(JText::_('COM_USERS_PROFILE_SAVE_SUCCESS'));
+					$this->setRedirect(JRoute::_(($redirect = $app->getUserState('com_users.edit.profile.redirect')) ? $redirect : 'index.php?option=com_users&view=profile&user_id='.$return, false));
+				}else 
+					$this->setRedirect(JRoute::_($this->goBack,false));
+					
 				break;
 		}
 
@@ -168,7 +190,42 @@ class UsersControllerProfile extends UsersController
  * @subpackage
  */
 	function changeMobila(){
-		//die('changeMobila');
+		$data=$this->extractUserData();
+		$data['mobila']=JRequest::getVar('mobila');
+		$this->pushUserDataBack($array_data);
+	}	
+/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	function changePassword(){
+		$data=$this->extractUserData();
+		$pass=JRequest::getVar('password');
+		$jform=JRequest::getVar('jform');
+		$pass1=$data['password1']=$jform['password1'];
+		$pass2=$data['password2']=$jform['password2'];
+		if (!($pass&&$pass1&&$pass2))
+			$error='missed';
+		else{
+			if ($data['password']!=$pass)
+				$error='wrong_pass';
+			elseif ($pass1!=$pass2)
+				$error='diff_passords';	
+		}
+		if ($error){
+			$this->setRedirect(JRoute::_($this->goBack.'&error='.$error, false));
+		}else{
+			$this->save($data);
+			//$this->setRedirect(JRoute::_($this->goBack, false));
+		}
+	}
+/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	function extractUserData(){
 		$user = JFactory::getUser();
 		$where=' id = '.$user->id;
 		$tbl='#__users';
@@ -176,20 +233,26 @@ class UsersControllerProfile extends UsersController
 		$db=JFactory::getDBO();
 		$db->setQuery($query);
 		$data=unserialize($db->loadResult()); 
-		$data['mobila']=JRequest::getVar('mobila');
-		$data=serialize($data);
-		//echo "<div class=''>query= ".$query."</div>";
+		return $data;
+	}
+/**
+ * Описание
+ * @package
+ * @subpackage
+ */
+	function pushUserDataBack($array_data){
+		$data=serialize($array_data);
+		$db = JFactory::getDBO();
 		$query	= $db->getQuery(true);
 		$query->update($tbl);
 		$query->set(" `data` = '$data' ");
 		$query->where($where);
-		//echo "<div class=''>query2= ".$query."</div>";die();
 		$db->setQuery((string) $query);
 		if (!$db->query()) {
             //sendErrorMess включён
 			JError::raiseError(500, $db->getErrorMsg());
 		}
 		// Redirect to the edit screen.
-		$this->setRedirect(JRoute::_('index.php?option=com_users&view=profile', false));
-	}	
+		$this->setRedirect(JRoute::_($this->goBack, false));
+	}			
 }

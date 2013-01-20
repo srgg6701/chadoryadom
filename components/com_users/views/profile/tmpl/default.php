@@ -18,7 +18,8 @@ require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helper
 <?php endif; ?>
 <?	$user_id=$this->data->id;
 	userAccount::accountManager($this->params->get('logout_redirect_url', $this->form->getValue('return')));
-	$userTableData=userAccount::getUserFromTable($user_id);?>    
+	$userTableData=userAccount::getUserFromTable($user_id);
+	//var_dump('<h1>userTableData</h1><pre>',$userTableData,'</pre>');?>    
 <?php //echo $this->loadTemplate('core'); ?>
 <?php //echo $this->loadTemplate('params'); ?>
 <?php //echo $this->loadTemplate('custom'); ?>
@@ -117,15 +118,52 @@ require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helper
 		
 		</td>
       </tr>
-      <tr>
+      <tr valign="top">
         <td><br>
     <a href="<?php echo JRoute::_('index.php?option=com_users&task=profile.edit&user_id='.(int) $this->data->id);?>">
         <?php echo JText::_('COM_USERS_Edit_Profile'); ?></a>
+        <br/>
+        <a id="change_password" href="javascript:void()">Изменить пароль</a>
     </td>
-        <td>&nbsp;</td>
+        <td>
+        <div id="password_data" style="display:<?="none"?>;">
+        	<form id="member-profile"  action="<?php echo JRoute::_('index.php?option=com_users&task=profile.changePassword'); ?>" method="post" class="form-validate" enctype="multipart/form-data">
+        	<div id="pCell" style="background: yellowGreen; padding: 8px;border-radius: 8px;">
+            Укажите старый пароль:<br>
+        	<input size="30" type="password" name="password" id="old_password">
+            <br>Введите новый пароль:<br>
+            <input size="30" type="password" name="jform[password1]" id="password1">
+            <br>Подтвердите новый пароль:<br>
+            <input size="30" type="password" name="jform[password2]" id="password2">
+            </div>
+        	<div style="padding:10px;">
+        		<a id="send_password" href="javascript:void()"><b>Изменить!</b></a>
+            </div>
+            <input type="hidden" name="jform[id]" id="jform_id" value="<?=$user_id?>" />
+            <input type="hidden" name="option" value="com_users" />
+			<input type="hidden" name="task" value="profile.changePassword" />
+            <?php echo JHtml::_('form.token'); ?>
+            </form>
+        </div>
+        </td>
       </tr>
     <?php endif; ?>
     </table>
+<? 	if ($error=JRequest::getVar('error')):
+		switch($error){
+			case 'missed':
+			$mess="Не все ячейки заполнены";
+			break;
+			case 'wrong_pass':
+			$mess="Текущий пароль не верен";
+			break;
+			case 'diff_passords':
+			$mess="Новый пароль и его подтверждение не совпадают";
+			break;
+		}?>
+    <h5 style="color:red">Не удалось изменить данные:</h5>
+        <?=$mess?>
+<?	endif;?>
             <div class="cleared"></div>
   </div>
 </div>
@@ -181,5 +219,32 @@ $(function(){
 	$('#show_video_data').click( function(){
 			$('#video_data').fadeToggle(500);
 		});
+	$('#change_password').click( function(){
+			$('#password_data').fadeToggle(500);
+		});
+	$('#send_password').click( function(){
+		var pass=$('input#old_password').val();
+		var pass1=$('input#password1').val();
+		var pass2=$('input#password2').val();
+		if (!pass){
+			alert('Вы не указали текущий пароль!');
+			return false;
+		}else{		
+			if (pass1&&pass2){
+				if (pass1!=pass2){
+					alert('Пароли не совпадают!');
+				}else{
+					//alert(document.getElementById('member-profile').action);
+					$('form#member-profile').submit();
+					//var goTask='index.php?option=com_users&task=profile.changePassword&password='+pass+'&jform[password1]='+pass1+'&jform[password2]='+pass2;
+					//alert(goTask);
+					//location.href=goTask;
+				}
+			}else{
+				alert('Не все ячейки заполнены!');
+				return false;
+			}
+		}
+	});
 })
 </script>

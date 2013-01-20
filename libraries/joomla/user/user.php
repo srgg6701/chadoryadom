@@ -713,12 +713,11 @@ class JUser extends JObject
 	 * @throws  exception
 	 */
 	public function save($updateOnly = false)
-	{
+	{	
 		// Create the user table object
 		$table = $this->getTable();
 		$this->params = (string) $this->_params;
 		$table->bind($this->getProperties());
-
 		// Allow an exception to be thrown.
 		try
 		{
