@@ -120,13 +120,14 @@ require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helper
       </tr>
       <tr valign="top">
         <td><br>
-    <a href="<?php echo JRoute::_('index.php?option=com_users&task=profile.edit&user_id='.(int) $this->data->id);?>">
-        <?php echo JText::_('COM_USERS_Edit_Profile'); ?></a>
+    	<a id="change_password" href="javascript:void()"><b>Изменить пароль</b></a>
         <br/>
-        <a id="change_password" href="javascript:void()">Изменить пароль</a>
+        <br/>
+        <a href="<?php echo JRoute::_('index.php?option=com_users&task=profile.edit&user_id='.(int) $this->data->id);?>">
+        <?php echo JText::_('COM_USERS_Edit_Profile'); ?></a>
     </td>
         <td>
-        <div id="password_data" style="display:<?="none"?>;">
+        <div id="password_data" style="display:<?="none"?>;"><br>
         	<form id="member-profile"  action="<?php echo JRoute::_('index.php?option=com_users&task=profile.changePassword'); ?>" method="post" class="form-validate" enctype="multipart/form-data">
         	<div id="pCell" style="background: yellowGreen; padding: 8px;border-radius: 8px;">
             Укажите старый пароль:<br>
