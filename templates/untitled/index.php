@@ -127,25 +127,33 @@ div.box.sheet{
     <?php echo $view->position('banner1', 'nostyle'); ?>
     <?php echo $view->positions(array('top1' => 33, 'top2' => 33, 'top3' => 34), 'block'); ?>
         <div class="layout-wrapper">
+            
             <div class="content-layout">
+                
                 <div class="content-layout-row">
-        <?php if ($view->containsModules('left')) : ?>
+        
+		
+		<?php if ($view->containsModules('left')) { ?>
         			<div class="layout-cell sidebar1">
         <?php echo $view->position('left', 'block'); ?>
         
           				<div class="cleared"></div>
-			<?php if ($view->containsModules('left_bottom')) : ?>
+			<?php if ($view->containsModules('left_bottom')) { ?>
             			<br />
+					<?	// POLLS	?>
                         <div class="layout-poll">
-            <?php echo $view->position('left_bottom', 'block'); ?>
+            
+			<?php echo $view->position('left_bottom', 'block'); ?>
+                            
                             <div class="cleared"></div>
+                        
                         </div>
-            <?php endif; ?>
+            <?php } ?>
         			</div>
-        <?php endif; ?>
+        <?php } ?>
         
         
-        <div class="layout-cell content">
+        			<div class="layout-cell content">
         
         <?php
           echo $view->position('banner2', 'nostyle');
@@ -161,8 +169,9 @@ div.box.sheet{
           echo $view->position('banner5', 'nostyle');
         ?>
         
-          <div class="cleared"></div>
-        </div>
+                      <div class="cleared"></div>
+                    
+                    </div>
         <?php if ($view->containsModules('right')) : ?>
         <div class="layout-cell sidebar2">
         <?php echo $view->position('right', 'block'); ?>
@@ -171,6 +180,8 @@ div.box.sheet{
         </div>
         <?php endif; ?>
         
+                
+                
                 </div>
             </div>
         </div>

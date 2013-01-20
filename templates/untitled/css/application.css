@@ -105,10 +105,11 @@ div[id^="polldiv_"]{
 	padding:6px;
 }
 div.postcontent{
-	padding-top:16px;
+	/*padding-top:16px;*/
 }
 div.postcontent h1{
-	margin-top:-7px;
+	margin-top: -14px;
+	font-size: 20px;
 }
 table.tblUserData{
 	border:solid 1px #006600;

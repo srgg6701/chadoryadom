@@ -23,7 +23,6 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	document.adminForm.submit(task);
 }
 </script>
-
 <h1><?php echo $this->params->get('page_title'); ?></h1>
 <form action="<?php echo JRoute::_(JFactory::getURI()->toString()); ?>" method="post" name="adminForm">
 	<table>

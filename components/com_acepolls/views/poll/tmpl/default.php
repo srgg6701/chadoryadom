@@ -165,6 +165,5 @@ if ($comments != 0) {
 	}
 }
 ?>
-
 <br style="clear:both" />
 </div>

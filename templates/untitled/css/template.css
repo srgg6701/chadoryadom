@@ -1612,7 +1612,10 @@ span.button-wrapper.active>.button, span.button-wrapper.active>a.button:link
    color: #FFFFFF !important;
 }
 
-span.button-wrapper>span.button-l, span.button-wrapper>span.button-r
+span.button-wrapper 
+	> span.button-l, 
+span.button-wrapper 
+	> span.button-r
 {
    display: block;
    position: absolute;
@@ -1622,6 +1625,20 @@ span.button-wrapper>span.button-l, span.button-wrapper>span.button-r
    padding: 0;
    background-image: url('../images/button.png');
    background-repeat: no-repeat;
+}
+
+div#poll_buttons_1 
+	> span.button-wrapper 
+	> span.button-l, 
+div#poll_buttons_1 
+	> span.button-wrapper 
+	> span.button-r{
+		background:none;
+}
+div#poll_buttons_1 
+	span.button-wrapper{
+	background: orange;
+	border-radius: 8px;
 }
 
 span.button-wrapper>span.button-l

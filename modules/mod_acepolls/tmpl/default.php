@@ -24,22 +24,22 @@ $document->addStyleDeclaration("div#poll_loading_".$poll->id." {
 }
 ");
 ?>
-
 <div class="poll<?php echo $params->get('moduleclass_sfx'); ?>" style="border:none; padding:1px;">
 
 <?php if ($params->get('show_poll_title')) : ?>
     <h4><?php echo $poll->title; ?></h4>
 <?php endif; ?>
 
-<div id="polldiv_<?php echo $poll->id;?>">
 
 <?php if ($display_poll) { ?>
 <form action="<?php echo JRoute::_('index.php');?>" method="post" name="poll_vote_<?php echo $poll->id;?>" id="poll_vote_<?php echo $poll->id;?>">
+	<div id="polldiv_<?php echo $poll->id;?>">
+
 <?php for ($i = 0, $n = count($options); $i < $n; $i ++) { ?>
-	<label for="mod_voteid<?php echo $options[$i]->id;?>" class="<?php echo $tabclass_arr[$tabcnt].$params->get('moduleclass_sfx'); ?>" style="display:block; padding:2px;">
-		<input type="radio" name="voteid" id="mod_voteid<?php echo $options[$i]->id;?>" value="<?php echo $options[$i]->id;?>" alt="<?php echo $options[$i]->id;?>" <?php echo $disabled; ?> />
+		<label for="mod_voteid<?php echo $options[$i]->id;?>" class="<?php echo $tabclass_arr[$tabcnt].$params->get('moduleclass_sfx'); ?>" style="display:block; padding:2px;">
+			<input type="radio" name="voteid" id="mod_voteid<?php echo $options[$i]->id;?>" value="<?php echo $options[$i]->id;?>" alt="<?php echo $options[$i]->id;?>" <?php echo $disabled; ?> />
 			<?php echo $options[$i]->text; ?>
-	</label>
+		</label>
 	<?php $tabcnt = 1 - $tabcnt; } 
 			
 			//show messages box
@@ -49,9 +49,10 @@ $document->addStyleDeclaration("div#poll_loading_".$poll->id." {
 				echo '</div>';
 			endif;
 	?>
-	<div style="padding:2px;" id="poll_buttons_<?php echo $poll->id;?>" >	
-	<input type="submit" id="submit_vote_<?php echo $poll->id; ?>" name="task_button" class="button" value="<?php echo JText::_('MOD_ACEPOLLS_VOTE'); ?>" <?php echo $disabled; ?> />
 	</div>	
+	<div style="padding:2px;float:right;margin-top:8px;margin-right:-6px;" id="poll_buttons_<?php echo $poll->id;?>" >	
+	<input type="submit" id="submit_vote_<?php echo $poll->id; ?>" name="task_button" class="button" value="<?php echo JText::_('MOD_ACEPOLLS_VOTE'); ?>" <?php echo $disabled; ?> />
+    </div>
 	<div id="poll_loading_<?php echo $poll->id;?>" style="display:none;"><?php echo JText::_('MOD_ACEPOLLS_PROCESSING'); ?>
 	</div>		
 
@@ -137,10 +138,10 @@ window.addEvent('load', function()
 $document->addScriptDeclaration($js);
 
 }
-//If user has voted 
-	} else { 
-	
-		foreach ($results as $row) :
+	//If user has voted 
+	} else {?>
+    <div id="polldiv_result">
+	<?	foreach ($results as $row) :
 			$percent = ($row->votes)? round((100*$row->hits)/$row->votes, 1):0;
 			$width = ($percent)? $percent:2; 
 			if($params->get('only_one_color')) 
@@ -166,7 +167,9 @@ $document->addScriptDeclaration($js);
 					echo " ".$details;
 				}
 				echo '</div>';
-			endif;
+			endif;?>
+		</div>
+<?
  } ?>
 
 <!-- End of #polldiv -->
@@ -184,5 +187,4 @@ $document->addScriptDeclaration($js);
 	<?php endif; ?>
 <?php } ?>
 
-</div>
 </div>
