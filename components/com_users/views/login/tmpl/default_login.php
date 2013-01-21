@@ -34,9 +34,10 @@ JHtml::_('behavior.noframes');
 	</div>
 	<?php endif ; ?>
 
-	<form action="<?php echo JRoute::_('index.php?option=com_users&task=user.login'); ?>" method="post">
+	<form action="<?php echo JRoute::_('index.php?option=com_users&task=user.login'); ?>" method="post" style="margin-left:-10px !important;">
 
-		<fieldset>
+		<fieldset class="loginForm">
+        	<div class="loginForm">
 			<?php foreach ($this->form->getFieldset('credentials') as $field): ?>
 				<?php if (!$field->hidden): ?>
 					<div class="login-fields"><?php echo $field->label; ?>
@@ -44,13 +45,15 @@ JHtml::_('behavior.noframes');
 				<?php endif; ?>
 			<?php endforeach; ?>
 			<?php if (JPluginHelper::isEnabled('system', 'remember')) : ?>
-			<div class="login-fields">
+			<div class="login-fields" style="margin-top:6px;">
 				<label id="remember-lbl" for="remember"><?php echo JText::_('JGLOBAL_REMEMBER_ME') ?></label>
-				<input id="remember" type="checkbox" name="remember" class="inputbox" value="yes"  alt="<?php echo JText::_('JGLOBAL_REMEMBER_ME') ?>" />
+                <input id="remember" type="checkbox" name="remember" class="inputbox" value="yes"  alt="<?php echo JText::_('JGLOBAL_REMEMBER_ME') ?>" />
 			</div>
 			<?php endif; ?>
-			<button type="submit" class="button"><?php echo JText::_('JLOGIN'); ?></button>
-			<input type="hidden" name="return" value="<?php echo base64_encode($this->params->get('login_redirect_url', $this->form->getValue('return'))); ?>" />
+			</div>
+            <div style="padding:8px;">
+			<button type="submit" class="button"><?php echo JText::_('JLOGIN'); ?></button></div>
+            <input type="hidden" name="return" value="<?php echo base64_encode($this->params->get('login_redirect_url', $this->form->getValue('return'))); ?>" />
 			<?php echo JHtml::_('form.token'); ?>
 		</fieldset>
 	</form>
