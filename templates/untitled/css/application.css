@@ -6,6 +6,20 @@ div.account.menu
 	margin:3px 0 8px 0;
 	padding:10px 14px;
 }
+div.bar.nav
+	div.nav-outer
+		ul.hmenu
+			li[class^="item-"]:hover{
+	background-color:#43A303;
+}
+div.bar.nav
+	ul
+		li:last-child
+	{
+	background:url(../images/key.png) 4px no-repeat;
+	padding-left:18px;
+}
+
 div.box-body.blockcontent-body
 	div.poll
 		h4{
@@ -71,11 +85,19 @@ input[type="text"], textarea{
 	margin-right: 33px;
 	margin-top: -50px;
 }
-textarea{
-	margin-top:4px;
-	margin-left:-1px;
-	width:90%;
+fieldset.loginForm{
+	display: inline;
+	border:none;
 }
+fieldset.loginForm
+	div.loginForm{
+	border-radius: 8px;
+	border: none;
+	background: #CF9;
+	display: inline-block;
+	padding: 10px;
+}
+
 div.menuActive{
 	background:#9F0;
 	background: url('../images/nav.png') 50% 50% no-repeat;
@@ -132,6 +154,11 @@ table.tblUserData
 table.tblUserData
 	th{
 	padding:4px;
+}
+textarea{
+	margin-top:4px;
+	margin-left:-1px;
+	width:90%;
 }
 table#userTable{
 	margin-left:20px;
