@@ -6,6 +6,14 @@ div.account.menu
 	margin:3px 0 8px 0;
 	padding:10px 14px;
 }
+div.bar.nav
+	ul
+		li:last-child
+	{
+	background:url(../images/key.png) no-repeat;
+	padding-left:16px;
+}
+
 div.box-body.blockcontent-body
 	div.poll
 		h4{

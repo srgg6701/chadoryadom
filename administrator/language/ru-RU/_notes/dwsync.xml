@@ -3,7 +3,9 @@
 <file name="ru-RU.com_application.sys.ini" server="ftp.chado.1gb.ru/http/" local="130019376017053000" remote="130021448400000000" />
 <file name="ru-RU.com_application.ini" server="ftp.chado.1gb.ru/http/" local="130020176361988000" remote="130021448400000000" />
 <file name="ru-RU.com_users.ini" server="ftp.chado.1gb.ru/http/" local="130020186975788000" remote="130021448400000000" />
-<file name="ru-RU.com_mijopolls.ini" server="ftp.chado.1gb.ru/http/" local="130030871316028000" remote="130031009400000000" />
-<file name="ru-RU.com_mijopolls.sys.ini" server="ftp.chado.1gb.ru/http/" local="130030866763528000" remote="130031009400000000" />
-<file name="ru-RU.com_mijopolls_install.xml" server="ftp.chado.1gb.ru/http/" local="130030866763558000" remote="130031010000000000" />
+<file name="ru-RU.com_mijopolls.ini" server="ftp.chado.1gb.ru/http/" local="130030871316028000" remote="130031676000000000" />
+<file name="ru-RU.com_mijopolls.sys.ini" server="ftp.chado.1gb.ru/http/" local="130030866763528000" remote="130031676000000000" />
+<file name="ru-RU.com_mijopolls_install.xml" server="ftp.chado.1gb.ru/http/" local="130030866763558000" remote="130031676000000000" />
+<file name="ru-RU.com_acepolls.ini" server="ftp.chado.1gb.ru/http/" local="129619597540000000" remote="130031760000000000" />
+<file name="ru-RU.com_acepolls.menu.ini" server="ftp.chado.1gb.ru/http/" local="129619597660000000" remote="130031760000000000" />
 </dwsync>
