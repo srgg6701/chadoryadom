@@ -42,6 +42,7 @@ JHtml::_('behavior.noframes');
 				<?php if (!$field->hidden): ?>
 					<div class="login-fields"><?php echo $field->label; ?>
 					<?php echo $field->input; ?></div>
+                    <div class="cleared"></div>
 				<?php endif; ?>
 			<?php endforeach; ?>
 			<?php if (JPluginHelper::isEnabled('system', 'remember')) : ?>

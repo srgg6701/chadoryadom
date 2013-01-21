@@ -64,7 +64,9 @@ form#formGoLogout
 	font-style:normal; 
 	font-weight:bold;
 }
-input[type="text"], textarea{
+input[type="text"],
+input[type="password"], 
+textarea{
 	margin-bottom:8px;
 	padding:2px 4px;
 }
@@ -97,7 +99,21 @@ fieldset.loginForm
 	display: inline-block;
 	padding: 10px;
 }
-
+div.loginForm{
+	width:220px;
+}
+div.loginForm
+	input[type="text"],
+div.loginForm
+	input[type="password"]{
+	float: right;
+	width: 150px;
+}
+div.loginForm
+	label{
+	float:left;
+	line-height:28px;
+}
 div.menuActive{
 	background:#9F0;
 	background: url('../images/nav.png') 50% 50% no-repeat;
