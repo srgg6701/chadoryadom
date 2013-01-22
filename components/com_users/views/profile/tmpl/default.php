@@ -23,11 +23,21 @@ require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_application'.DS.'helper
 <?php //echo $this->loadTemplate('core'); ?>
 <?php //echo $this->loadTemplate('params'); ?>
 <?php //echo $this->loadTemplate('custom'); ?>
-    <div style="float:left; width:20%;">
-        <div style="background:#CCC; border-radius:8px; margin-bottom:10px; padding:10px;">&nbsp;</div>
-        <div align="center" style="background:#CCC; border-radius:8px; padding:4px;">Загрузить</div>
+    <div style="float:left; width:148px;">
+        <div style="background:#CCC; border-radius:8px; margin-bottom:10px; padding:10px;"><?
+        	require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_kunena'.DS.'libraries'.DS.'factory.php';
+			$forum_profile = KunenaFactory::getUser ( $user_id );
+			if ($avatar=$forum_profile->getAvatarImage('kavatar','profile'))
+				echo $avatar;
+			else{?>
+            	<div style="background:#ededed; padding:10px; border-radius:4px;">
+               	Чтобы использовать аватар, зарегистируйтесь на <a href="<? 
+				echo JRoute::_("index.php?option=com_kunena&view=home",false);?>">форуме</a>!</div>
+		<? }?>
+        </div>
+        <!--<div align="center" style="background:#CCC; border-radius:8px; padding:4px;">Загрузить</div>-->
     </div>
-    <div style="float:left; width:80%;">
+    <div style="float:left; width:500px;">
     <table id="userTable">
       <tr>
         <td>Фамилия</td>

@@ -17,6 +17,8 @@ if ($this->me->userid == $this->user->id) {
 } else {
 	$PMlink = $this->profile->profileIcon('private');
 }
+		//$myavatar = KunenaFactory::getAvatarIntegration();
+		//die($myavatar);
 ?>
 <?php if ($this->avatarlink) : ?>
 <div class="kavatar-lg"><?php echo $this->avatarlink; ?></div>
