@@ -124,6 +124,10 @@ class ApplicationModelChado_payments extends JModelList
 
 		// Load the list items.
 		$items = parent::getItems();
+		foreach($items as $i=>$idata){
+			$udata=unserialize($idata->data);
+			$items[$i]->data=$udata;
+		}
 		// If emtpy or an error, just return.
 		if (empty($items))
 		{

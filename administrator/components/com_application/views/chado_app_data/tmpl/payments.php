@@ -20,6 +20,10 @@ $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
 $canOrder	= $user->authorise('core.edit.state', 'com_application');
 $saveOrder	= $listOrder == 'a.ordering';
+$items=$this->items;
+if (JRequest::getVar('itms')){
+	var_dump('<h1>items</h1><pre>',$items,'</pre>'); die();
+}
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_application'); ?>" method="post" name="adminForm" id="adminForm">
 	<fieldset id="filter-bar">
@@ -91,10 +95,10 @@ $saveOrder	= $listOrder == 'a.ordering';
             </td>
         </tr>
     </tfoot>
-    <?	if ($items=$this->items){?>
+    <?	if ($items){?>
     <tbody>
     <?php 
-        foreach ($items as $i => $item) {
+		foreach ($items as $i => $item) {
             $canCreate	= $user->authorise('core.create',		'com_application');
             $canEdit	= $user->authorise('core.edit',			'com_application');
             $canCheckin	= $user->authorise('core.manage',		'com_application');
@@ -110,20 +114,10 @@ $saveOrder	= $listOrder == 'a.ordering';
             </td>
             <td><?php 
 			echo $this->escape($item->user_id).", ";
-			
-			$fdata=$item->data;
-			$middle_name_start=strpos($fdata,'"middle_name";s:16:"')+20; //24
-			$middle_name_finish=strpos($fdata,'";s:10:"child_name'); //24
-			$strlen=$middle_name_finish-$middle_name_start;
-			$middle_name=substr($fdata,$middle_name_start,$strlen);?><a href="            index.php?option=com_users&view=user&layout=edit&id=<?=$item->user_id?>"><? echo $item->name." ".$middle_name; ?></a>
+			$fdata=$item->data;?><a href="            index.php?option=com_users&view=user&layout=edit&id=<?=$item->user_id?>"><? echo $item->name." ".$item->data['middle_name']; ?></a>
             </td>
             <td>
-	<?php	$mobila_start=strpos($fdata,'"mobila";s:11:"')+15; //24
-			$mobila_finish=strpos($fdata,'";s:8:"password"'); //24
-			$strlen=$mobila_finish-$mobila_start;
-			$mobila=substr($fdata,$mobila_start,$strlen);
-				
-			echo $mobila; ?>
+	<?php	echo $item->data['mobila']; ?>
             </td>
             <td>
                 <?php echo $item->date_time; ?>

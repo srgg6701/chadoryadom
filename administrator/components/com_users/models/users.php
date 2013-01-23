@@ -222,7 +222,6 @@ class UsersModelUsers extends JModelList
 
 				return false;
 			}
-
 			// Second pass: collect the group counts into the master items array.
 			foreach ($items as &$item)
 			{

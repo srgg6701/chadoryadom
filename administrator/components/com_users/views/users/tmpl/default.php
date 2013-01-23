@@ -17,7 +17,7 @@ JHtml::_('behavior.modal');
 $canDo = UsersHelper::getActions();
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn = $this->escape($this->state->get('list.direction'));
-$loggeduser = JFactory::getUser();
+$loggeduser = JFactory::getUser(); 
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_users&view=users');?>" method="post" name="adminForm" id="adminForm">
